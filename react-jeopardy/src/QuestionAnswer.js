@@ -6,6 +6,8 @@ import Question from './Question';
 import NextQuestionButton from './NextQuestionButton';
 
 const QuestionAnswer = ({subject, answers, type, extra, bgColor, selectAnswer, showButton, showNextQuestion}) => {
+    console.log(subject);
+    console.log(answers);
     return (
       <div className="container">
         <div className="row">

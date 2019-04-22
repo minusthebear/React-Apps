@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import QuestionAnswer from './QuestionAnswer';
+import MainGrid from './MainGrid';
 import { shuffle, sample, pluck } from 'underscore';
 import * as serviceWorker from './serviceWorker';
 
@@ -43,6 +44,48 @@ const music = [
         genre: 'indie rock'
     }
 ];
+
+
+const books = [
+    {
+        author: 'John Steinbeck',
+        books: ['The Grapes of Wrath', 'The Pearl', 'Cannery Row', 'East of Eden', 'Of Mice And Men', 'Of Dubious Battle'],
+        nationality: 'American'
+    },
+    {
+        author: 'Toni Morrison',
+        books: ['Song of Solomon', 'Beloved', 'Jazz', 'A Mercy', 'The Bluest Eye'],
+        nationality: 'American'
+    },
+    {
+        author: 'Paulo Coehlo',
+        books: ['The Alchemist', 'Veronica Decides To Die', 'Eleven Minutes', 'Brida', 'The Fifth Mountain'],
+        nationality: 'Brazilian'
+    },
+    {
+        author: 'F. Scott Fitzgerald',
+        books: ['The Great Gatsby'],
+        nationality: 'American'
+    },
+    {
+        author: 'Ernest Hemingway',
+        books: ['A Farewell To Arms', 'The Sun Also Rises', 'The Old Man and the Sea'],
+        nationality: 'American'
+    }
+];
+
+
+const categories = [
+    {
+        categoryName: 'Popular Music',
+        questions: music.splice(0,5)
+    },
+    {
+        categoryName: 'Books',
+        questions: books
+    }
+];
+
 
 const shuffleAllSongs = (music, format, fourArtists) => {
 
@@ -105,14 +148,18 @@ const shuffleAllArtists = (music, format, fourArtists) => {
 
 };
 
-const mainFunc = (music, format) => {
+const musicMainFunc = (music, format) => {
     const fourArtists = shuffle(music).slice(0,4);
 
     return format === 'artist' ? shuffleAllArtists(music, format, fourArtists) : shuffleAllSongs(music, format, fourArtists);
 };
 
+const selectQuestionAnswer = (questionAnswer) => {
+
+};
+
 const resetState = () => {
-    return mainFunc(music, sample(['artist', 'albums', 'songs']));
+    return musicMainFunc(music, sample(['artist', 'albums', 'songs']));
 };
 
 let state = resetState();
@@ -120,6 +167,7 @@ let state = resetState();
 function App() {
     let [bgColor, setBgColor] = useState('white');
     let [showButton, setShowButton] = useState(false);
+    let [showMainGrid, setShowMainGrid] = useState(true);
     const format = state.type;
 
     const selectAnswer = (answer) => {
@@ -137,16 +185,38 @@ function App() {
             : (state.subject[format].some((ans) => ans === answer));
     };
 
-    return <QuestionAnswer {...state}
-                           bgColor={bgColor}
-                           selectAnswer={selectAnswer}
-                           showButton={showButton}
-                           showNextQuestion={() => {
-                               state = resetState();
-                               setBgColor('white');
-                               render();
-                           }}
-    />;
+    console.log(showMainGrid);
+
+    return  (
+        <div>
+            <QuestionAnswer {...state}
+                             bgColor={bgColor}
+                             selectAnswer={selectAnswer}
+                             showButton={showButton}
+                             showNextQuestion={() => {
+                                 state = resetState();
+                                 setBgColor('white');
+                                 render();
+                             }} />
+
+
+            {/*{ showMainGrid*/}
+            {/*    ? (<MainGrid categories={categories} />)*/}
+            {/*    : (<QuestionAnswer {...state}*/}
+            {/*                       bgColor={bgColor}*/}
+            {/*                       selectAnswer={selectAnswer}*/}
+            {/*                       showButton={showButton}*/}
+            {/*                       showNextQuestion={() => {*/}
+            {/*                           state = resetState();*/}
+            {/*                           setBgColor('white');*/}
+            {/*                           render();*/}
+            {/*                       }} />)*/}
+            {/*}*/}
+
+
+        </div>
+    )
+
 
     // return <QuestionAnswer {...state}
     //                    onAnswerSelected={onAnswerSelected}
@@ -159,9 +229,9 @@ function App() {
 
 function render() {
     ReactDOM.render(
-            <React.Fragment>
+            <Fragment>
                 <App />
-            </React.Fragment>
+            </Fragment>
         , document.getElementById('root')
     );
 }
