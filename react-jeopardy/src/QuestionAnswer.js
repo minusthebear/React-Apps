@@ -6,7 +6,11 @@ import QuestionMusic from './QuestionMusic';
 import QuestionBooks from './QuestionBooks';
 import NextQuestionButton from './NextQuestionButton';
 
-const QuestionAnswer = ({category, subject, answers, type, extra, bgColor, selectAnswer, showButton, showNextQuestion}) => {
+const QuestionAnswer = (props) => {
+
+    const {category, subject, answers, type, extra, bgColor, selectAnswer, showButton, showNextQuestion} = props;
+
+    console.log(props);
 
     const getQuestionCategory = (category) => {
         switch (category) {

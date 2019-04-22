@@ -213,15 +213,16 @@ const resetState = (cat, qst) => {
     }
 };
 
-let state = resetState(null, {});
-
 /* TODO: change App, maybe MainGrid and maybe QuestionAnswer into class components */
 
 function App() {
     let [bgColor, setBgColor] = useState('white');
     let [showButton, setShowButton] = useState(false);
     let [showMainGrid, setShowMainGrid] = useState(true);
-    const format = state.type;
+    let [questionState, setQuestionState] = useState(resetState(null, {}))
+
+    // TODO: figure out thiss
+    const format = null;
 
     const selectAnswer = (answer) => {
 
@@ -233,39 +234,30 @@ function App() {
     };
 
     const selectQuestionAnswer = (category, questionAnswer) => {
-        resetState(category, questionAnswer);
+        setQuestionState(resetState(category, questionAnswer));
         setShowMainGrid(false);
     };
 
+    // TODO: This needs a rewrite
     const getAnswer = (answer) => {
-        return format === 'artist'
-            ? (state.subject[format] === answer)
-            : (state.subject[format].some((ans) => ans === answer));
+        return {};
+        // return format === 'artist'
+        //     ? (state.subject[format] === answer)
+        //     : (state.subject[format].some((ans) => ans === answer));
     };
+
     return  (
         <div>
-
-            {/*<QuestionAnswer {...state}*/}
-            {/*                 bgColor={bgColor}*/}
-            {/*                 selectAnswer={selectAnswer}*/}
-            {/*                 showButton={showButton}*/}
-            {/*                 showNextQuestion={() => {*/}
-            {/*                     state = resetState();*/}
-            {/*                     setBgColor('white');*/}
-            {/*                     render();*/}
-            {/*                 }} />*/}
-
-
             { showMainGrid
                 ? (<MainGrid categories={categories} selectQuestionAnswer={selectQuestionAnswer}/>)
-                : (<QuestionAnswer {...state}
+                : (<QuestionAnswer {...questionState}
                                    bgColor={bgColor}
                                    selectAnswer={selectAnswer}
                                    showButton={showButton}
                                    showNextQuestion={() => {
-                                       state = resetState({}, {});
+                                       setQuestionState({}, {});
                                        setBgColor('white');
-                                       setShowMainGrid(true);;
+                                       setShowMainGrid(true);
                                    }} />)
             }
 

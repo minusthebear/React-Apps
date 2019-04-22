@@ -5,6 +5,7 @@ import './bootstrap.min.css';
 const QuestionMusic = (props) => {
 
     const qstn = props.question;
+    console.log(props);
 
     const getQuestion = (type) => {
         switch(type) {
