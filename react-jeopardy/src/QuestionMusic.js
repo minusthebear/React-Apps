@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import './bootstrap.min.css';
 
-const Question = (props) => {
+const QuestionMusic = (props) => {
 
     const qstn = props.question;
 
@@ -33,4 +33,4 @@ const Question = (props) => {
     );
 }
 
-export default Question;
+export default QuestionMusic;

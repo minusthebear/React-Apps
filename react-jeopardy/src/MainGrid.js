@@ -17,35 +17,35 @@ const MainGrid = (props) => {
                 <tr>
                     {
                         cats.map((cat) => <td className="tg-0lax" onClick={() =>
-                            props.selectQuestionAnswer(cat.questions[0])
+                            props.selectQuestionAnswer(cat.categoryName, cat.questions[0])
                         }>100</td> )
                     }
                 </tr>
                 <tr>
                     {
                         cats.map((cat) => <td className="tg-0lax" onClick={() =>
-                            props.selectQuestionAnswer(cat.questions[1])
+                            props.selectQuestionAnswer(cat.categoryName, cat.questions[1])
                         }>200</td> )
                     }
                 </tr>
                 <tr>
                     {
                         cats.map((cat) => <td className="tg-0lax" onClick={() =>
-                            props.selectQuestionAnswer(cat.questions[2])
+                            props.selectQuestionAnswer(cat.categoryName, cat.questions[2])
                         }>300</td> )
                     }
                 </tr>
                 <tr>
                     {
                         cats.map((cat) => <td className="tg-0lax" onClick={() =>
-                            props.selectQuestionAnswer(cat.questions[3])
+                            props.selectQuestionAnswer(cat.categoryName, cat.questions[3])
                         }>400</td> )
                     }
                 </tr>
                 <tr>
                     {
                         cats.map((cat) => <td className="tg-0lax" onClick={() =>
-                            props.selectQuestionAnswer(cat.questions[4])
+                            props.selectQuestionAnswer(cat.categoryName, cat.questions[4])
                         }>500</td> )
                     }
                 </tr>

@@ -74,31 +74,17 @@ const books = [
     }
 ];
 
-const shuffleAllArrayValues = (music, format, fourValues) => {
+const shuffleAllArrayValues = (category, format, fourValues) => {
 
     const fourRandomValues = fourValues.reduce(function(av, cv) {
         return getSingleValue(fourValues, av, cv, format);
     }, []);
-
     const answer = sample(fourRandomValues);
-
-    // console.log('msuic:');
-    // console.log(music);
-    // console.log('format: ' + format);
-
-
-
-
-    //
-    // console.log(music.find(
-    //     (artist) => artist[format].some(title => title === answer)
-    // ));
-
 
     return {
         type: format,
         answers: fourRandomValues,
-        subject: 'dummyData',
+        subject: category.find((value) => value[format].some(title => title === answer)),
         extra: null
     };
 };
@@ -126,7 +112,7 @@ function findIfValueInArray(otherValues, currentValue, format) {
 
 /////////
 
-const shuffleAllSubjectValues = (music, format, fourValues) => {
+const shuffleAllSubjectValues = (format, fourValues) => {
 
     const subject = sample(fourValues);
     const answers = getNoDuplicateValuesInArrayByKey(subject, fourValues, format);
@@ -174,16 +160,12 @@ const getNoDuplicateValuesInArrayByKey = (subject, fourValues, format) => {
 
 const musicMainFunc = (music, format) => {
     const fourArtists = shuffle(music).slice(0,4);
-    return format === 'artist' ? shuffleAllSubjectValues(music, format, fourArtists) : shuffleAllArrayValues(music, format, fourArtists);
+    return format === 'artist' ? shuffleAllSubjectValues(format, fourArtists) : shuffleAllArrayValues(music, format, fourArtists);
 };
 
 const booksMainFunc = (books, format) => {
     const fourAuthors = shuffle(books).slice(0,4);
-    return format === 'author' ? shuffleAllSubjectValues(music, format, fourAuthors) : shuffleAllArrayValues(music, format, fourAuthors);
-};
-
-const selectQuestionAnswer = (questionAnswer) => {
-    console.log(questionAnswer);
+    return format === 'author' ? shuffleAllSubjectValues(format, fourAuthors) : shuffleAllArrayValues(books, format, fourAuthors);
 };
 
 const getAllQuestions = () => {
@@ -214,13 +196,26 @@ const loopThroughAndGetFiveValues = (arr, cats, func) => {
 };
 
 const categories = getAllQuestions();
+//
+// const resetState = () => {
+//     return musicMainFunc(music, sample(['artist', 'albums', 'songs']));
+// };
+//
+// let state = resetState();
 
-
-const resetState = () => {
-    return musicMainFunc(music, sample(['artist', 'albums', 'songs']));
+const resetState = (cat, qst) => {
+    return {
+        category: cat,
+        type: qst.format,
+        answers: qst.answers,
+        subject: qst.subject,
+        extra: qst.extra || null
+    }
 };
 
-let state = resetState();
+let state = resetState(null, {});
+
+/* TODO: change App, maybe MainGrid and maybe QuestionAnswer into class components */
 
 function App() {
     let [bgColor, setBgColor] = useState('white');
@@ -235,6 +230,11 @@ function App() {
             : setBgColor('red');
 
         setShowButton(true);
+    };
+
+    const selectQuestionAnswer = (category, questionAnswer) => {
+        resetState(category, questionAnswer);
+        setShowMainGrid(false);
     };
 
     const getAnswer = (answer) => {
@@ -263,9 +263,9 @@ function App() {
                                    selectAnswer={selectAnswer}
                                    showButton={showButton}
                                    showNextQuestion={() => {
-                                       state = resetState();
+                                       state = resetState({}, {});
                                        setBgColor('white');
-                                       render();
+                                       setShowMainGrid(true);;
                                    }} />)
             }
 
