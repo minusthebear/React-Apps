@@ -74,89 +74,147 @@ const books = [
     }
 ];
 
+const shuffleAllArrayValues = (music, format, fourValues) => {
 
-const categories = [
-    {
-        categoryName: 'Popular Music',
-        questions: music.splice(0,5)
-    },
-    {
-        categoryName: 'Books',
-        questions: books
-    }
-];
-
-
-const shuffleAllSongs = (music, format, fourArtists) => {
-
-    const fourRandomValues = fourArtists.reduce(function(av, cv) {
-        return getSong(av, cv);
+    const fourRandomValues = fourValues.reduce(function(av, cv) {
+        return getSingleValue(fourValues, av, cv, format);
     }, []);
 
-    function getSong(av, cv) {
-        let currentValue = shuffle(cv[format]).slice(0, 1)[0];
-        const otherBands = fourArtists.filter((artist) => artist !== cv);
-
-        if (av.indexOf(currentValue) > -1 || getSongsInArray(otherBands, currentValue)) {
-            getSong(av, cv);
-        } else {
-            av.push(currentValue);
-        }
-
-        return av;
-    }
-
-    function getSongsInArray(otherBands, currentValue) {
-        return !!otherBands.find(function(band) {
-            return band[format].indexOf(currentValue) > -1;
-        });
-    }
-
     const answer = sample(fourRandomValues);
+
+    // console.log('msuic:');
+    // console.log(music);
+    // console.log('format: ' + format);
+
+
+
+
+    //
+    // console.log(music.find(
+    //     (artist) => artist[format].some(title => title === answer)
+    // ));
+
 
     return {
         type: format,
         answers: fourRandomValues,
-        subject: music.find(
-            (artist) => artist[format].some(title => title === answer)
-        ),
+        subject: 'dummyData',
         extra: null
     };
 };
 
-const shuffleAllArtists = (music, format, fourArtists) => {
+// For getting songs
+function getSingleValue(fourValues, av, cv, format) {
+    let currentValue = shuffle(cv[format]).slice(0, 1)[0];
+    const otherValues = fourValues.filter((artist) => artist !== cv);
 
-    const subject = sample(fourArtists);
-    const otherArtists = fourArtists.filter((artist) => artist !== subject);
+    if (av.indexOf(currentValue) > -1 || findIfValueInArray(otherValues, currentValue, format)) {
+        getSingleValue(fourValues, av, cv, format);
+    } else {
+        av.push(currentValue);
+    }
 
-    subject.songs.map((val, idx) => {
-        otherArtists.map((atst) => {
-            if (atst.songs.indexOf(val) > -1) {
-                subject.songs.splice(idx, 1);
-            }
-        });
+    return av;
+}
+
+// For seeing if there are matching values in array
+function findIfValueInArray(otherValues, currentValue, format) {
+    return !!otherValues.find(function(value) {
+        return value[format].indexOf(currentValue) > -1;
     });
+}
 
-    const answers = shuffle(pluck(fourArtists, 'artist'));
+/////////
+
+const shuffleAllSubjectValues = (music, format, fourValues) => {
+
+    const subject = sample(fourValues);
+    const answers = getNoDuplicateValuesInArrayByKey(subject, fourValues, format);
+
+    let extra;
+
+    switch (format) {
+        case 'artist':
+            extra = { song: sample(subject.songs) };
+            break;
+        case 'author':
+            extra = { book: sample(subject.books) };
+            break;
+    }
 
     return {
         type: format,
         answers: answers,
         subject: subject,
-        extra: { song: sample(subject.songs) }
+        extra: extra
     };
+};
 
+const getNoDuplicateValuesInArrayByKey = (subject, fourValues, format) => {
+
+    const otherValues = fourValues.filter((val) => val !== subject);
+
+    // console.log('subject: ');
+    // console.log(subject)
+    // console.log('format: ' + format);
+
+
+
+    //
+    // subject[format].map((val, idx) => {
+    //     otherValues.map((atst) => {
+    //         if (atst[format].indexOf(val) > -1) {
+    //             subject[format].splice(idx, 1);
+    //         }
+    //     });
+    // })
+
+    return shuffle(pluck(fourValues, format));
 };
 
 const musicMainFunc = (music, format) => {
     const fourArtists = shuffle(music).slice(0,4);
+    return format === 'artist' ? shuffleAllSubjectValues(music, format, fourArtists) : shuffleAllArrayValues(music, format, fourArtists);
+};
 
-    return format === 'artist' ? shuffleAllArtists(music, format, fourArtists) : shuffleAllSongs(music, format, fourArtists);
+const booksMainFunc = (books, format) => {
+    const fourAuthors = shuffle(books).slice(0,4);
+    return format === 'author' ? shuffleAllSubjectValues(music, format, fourAuthors) : shuffleAllArrayValues(music, format, fourAuthors);
 };
 
 const selectQuestionAnswer = (questionAnswer) => {
-
+    console.log(questionAnswer);
 };
+
+const getAllQuestions = () => {
+
+    const allBooks = {
+        'categoryName': 'Books',
+        'questions' : loopThroughAndGetFiveValues(books, ['author', 'books'], booksMainFunc)
+    };
+    const allMusic = {
+        'categoryName': 'Music',
+        'questions' : loopThroughAndGetFiveValues(music, ['artist', 'albums', 'songs'], musicMainFunc)
+    };
+
+    return [allMusic, allBooks];
+};
+
+const loopThroughAndGetFiveValues = (arr, cats, func) => {
+    const retArray = [];
+
+    for (var i = 0; i < arr.length; i++) {
+        if (retArray.length >= 5) {
+            return retArray;
+        }
+        retArray.push( func(arr,sample(cats)) );
+    }
+
+    return retArray;
+};
+
+const categories = getAllQuestions();
+
 
 const resetState = () => {
     return musicMainFunc(music, sample(['artist', 'albums', 'songs']));
@@ -184,34 +242,32 @@ function App() {
             ? (state.subject[format] === answer)
             : (state.subject[format].some((ans) => ans === answer));
     };
-
-    console.log(showMainGrid);
-
     return  (
         <div>
-            <QuestionAnswer {...state}
-                             bgColor={bgColor}
-                             selectAnswer={selectAnswer}
-                             showButton={showButton}
-                             showNextQuestion={() => {
-                                 state = resetState();
-                                 setBgColor('white');
-                                 render();
-                             }} />
+
+            {/*<QuestionAnswer {...state}*/}
+            {/*                 bgColor={bgColor}*/}
+            {/*                 selectAnswer={selectAnswer}*/}
+            {/*                 showButton={showButton}*/}
+            {/*                 showNextQuestion={() => {*/}
+            {/*                     state = resetState();*/}
+            {/*                     setBgColor('white');*/}
+            {/*                     render();*/}
+            {/*                 }} />*/}
 
 
-            {/*{ showMainGrid*/}
-            {/*    ? (<MainGrid categories={categories} />)*/}
-            {/*    : (<QuestionAnswer {...state}*/}
-            {/*                       bgColor={bgColor}*/}
-            {/*                       selectAnswer={selectAnswer}*/}
-            {/*                       showButton={showButton}*/}
-            {/*                       showNextQuestion={() => {*/}
-            {/*                           state = resetState();*/}
-            {/*                           setBgColor('white');*/}
-            {/*                           render();*/}
-            {/*                       }} />)*/}
-            {/*}*/}
+            { showMainGrid
+                ? (<MainGrid categories={categories} selectQuestionAnswer={selectQuestionAnswer}/>)
+                : (<QuestionAnswer {...state}
+                                   bgColor={bgColor}
+                                   selectAnswer={selectAnswer}
+                                   showButton={showButton}
+                                   showNextQuestion={() => {
+                                       state = resetState();
+                                       setBgColor('white');
+                                       render();
+                                   }} />)
+            }
 
 
         </div>
