@@ -206,11 +206,10 @@ function App({categories, quizGrid}) {
     const baseValue = 100;
 
     const selectQuestionAnswer = (category, questionAnswer, points) => {
-        console.log(grid);
         resetCatAndAnswer(category, questionAnswer, points);
-        setGrid({ [category]: {[points] : true}});
+        quizGrid[category][points] = true;
+        setGrid(quizGrid);
         setShowMainGrid(false);
-        console.log(grid);
     };
 
     const resetCatAndAnswer = (category, questionAnswer, points) => {
@@ -259,7 +258,6 @@ function App({categories, quizGrid}) {
 }
 
 function render() {
-
 
     const categories = getAllQuestions(),
           quizGrid = writeQuizGrid(categories);

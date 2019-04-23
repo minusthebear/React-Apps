@@ -6,13 +6,11 @@ import utils from './utils';
 const MainGrid = (props) => {
     const cats = props.categories;
 
-    console.log(props.quizGrid);
-
     const func = (event, cat, value, question) => {
         if (checkIfInQuizGrid(cat, value)) {
             event.preventDefault();
         } else {
-            props.selectQuestionAnswer(cat.categoryName, question, value)
+            props.selectQuestionAnswer(cat, question, value)
         }
     };
 
@@ -24,13 +22,15 @@ const MainGrid = (props) => {
     };
 
     const disabledSquare = (cat, value) => {
+        console.log(props.quizGrid);
+        console.log(cat);
         console.log(checkIfInQuizGrid(cat, value));
-        return checkIfInQuizGrid(cat, value) ? 'disabled-square' : '';
+        return checkIfInQuizGrid(cat, value) ? '#ff7733' : '';
     };
 
     return (
         <div>
-            <table class="tg">
+            <table className="tg">
                 <tr>
                     {
                         cats.map((cat) => <th className="tg-0lax">{cat.categoryName}</th> )
@@ -42,8 +42,11 @@ const MainGrid = (props) => {
                         <tr>
                             {
 
-                                cats.map((cat) => <td className={disabledSquare(cat, props.baseValue * (idx + 1))} category={cat.categoryName} points={props.baseValue * (idx + 1)} className="tg-0lax" onClick={(event) =>
-                                    func(event, cat, props.baseValue * (idx + 1), cat.questions[idx])
+                                cats.map((cat) => <td className="tg-0lax"
+                                                      style={{backgroundColor: disabledSquare(cat.categoryName, props.baseValue * (idx + 1))}}
+                                                      category={cat.categoryName} points={props.baseValue * (idx + 1)}
+                                                      onClick={(event) =>
+                                    func(event, cat.categoryName, props.baseValue * (idx + 1), cat.questions[idx])
                                 }>{props.baseValue * (idx + 1)}</td>)
                             }
                         </tr>
