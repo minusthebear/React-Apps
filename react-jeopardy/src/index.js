@@ -3,76 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import QuestionAnswer from './QuestionAnswer';
 import MainGrid from './MainGrid';
+import ScoreBoard from './ScoreBoard';
 import { shuffle, sample, pluck } from 'underscore';
 import * as serviceWorker from './serviceWorker';
-
-const music = [
-    {
-        artist: 'Oasis',
-        songs: ['Wonderwall', 'Morning Glory', 'Live Forever', 'Acquiesce', 'Don\'t Look Back In Anger'],
-        albums: ['Definitely Maybe', '(What\'s the Story) Morning Glory', 'Standing on the Shoulders of Giants'],
-        genre: 'Brit-pop'
-    },
-    {
-        artist: 'Massive Attack',
-        songs: ['Teardrop', 'Risingson', 'Angel', 'Protection', 'Unfinished Sympathy'],
-        albums: ['Blue Lines', 'Protection', 'Mezzanine'],
-        genre: 'trip-hop'
-    },
-    {
-        artist: 'Nirvana',
-        songs: ['Smells Like Teen Spirit', 'Come As You Are', 'About A Girl', 'All Apologies', 'Rape Me'],
-        albums: ['Bleach', 'Nevermind', 'In Utero', 'Mtv Unplugged In New York'],
-        genre: 'grunge'
-    },
-    {
-        artist: 'Metallica',
-        songs: ['Enter Sandman', 'Sad But True', 'Master of Puppets', 'Whiplash', 'Jump In The Fire', 'Blackened', 'Ride The Lightning'],
-        albums: ['...And Justice For All', 'Ride The Lightning', 'Master of Puppets', 'The Black Album', 'Kill \'Em All'],
-        genre: 'metal'
-    },
-    {
-        artist: 'Deadmau5',
-        songs: ['I Remember', 'Ghosts \'n Stuff', 'Maths', 'Strobe', 'Some Chords', 'Raise Your Weapon'],
-        albums: ['4x4=12', 'Random Album Title', 'For Lack of a Better Name', 'Album Title Goes Here'],
-        genre: 'EDM'
-    },
-    {
-        artist: 'Weezer',
-        songs: ['El Scorcho', 'My Name Is Jonas', 'Say It Ain\'t So', 'Beverly Hills', 'Hash Pipe'],
-        albums: ['The Blue Album', 'The Green Album', 'The Black Album', 'The White Album', 'Pinkerton'],
-        genre: 'indie rock'
-    }
-];
-
-
-const books = [
-    {
-        author: 'John Steinbeck',
-        books: ['The Grapes of Wrath', 'The Pearl', 'Cannery Row', 'East of Eden', 'Of Mice And Men', 'Of Dubious Battle'],
-        nationality: 'American'
-    },
-    {
-        author: 'Toni Morrison',
-        books: ['Song of Solomon', 'Beloved', 'Jazz', 'A Mercy', 'The Bluest Eye'],
-        nationality: 'American'
-    },
-    {
-        author: 'Paulo Coehlo',
-        books: ['The Alchemist', 'Veronica Decides To Die', 'Eleven Minutes', 'Brida', 'The Fifth Mountain'],
-        nationality: 'Brazilian'
-    },
-    {
-        author: 'F. Scott Fitzgerald',
-        books: ['The Great Gatsby'],
-        nationality: 'American'
-    },
-    {
-        author: 'Ernest Hemingway',
-        books: ['A Farewell To Arms', 'The Sun Also Rises', 'The Old Man and the Sea'],
-        nationality: 'American'
-    }
-];
+import { music, books, directors, nations } from './question-data';
 
 const shuffleAllArrayValues = (category, format, fourValues) => {
 
@@ -126,8 +60,13 @@ const shuffleAllSubjectValues = (format, fourValues) => {
         case 'author':
             extra = { book: sample(subject.books) };
             break;
+        case 'director':
+            extra = { film: sample(subject.films) };
+            break;
+        case 'nation':
+            extra = { landmark: sample(subject.landmarks) };
+            break;
     }
-
     return {
         type: format,
         answers: answers,
@@ -136,24 +75,30 @@ const shuffleAllSubjectValues = (format, fourValues) => {
     };
 };
 
+// TODO: This method needs work still
 const getNoDuplicateValuesInArrayByKey = (subject, fourValues, format) => {
 
-    const otherValues = fourValues.filter((val) => val !== subject);
+    console.log(subject);
+    console.log(fourValues);
 
-    // console.log('subject: ');
-    // console.log(subject)
-    // console.log('format: ' + format);
+    if (Array.isArray(subject[format])) {
 
+        const otherValues = fourValues.filter((val) => val !== subject);
 
+        console.log(subject);
+        console.log(otherValues);
+        console.log(format);
 
-    //
-    // subject[format].map((val, idx) => {
-    //     otherValues.map((atst) => {
-    //         if (atst[format].indexOf(val) > -1) {
-    //             subject[format].splice(idx, 1);
-    //         }
-    //     });
-    // })
+        subject[format].map((val, idx) => {
+            otherValues.map((atst) => {
+                if (atst[format].indexOf(val) > -1) {
+                    subject[format].splice(idx, 1);
+                }
+            });
+        });
+    }
+    console.log(subject);
+    console.log(fourValues);
 
     return shuffle(pluck(fourValues, format));
 };
@@ -168,6 +113,16 @@ const booksMainFunc = (books, format) => {
     return format === 'author' ? shuffleAllSubjectValues(format, fourAuthors) : shuffleAllArrayValues(books, format, fourAuthors);
 };
 
+const directorsMainFunc = (directors, format) => {
+    const fourDirectors = shuffle(directors).slice(0,4);
+    return format === 'director' ? shuffleAllSubjectValues(format, fourDirectors) : shuffleAllArrayValues(directors, format, fourDirectors);
+};
+
+const nationsMainFunc = (nations, format) => {
+    const fourNations = shuffle(nations).slice(0,4);
+    return format === 'nation' ? shuffleAllSubjectValues(format, fourNations) : shuffleAllArrayValues(nations, format, fourNations);
+};
+
 const getAllQuestions = () => {
 
     const allBooks = {
@@ -178,8 +133,16 @@ const getAllQuestions = () => {
         'categoryName': 'Music',
         'questions' : loopThroughAndGetFiveValues(music, ['artist', 'albums', 'songs'], musicMainFunc)
     };
+    const allDirectors = {
+        'categoryName': 'Directors',
+        'questions' : loopThroughAndGetFiveValues(directors, ['director', 'films'], directorsMainFunc)
+    };
+    const allNations = {
+        'categoryName': 'Nations',
+        'questions' : loopThroughAndGetFiveValues(nations, ['nation', 'cities', 'landmarks'], nationsMainFunc)
+    };
 
-    return [allMusic, allBooks];
+    return shuffle([allMusic, allBooks, allDirectors, allNations]).slice(0,3);
 };
 
 const loopThroughAndGetFiveValues = (arr, cats, func) => {
@@ -196,17 +159,11 @@ const loopThroughAndGetFiveValues = (arr, cats, func) => {
 };
 
 const categories = getAllQuestions();
-//
-// const resetState = () => {
-//     return musicMainFunc(music, sample(['artist', 'albums', 'songs']));
-// };
-//
-// let state = resetState();
 
 const resetState = (cat, qst) => {
     return {
         category: cat,
-        type: qst.format,
+        type: qst.type,
         answers: qst.answers,
         subject: qst.subject,
         extra: qst.extra || null
@@ -216,63 +173,74 @@ const resetState = (cat, qst) => {
 /* TODO: change App, maybe MainGrid and maybe QuestionAnswer into class components */
 
 function App() {
+    let [ category, setCategory ] = useState(null);
+    let [ questionAnswer, setQuestionAnswer ] = useState({});
+
     let [bgColor, setBgColor] = useState('white');
     let [showButton, setShowButton] = useState(false);
     let [showMainGrid, setShowMainGrid] = useState(true);
-    let [questionState, setQuestionState] = useState(resetState(null, {}))
+    let [questionState, setQuestionState] = useState(resetState(category, questionAnswer));
+    let [points, setPoints] = useState(0);
+    let [totalPoints, setTotalPoints] = useState(0);
 
-    // TODO: figure out thiss
-    const format = null;
+    const selectAnswer = (answer, points) => {
 
-    const selectAnswer = (answer) => {
-
-        getAnswer(answer)
-            ? setBgColor('green')
-            : setBgColor('red');
+        if (getAnswer(answer)) {
+            setBgColor('green');
+            setTotalPoints(totalPoints + points);
+        } else {
+            setBgColor('red');
+            setTotalPoints(totalPoints - points);
+        }
 
         setShowButton(true);
     };
 
-    const selectQuestionAnswer = (category, questionAnswer) => {
-        setQuestionState(resetState(category, questionAnswer));
+    const baseValue = 100;
+
+    const selectQuestionAnswer = (category, questionAnswer, points) => {
+        resetCatAndAnswer(category, questionAnswer, points);
         setShowMainGrid(false);
     };
 
-    // TODO: This needs a rewrite
+    const resetCatAndAnswer = (category, questionAnswer, points) => {
+        setCategory(category);
+        setQuestionAnswer(questionAnswer);
+        setPoints(points);
+        setQuestionState(resetState(category, questionAnswer));
+    };
+
     const getAnswer = (answer) => {
-        return {};
-        // return format === 'artist'
-        //     ? (state.subject[format] === answer)
-        //     : (state.subject[format].some((ans) => ans === answer));
+        let type = questionAnswer.type;
+        let subject = questionAnswer.subject;
+
+        if (typeof subject[type] === 'string') {
+            return subject[type] === answer;
+        } else if (Array.isArray(subject[type])) {
+            return subject[type].some((ans) => ans === answer);
+        }
+        return false;
     };
 
     return  (
         <div>
             { showMainGrid
-                ? (<MainGrid categories={categories} selectQuestionAnswer={selectQuestionAnswer}/>)
+                ? (<MainGrid categories={categories} selectQuestionAnswer={selectQuestionAnswer} baseValue={baseValue}/>)
                 : (<QuestionAnswer {...questionState}
                                    bgColor={bgColor}
+                                   points={points}
                                    selectAnswer={selectAnswer}
                                    showButton={showButton}
                                    showNextQuestion={() => {
-                                       setQuestionState({}, {});
+                                       resetCatAndAnswer(null, {}, 0);
                                        setBgColor('white');
                                        setShowMainGrid(true);
                                    }} />)
             }
-
+            <ScoreBoard totalPoints={totalPoints} />
 
         </div>
-    )
-
-
-    // return <QuestionAnswer {...state}
-    //                    onAnswerSelected={onAnswerSelected}
-    //                    onContinue={() => {
-    //                        state = resetState();
-    //                        render();
-    //                    }}
-    // />;
+    );
 }
 
 function render() {

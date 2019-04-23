@@ -2,30 +2,29 @@ import React from 'react';
 import './App.css';
 import './bootstrap.min.css';
 
-const QuestionMusic = (props) => {
+const QuestionNations = (props) => {
 
     const qstn = props.question;
 
     const getQuestion = (type) => {
         switch(type) {
-            case 'songs':
+            case 'cities':
                 return (<div>
-                    Which song was done by {qstn.genre} artist {qstn.artist}?
+                    Which city can be found in {qstn.nation}?
                 </div>);
-            case 'albums':
+            case 'landmarks':
                 return (<div>
-                    Which album was done by {qstn.genre} artist {qstn.artist}?
+                    Which landmark can be found in {qstn.nation}?
                 </div>);
-            case 'artist':
+            case 'nation':
                 return (<div>
-                    Which {qstn.genre} artist is known for the song "{props.extra.song}"?
+                    Which nation can you find the landmark {props.extra.landmark}?
                 </div>);
         }
     };
 
     return (
         <div className="question-div col-md-5 col-offset-1">
-
             <div>
                 { getQuestion(props.type) }
             </div>
@@ -33,4 +32,4 @@ const QuestionMusic = (props) => {
     );
 }
 
-export default QuestionMusic;
+export default QuestionNations;

@@ -2,20 +2,19 @@ import React from 'react';
 import './App.css';
 import './bootstrap.min.css';
 
-const QuestionMusic = (props) => {
+const QuestionBooks = (props) => {
 
     const qstn = props.question;
-    console.log(props);
 
     const getQuestion = (type) => {
         switch(type) {
             case 'books':
                 return (<div>
-                    Which song was done by {qstn.nationality} artist {qstn.author}?
+                    Which book was written by {qstn.nationality} author {qstn.author}?
                 </div>);
             case 'author':
                 return (<div>
-                    Which {qstn.nationality} author is known for the song "{props.extra.book}"?
+                    Which {qstn.nationality} author is known for the book "{props.extra.book}"?
                 </div>);
         }
     };
@@ -29,4 +28,4 @@ const QuestionMusic = (props) => {
     );
 }
 
-export default QuestionMusic;
+export default QuestionBooks;
