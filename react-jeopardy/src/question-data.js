@@ -134,12 +134,12 @@ const nations = [
     {
         nation: 'France',
         cities: ['Paris', 'Lyon', 'Marseille', 'Toulouse'],
-        landmarks: ['The Eiffel Tower', 'The Louvre', 'The Cathedral of Notre Dame']
+        landmarks: ['The Eiffel Tower', 'The Louvre', 'The Cathedral of Notre Dame', 'Niagara Falls', 'The Great Lakes']
     },
     {
         nation: 'Spain',
         cities: ['Madrid', 'Barcelona', 'Valencia', 'Granada', 'Sevilla', 'Málaga'],
-        landmarks: ['El Casco Antiguo de Benidorm', 'Catedral de Mallorca', 'Alhambra', 'Basilica of the Sagrada Familia']
+        landmarks: ['El Casco Antiguo de Benidorm', 'Catedral de Mallorca', 'Alhambra', 'Basilica of the Sagrada Familia', 'The Great Lakes', 'Niagara Falls']
     },
     {
         nation: 'South Korea',

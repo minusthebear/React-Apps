@@ -4,7 +4,9 @@ import './index.css';
 import QuestionAnswer from './QuestionAnswer';
 import MainGrid from './MainGrid';
 import ScoreBoard from './ScoreBoard';
+import utils from './utils';
 import { shuffle, sample, pluck } from 'underscore';
+import { cloneDeep, map } from 'lodash';
 import * as serviceWorker from './serviceWorker';
 import { music, books, directors, nations } from './question-data';
 
@@ -48,79 +50,70 @@ function findIfValueInArray(otherValues, currentValue, format) {
 
 const shuffleAllSubjectValues = (format, fourValues) => {
 
-    const subject = sample(fourValues);
-    const answers = getNoDuplicateValuesInArrayByKey(subject, fourValues, format);
+    const subject = cloneDeep(sample(fourValues));
 
-    let extra;
+    let extra,
+        key;
 
     switch (format) {
         case 'artist':
+            key = 'songs';
             extra = { song: sample(subject.songs) };
             break;
         case 'author':
+            key = 'books';
             extra = { book: sample(subject.books) };
             break;
         case 'director':
+            key = 'films';
             extra = { film: sample(subject.films) };
             break;
         case 'nation':
+            key = 'landmarks';
             extra = { landmark: sample(subject.landmarks) };
             break;
     }
+
+    subject[key] = ensureNoDuplicatesWithOtherArrays(subject, fourValues, format, key);
+
     return {
         type: format,
-        answers: answers,
+        answers: shuffle(pluck(fourValues, format)),
         subject: subject,
         extra: extra
     };
 };
 
-// TODO: This method needs work still
-const getNoDuplicateValuesInArrayByKey = (subject, fourValues, format) => {
+const ensureNoDuplicatesWithOtherArrays = (subject, fourValues, format, key) => {
+    const otherValues = fourValues.filter((value) => value[format] !== subject[format]);
 
-    console.log(subject);
-    console.log(fourValues);
+    const singleArray = otherValues.reduce((av, cv) => {
+        return av.concat(cv[key]);
+    }, []);
 
-    if (Array.isArray(subject[format])) {
-
-        const otherValues = fourValues.filter((val) => val !== subject);
-
-        console.log(subject);
-        console.log(otherValues);
-        console.log(format);
-
-        subject[format].map((val, idx) => {
-            otherValues.map((atst) => {
-                if (atst[format].indexOf(val) > -1) {
-                    subject[format].splice(idx, 1);
-                }
-            });
-        });
-    }
-    console.log(subject);
-    console.log(fourValues);
-
-    return shuffle(pluck(fourValues, format));
+    return subject[key].filter((val) => {
+        return singleArray.indexOf(val) === -1;
+    });
 };
 
 const musicMainFunc = (music, format) => {
     const fourArtists = shuffle(music).slice(0,4);
-    return format === 'artist' ? shuffleAllSubjectValues(format, fourArtists) : shuffleAllArrayValues(music, format, fourArtists);
+    return format === 'artist' ? shuffleAllSubjectValues(format, cloneDeep(fourArtists)) : shuffleAllArrayValues(music, format, cloneDeep(fourArtists));
 };
 
 const booksMainFunc = (books, format) => {
     const fourAuthors = shuffle(books).slice(0,4);
-    return format === 'author' ? shuffleAllSubjectValues(format, fourAuthors) : shuffleAllArrayValues(books, format, fourAuthors);
+    return format === 'author' ? shuffleAllSubjectValues(format, cloneDeep(fourAuthors)) : shuffleAllArrayValues(books, format, cloneDeep(fourAuthors));
 };
 
 const directorsMainFunc = (directors, format) => {
     const fourDirectors = shuffle(directors).slice(0,4);
-    return format === 'director' ? shuffleAllSubjectValues(format, fourDirectors) : shuffleAllArrayValues(directors, format, fourDirectors);
+    return format === 'director' ? shuffleAllSubjectValues(format, cloneDeep(fourDirectors)) : shuffleAllArrayValues(directors, format, cloneDeep(fourDirectors));
 };
 
 const nationsMainFunc = (nations, format) => {
     const fourNations = shuffle(nations).slice(0,4);
-    return format === 'nation' ? shuffleAllSubjectValues(format, fourNations) : shuffleAllArrayValues(nations, format, fourNations);
+    return format === 'nation' ? shuffleAllSubjectValues(format, cloneDeep(fourNations)) : shuffleAllArrayValues(nations, format, cloneDeep(fourNations)    );
 };
 
 const getAllQuestions = () => {
@@ -158,7 +151,20 @@ const loopThroughAndGetFiveValues = (arr, cats, func) => {
     return retArray;
 };
 
-const categories = getAllQuestions();
+const writeQuizGrid = (categories) => {
+    const   catNames = map(categories, (cat) => cat.categoryName),
+            obj = {},
+            int = 100;
+
+
+    map(catNames, (name) => {
+        obj[name] = {};
+        utils.range(1, 5).map((num) => obj[name][int * num] = false);
+    });
+
+    return obj;
+};
+
 
 const resetState = (cat, qst) => {
     return {
@@ -172,9 +178,10 @@ const resetState = (cat, qst) => {
 
 /* TODO: change App, maybe MainGrid and maybe QuestionAnswer into class components */
 
-function App() {
+function App({categories, quizGrid}) {
     let [ category, setCategory ] = useState(null);
     let [ questionAnswer, setQuestionAnswer ] = useState({});
+    let [ grid, setGrid ] = useState(quizGrid);
 
     let [bgColor, setBgColor] = useState('white');
     let [showButton, setShowButton] = useState(false);
@@ -199,8 +206,11 @@ function App() {
     const baseValue = 100;
 
     const selectQuestionAnswer = (category, questionAnswer, points) => {
+        console.log(grid);
         resetCatAndAnswer(category, questionAnswer, points);
+        setGrid({ [category]: {[points] : true}});
         setShowMainGrid(false);
+        console.log(grid);
     };
 
     const resetCatAndAnswer = (category, questionAnswer, points) => {
@@ -225,7 +235,11 @@ function App() {
     return  (
         <div>
             { showMainGrid
-                ? (<MainGrid categories={categories} selectQuestionAnswer={selectQuestionAnswer} baseValue={baseValue}/>)
+                ? (<MainGrid categories={categories}
+                             selectQuestionAnswer={selectQuestionAnswer}
+                             baseValue={baseValue}
+                             quizGrid={grid}
+                    />)
                 : (<QuestionAnswer {...questionState}
                                    bgColor={bgColor}
                                    points={points}
@@ -235,7 +249,8 @@ function App() {
                                        resetCatAndAnswer(null, {}, 0);
                                        setBgColor('white');
                                        setShowMainGrid(true);
-                                   }} />)
+                                   }}
+                    />)
             }
             <ScoreBoard totalPoints={totalPoints} />
 
@@ -244,13 +259,20 @@ function App() {
 }
 
 function render() {
+
+
+    const categories = getAllQuestions(),
+          quizGrid = writeQuizGrid(categories);
+
     ReactDOM.render(
             <Fragment>
-                <App />
+                <App categories={categories} quizGrid={quizGrid} />
             </Fragment>
         , document.getElementById('root')
     );
 }
+
+
 render();
 
 // If you want your app to work offline and load faster, you can change
