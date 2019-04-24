@@ -165,7 +165,6 @@ const writeQuizGrid = (categories) => {
     return obj;
 };
 
-
 const resetState = (cat, qst) => {
     return {
         category: cat,
@@ -179,6 +178,8 @@ const resetState = (cat, qst) => {
 /* TODO: change App, maybe MainGrid and maybe QuestionAnswer into class components */
 
 function App({categories, quizGrid}) {
+    let [ player, setPlayer ] = useState(0);
+    let [ playerPoints, setPlayerPoints ] = useState({});
     let [ category, setCategory ] = useState(null);
     let [ questionAnswer, setQuestionAnswer ] = useState({});
     let [ grid, setGrid ] = useState(quizGrid);
@@ -190,16 +191,26 @@ function App({categories, quizGrid}) {
     let [points, setPoints] = useState(0);
     let [totalPoints, setTotalPoints] = useState(0);
 
-    const selectAnswer = (answer, points) => {
+    const setPlayerFunc = (player) => {
+        return player === 2 ? setPlayer(0) : setPlayer(player + 1);
+    };
+
+    const selectAnswer = (answer, points, player) => {
 
         if (getAnswer(answer)) {
             setBgColor('green');
             setTotalPoints(totalPoints + points);
+            console.log(player);
+            playerPoints[player] = totalPoints;
+            setPlayerPoints(playerPoints)
         } else {
             setBgColor('red');
             setTotalPoints(totalPoints - points);
+            playerPoints[player] = totalPoints;
+            setPlayerPoints(playerPoints);
         }
 
+        console.log(playerPoints);
         setShowButton(true);
     };
 
@@ -235,6 +246,7 @@ function App({categories, quizGrid}) {
         <div>
             { showMainGrid
                 ? (<MainGrid categories={categories}
+                             player={player}
                              selectQuestionAnswer={selectQuestionAnswer}
                              baseValue={baseValue}
                              quizGrid={grid}
@@ -244,6 +256,7 @@ function App({categories, quizGrid}) {
                                    points={points}
                                    selectAnswer={selectAnswer}
                                    showButton={showButton}
+                                   player={player}
                                    showNextQuestion={() => {
                                        resetCatAndAnswer(null, {}, 0);
                                        setBgColor('white');

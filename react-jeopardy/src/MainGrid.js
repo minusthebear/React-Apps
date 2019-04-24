@@ -22,9 +22,6 @@ const MainGrid = (props) => {
     };
 
     const disabledSquare = (cat, value) => {
-        console.log(props.quizGrid);
-        console.log(cat);
-        console.log(checkIfInQuizGrid(cat, value));
         return checkIfInQuizGrid(cat, value) ? '#ff7733' : '';
     };
 

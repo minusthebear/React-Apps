@@ -9,8 +9,9 @@ import QuestionNations from './QuestionNations';
 import NextQuestionButton from './NextQuestionButton';
 
 const QuestionAnswer = (props) => {
+    console.log(props);
 
-    const {category, subject, answers, type, extra, bgColor, points, selectAnswer, showButton, showNextQuestion} = props;
+    const {category, subject, answers, type, extra, bgColor, points, selectAnswer, showButton, player, showNextQuestion} = props;
 
     const getQuestionCategory = (category, subject, type, extra) => {
         switch (category) {
@@ -31,7 +32,7 @@ const QuestionAnswer = (props) => {
       <div className="container">
         <div className="row">
             { template }
-            <Answers answers={answers} onClick={selectAnswer} bgColor={bgColor} points={points}/>
+            <Answers answers={answers} onClick={selectAnswer} bgColor={bgColor} points={points} player={player} />
         </div>
         <div className="row">
             <div className="col-md-12">
