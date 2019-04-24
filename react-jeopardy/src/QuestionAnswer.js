@@ -13,6 +13,8 @@ const QuestionAnswer = (props) => {
 
     const {category, subject, answers, type, extra, bgColor, points, selectAnswer, showButton, player, showNextQuestion} = props;
 
+    console.log(props);
+
     const getQuestionCategory = (category, subject, type, extra) => {
         switch (category) {
             case 'Music':
