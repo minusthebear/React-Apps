@@ -158,4 +158,81 @@ const nations = [
     }
 ];
 
-export { music, books, directors, nations};
+const cuisine = [
+    {
+        cuisine: 'Mexican',
+        food: ['burritos', 'enchiladas', 'taquitos', 'nachos', 'tacos']
+    },
+    {
+        cuisine: 'Korean',
+        food: ['bibimbap', 'samgyeopsal', 'pajeon', 'yukgaejang', 'kimchi', 'kimchi jigae', 'sushi', 'fried rice']
+    },
+    {
+        cuisine: 'Chinese',
+        food: ['chow mein', 'Beijing duck', 'fried rice']
+    },
+    {
+        cuisine: 'Vietnamese',
+        food: ['pho', 'banh mi', 'fried rice', 'rice vermicelli', 'mi xao gion']
+    },
+    {
+        cuisine: 'Thai',
+        food: ['pad Thai', 'khao na pet', 'khao tom', 'tom yum', 'fried rice']
+    },
+    {
+        cuisine: 'Italian',
+        food: ['lasagna', 'spaghetti', 'ravioli', 'fettucini', 'Hash Pipe', 'minestrone']
+    },
+    {
+        cuisine: 'Indian',
+        food: ['tikka masala', 'naan', 'samosa', 'tandoori chicken', 'biryani']
+    },
+    {
+        cuisine: 'French',
+        food: ['escargo', 'eclairs', 'baguettes', 'macarons', 'foie gras']
+    },
+    {
+        cuisine: 'English',
+        food: ['bangers and mash', 'fish and chips']
+    }
+];
+
+const DisneyMovies = [
+    {
+        film: 'Aladdin',
+        songs: ['A Whole New World', 'Prince Ali', 'One Jump Ahead', 'Arabian Nights', 'Friend Like Me'],
+        characters: ['Rajah', 'Princess Jasmine', 'Iago', 'the Genie', 'Apu']
+    },
+    {
+        film: 'Frozen',
+        songs: ['Let It Go', 'Do You Want To Build A Snowman?', 'In Summer', 'For The First Time In Forever'],
+        characters: ['Elsa', 'Anna', 'Olaf', 'Kristoff', 'Hans']
+    },
+    {
+        film: 'Beauty and the Beast',
+        songs: ['Be Our Guest'],
+        characters: ['Belle', 'Gaston', 'Lumiere', 'Cogsworth', 'Mrs. Potts']
+    },
+    {
+        film: 'Pocahontas',
+        songs: ['Colors Of The Wind', 'Just Around The Riverbend'],
+        characters: ['John Smith', 'Governor Ratcliffe', 'Chief Powhatan', 'Meeko', 'Grandmother Willow']
+    },
+    {
+        film: 'The Lion King',
+        songs: ['Be Prepared', 'Hakuna Matata', 'Just Can\'t Wait To Be King', 'Can You Feel The Love Tonight'],
+        characters: ['Simba', 'Nala', 'Pumbaa', 'Timon', 'Mufasa', 'Scar', 'Sarabi']
+    },
+    {
+        film: 'The Little Mermaid',
+        songs: ['Under The Sea', 'Part Of Your World', 'Kiss The Girl'],
+        characters: ['Ariel', 'Eric', 'Ursula', 'Triton', 'Sebastian', 'Flounder']
+    },
+    {
+        film: 'Moana',
+        songs: ['How Far I\'ll Go', 'Shiny', 'You\'re Welcome', 'Where You Are'],
+        characters: ['Maui', 'Tala', 'Tamatoa', 'Heihei']
+    }
+];
+
+export { music, books, directors, nations, cuisine, DisneyMovies };

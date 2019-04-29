@@ -3,9 +3,6 @@ import './App.css';
 import './bootstrap.min.css';
 
 const Answers = ({answers, onClick, bgColor, points, player}) => {
-
-    console.log(player);
-
     return (
         <div className="col-md-5 answers-div" style={{backgroundColor: bgColor}}>
             {answers.map(
