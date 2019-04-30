@@ -27,8 +27,8 @@ function SetGamePlayValues({ setValues }) {
     };
 
     const invokeNameChange = (idx, e) => {
-        playerNameChange(idx, e)
-        changeInvalidStrings();
+        playerNameChange(idx, e);
+        changeInvalidStrings(e);
     };
 
     const playerNameChange = (idx, e) => {
@@ -37,8 +37,9 @@ function SetGamePlayValues({ setValues }) {
         setPlayers(temp);
     };
 
-    const changeInvalidStrings = () => {
-        let anyInvalidStrings = !(players.every((val) => val && val.length ));
+    const changeInvalidStrings = (e) => {
+        let temp = players.slice(0);
+        let anyInvalidStrings = !(temp.every((val) => val && val.length ));
         setInvalidStrings(anyInvalidStrings);
     };
 
@@ -97,7 +98,7 @@ function SetGamePlayValues({ setValues }) {
                 : <></>
             }
             {showNextGroup
-                ? <BasicButton isDisabled={invalidStrings} onClick={sendToParent} />
+                ? <BasicButton  onClick={sendToParent} />
                 : <button onClick={showNext} disabled={invalidValues} >NEXT ONE</button>
             }
         </form>
