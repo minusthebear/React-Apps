@@ -5,27 +5,45 @@ import utils from './utils';
 function SetGamePlayValues({ setValues }) {
 
     let [ gameValues, setGameValues ] = useState({});
-    let [ invalidValues, setInvalidValues ] = useState(false);
+    let [ invalidValues, setInvalidValues ] = useState(true);
     let [ numPlayers, setNumPlayers ] = useState(0);
-    let    categories = 0,
-        players = [];
+    let [ categories, setCategories ] = useState(0);
+    let [ players, setPlayers ] = useState([]);
+    let [ showNextGroup, setShowNextGroup ] = useState(false);
+    let [ invalidStrings, setInvalidStrings ] = useState(true);
 
-    const categoryChange = (event) => {
-        if (event.target.value > 6 || event.target.value < 1) {
-            setInvalidValues(true);
-        }
+    const categoryChange = e => {
+        let val = Math.floor(e.target.value);
+        setCategories(val);
+        checkIfAllAreTrue(val, numPlayers);
     };
 
     const playersChange = e => {
-        if (e.target.value > 4 || e.target.value < 1) {
-            setInvalidValues(true);
-        } else {
-            setNumPlayers(e.target.value);
-        }
+        let val = Math.floor(e.target.value);
+        setNumPlayers(val);
+        checkIfAllAreTrue(categories, val);
     };
 
-    const playerNameChange = e => {
-        console.log(e.type);
+    const playerNameChange = (idx, e) => {
+        players[idx] = e.target.value;
+        let bool = players.every((val) => !val || !val.length );
+        setInvalidStrings(bool);
+        console.log(invalidStrings);
+    };
+
+    const sendToParent = () => {
+
+    };
+
+    const showNext = e => {
+        e.preventDefault();
+        let obj = [];
+
+        for (let i = 0; i < numPlayers; i++) {
+            obj[i] = null
+        }
+        setPlayers(obj);
+        setShowNextGroup(true);
     };
 
     const handleKeyPress = (e) => {
@@ -39,26 +57,36 @@ function SetGamePlayValues({ setValues }) {
         }
     };
 
+    const checkIfAllAreTrue = (cat, num) => {
+        if (cat >= 1 && cat <= 6 && num >= 1 && num <= 4) {
+            setInvalidValues(false);
+        } else {
+            setInvalidValues(true);
+        }
+    };
+
     return (
         <form>
             <div className="AddAuthorForm__input">
                 <label htmlFor="categories">How many categories? (No more than six)</label>
-                <input type="text" name="categories" value={categories} onChange={categoryChange} />
+                <input type="text" name="categories" value={categories} onKeyDown={handleKeyPress} onChange={categoryChange} disabled={showNextGroup} />
             </div>
             <div className="AddAuthorForm__input">
                 <label htmlFor="numPlayers">How many players? (No more than four)</label>
-                <input type="text" name="numPlayers" value={numPlayers} onKeyDown={handleKeyPress} onChange={playersChange} />
+                <input type="text" name="numPlayers" value={numPlayers} onKeyDown={handleKeyPress} onChange={playersChange} disabled={showNextGroup} />
             </div>
-            <div className="AddAuthorForm__input">
-                {utils.range(1, numPlayers).map((val, idx) =>
-                    <input key={idx} type="text" name="bookTemp" value={players[idx]} onChange={playerNameChange} />
-                )}
-                {/*{players.map((name) => <p key={name}>{name} </p>)}*/}
-                {/*<label htmlFor="playersNames"></label>*/}
-                {/*<input type="text" name="bookTemp" value={this.state.bookTemp} onChange={onFieldChange} />*/}
-                {/*<input type="button" value="+" onClick={this.handleAddBook} />*/}
-            </div>
-            <input type="submit" value="ADD" disabled={invalidValues}/>
+            { showNextGroup
+                ? (<div>
+                        <div className="AddAuthorForm__input">
+                            { players.map((val, idx) =>
+                                <input key={idx} type="text" value={ val } onChange={(e) => playerNameChange(idx, e)} />
+                            )}
+                        </div>
+                        <button disabled={invalidStrings} onClick={sendToParent} >ADD</button>
+                    </div>)
+                :
+                <button onClick={showNext} disabled={invalidValues} >NEXT ONE</button>
+            }
         </form>
     );
 }
