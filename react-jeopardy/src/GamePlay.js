@@ -65,7 +65,7 @@ function GamePlay({categories, quizGrid, scoreCard}) {
     };
 
     return  (
-        <div>
+        <div className="container">
             { showMainGrid
                 ? (<MainGrid categories={categories}
                              player={player}

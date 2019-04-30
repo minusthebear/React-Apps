@@ -11,21 +11,22 @@ import { getAllQuestions, writeQuizGrid, createScoreCard } from './helperMethods
 
 function App() {
     let [ allValuesAreSet, setAllValuesAreSet ] = useState(false);
-    let [ categories, setCategories ] = useState({});
-    let [ quizGrid, setQuizGrid ] = useState({});
-    let [ scoreCard, setScoreCard ] = useState({});
+    // let [ categories, setCategories ] = useState({});
+    // let [ quizGrid, setQuizGrid ] = useState({});
+    // let [ scoreCard, setScoreCard ] = useState({});
 
 
 
-    // const categories = getAllQuestions(),
-    //     quizGrid = writeQuizGrid(categories),
-    //     scoreCard = createScoreCard();
+    const categories = getAllQuestions(),
+        quizGrid = writeQuizGrid(categories),
+        scoreCard = createScoreCard();
 
     return (
         <>
-            { allValuesAreSet ?
-                false :
-                (<SetGamePlayValues />)}
+            <GamePlay categories={categories} quizGrid={quizGrid} scoreCard={scoreCard} />
+            {/*{ allValuesAreSet ?*/}
+            {/*    false :*/}
+            {/*    (<SetGamePlayValues />)}*/}
         </>
     );
 }

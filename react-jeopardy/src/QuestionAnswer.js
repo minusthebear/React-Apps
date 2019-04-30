@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './App.css';
+import './App.scss';
 import './bootstrap.min.css';
 import Answers from './Answers';
 import QuestionMusic from './QuestionMusic';
