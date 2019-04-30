@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.scss';
-import './bootstrap.min.css';
+import '../App.scss';
+import '../bootstrap.min.css';
 
 const TotalScore = ({totalPoints}) => {
     return (Object.keys(totalPoints).map((key, index) =>

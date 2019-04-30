@@ -2,27 +2,20 @@ import React from 'react';
 import './App.scss';
 import './bootstrap.min.css';
 import utils from './utils';
+import {CategorySquare} from "./common/CategorySquare";
 
-const MainGrid = (props) => {
-    const cats = props.categories;
+const MainGrid = ({categories, baseValue, quizGrid, selectQuestionAnswer}) => {
+    const cats = categories;
 
-    const func = (event, cat, value, question) => {
-        if (checkIfInQuizGrid(cat, value)) {
-            event.preventDefault();
-        } else {
-            props.selectQuestionAnswer(cat, question, value)
-        }
+    const categoryClickFunc = (cat, value, question) => {
+        selectQuestionAnswer(cat, question, value);
     };
 
     const checkIfInQuizGrid = (cat, value) => {
-        if (props.quizGrid && props.quizGrid[cat] && props.quizGrid[cat][value]) {
+        if (quizGrid && quizGrid[cat] && quizGrid[cat][value]) {
             return true;
         }
         return false;
-    };
-
-    const disabledSquare = (cat, value) => {
-        return checkIfInQuizGrid(cat, value) ? '#ff7733' : '';
     };
 
     return (
@@ -35,18 +28,21 @@ const MainGrid = (props) => {
                                 cats.map((cat) => <th scope="col">{cat.categoryName}</th> )
                             }
                         </tr>
+                        <tr className="category-break-row">
+                        </tr>
                         {
 
                             utils.range(0,4).map((val, idx) =>
                                 <tr>
                                     {
-
-                                        cats.map((cat) => <td scope="row"
-                                                              style={{backgroundColor: disabledSquare(cat.categoryName, props.baseValue * (idx + 1))}}
-                                                              category={cat.categoryName} points={props.baseValue * (idx + 1)}
-                                                              onClick={(event) =>
-                                            func(event, cat.categoryName, props.baseValue * (idx + 1), cat.questions[idx])
-                                        }>${props.baseValue * (idx + 1)}</td>)
+                                        cats.map((cat) =>
+                                            <CategorySquare category={cat.categoryName}
+                                                            points={baseValue * (idx + 1)}
+                                                            question={cat.questions[idx]}
+                                                            disabledSquare={checkIfInQuizGrid(cat.categoryName, baseValue * (idx + 1))}
+                                                            categoryClickFunc={categoryClickFunc}
+                                            />
+                                        )
                                     }
                                 </tr>
                             )

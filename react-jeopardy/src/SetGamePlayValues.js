@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './index.css';
 import utils from './utils';
-import {BasicTextField} from "./BasicTextField";
-import { BasicButton } from "./BasicButton";
+import {BasicTextField} from "./common/BasicTextField";
+import { BasicButton } from "./common/BasicButton";
 
 function SetGamePlayValues({ setValues }) {
 

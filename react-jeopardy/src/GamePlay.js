@@ -1,7 +1,7 @@
 import {resetState} from "./helperMethods";
 import MainGrid from "./MainGrid";
 import QuestionAnswer from "./QuestionAnswer";
-import Scoreboard from "./ScoreBoard";
+import Scoreboard from "./Scoreboard";
 import React, {useState} from "react";
 
 
@@ -65,13 +65,12 @@ function GamePlay({categories, quizGrid, scoreCard}) {
     };
 
     return  (
-        <div className="container">
+        <div className="container game-play-container">
             { showMainGrid
                 ? (<MainGrid categories={categories}
-                             player={player}
-                             selectQuestionAnswer={selectQuestionAnswer}
                              baseValue={baseValue}
                              quizGrid={grid}
+                             selectQuestionAnswer={selectQuestionAnswer}
                 />)
                 : (<QuestionAnswer {...questionState}
                                    bgColor={bgColor}

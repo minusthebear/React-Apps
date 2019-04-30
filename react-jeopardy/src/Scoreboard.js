@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.scss';
 import './bootstrap.min.css';
-import TotalScore from "./TotalScore";
-import IndividualScore from "./IndividualScore";
+import TotalScore from "./common/TotalScore";
+import IndividualScore from "./common/IndividualScore";
 
 const Scoreboard = ({totalPoints, player, showMainGrid}) => {
     return (
