@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './index.css';
 import utils from './utils';
+import {BasicTextField} from "./BasicTextField";
+import { BasicButton } from "./BasicButton";
 
 function SetGamePlayValues({ setValues }) {
 
@@ -24,11 +26,20 @@ function SetGamePlayValues({ setValues }) {
         checkIfAllAreTrue(categories, val);
     };
 
+    const invokeNameChange = (idx, e) => {
+        playerNameChange(idx, e)
+        changeInvalidStrings();
+    };
+
     const playerNameChange = (idx, e) => {
-        players[idx] = e.target.value;
-        let bool = players.every((val) => !val || !val.length );
-        setInvalidStrings(bool);
-        console.log(invalidStrings);
+        let temp = players;
+        temp[idx] = e.target.value;
+        setPlayers(temp);
+    };
+
+    const changeInvalidStrings = () => {
+        let anyInvalidStrings = !(players.every((val) => val && val.length ));
+        setInvalidStrings(anyInvalidStrings);
     };
 
     const sendToParent = () => {
@@ -75,17 +86,19 @@ function SetGamePlayValues({ setValues }) {
                 <label htmlFor="numPlayers">How many players? (No more than four)</label>
                 <input type="text" name="numPlayers" value={numPlayers} onKeyDown={handleKeyPress} onChange={playersChange} disabled={showNextGroup} />
             </div>
-            { showNextGroup
-                ? (<div>
-                        <div className="AddAuthorForm__input">
-                            { players.map((val, idx) =>
-                                <input key={idx} type="text" value={ val } onChange={(e) => playerNameChange(idx, e)} />
-                            )}
-                        </div>
-                        <button disabled={invalidStrings} onClick={sendToParent} >ADD</button>
-                    </div>)
-                :
-                <button onClick={showNext} disabled={invalidValues} >NEXT ONE</button>
+            {showNextGroup
+                ? (<>
+                    <div className="AddAuthorForm__input">
+                        {players.map((val, idx) =>
+                            <BasicTextField key={idx} val={val} idx={idx} valueChange={invokeNameChange}/>
+                        )}
+                    </div>
+                </>)
+                : <></>
+            }
+            {showNextGroup
+                ? <BasicButton isDisabled={invalidStrings} onClick={sendToParent} />
+                : <button onClick={showNext} disabled={invalidValues} >NEXT ONE</button>
             }
         </form>
     );
