@@ -6,8 +6,11 @@ import IndividualScore from "./common/IndividualScore";
 
 const Scoreboard = ({totalPoints, player, showMainGrid}) => {
     return (
-        <div className="col-md-10 col-offset-1">
-            { showMainGrid ? (<TotalScore totalPoints={totalPoints} />) : (<IndividualScore totalPoints={totalPoints} player={player} />) }
+        <div className="d-flex justify-content-around">
+            { showMainGrid
+                ? (<TotalScore totalPoints={totalPoints} />)
+                : (<IndividualScore totalPoints={totalPoints} player={player} />)
+            }
         </div>
     );
 };
