@@ -12,11 +12,15 @@ class BasicTextField extends React.Component {
     }
     render() {
 
-        // Set a specific className based on the validation
-        // state of this component. showRequired() is true
-        // when the value is empty and the required prop is
-        // passed to the input. showError() is true when the
-        // value typed is invalid
+        const showMessage = (field) => {
+            switch (field) {
+                case 'categories':
+                    return 'How many categories? (No more than six)';
+                case 'numPlayers':
+                    return 'How many categories? (No more than six)';
+            }
+        };
+
         const className = 'form-group' + (this.props.className || ' ') +
             (this.showRequired() ? 'required' : this.showError() ? 'error' : '');
 
@@ -24,12 +28,19 @@ class BasicTextField extends React.Component {
         // or the server has returned an error message
         const errorMessage = this.getErrorMessage();
 
-        const { val, idx, field, valueChange, multiFields, message } = this.props;
+        const { val, idx, field, onKeyDown, valueChange, multiFields } = this.props;
 
         return (
             <div key={val} className={className}>
-                { multiFields ? null : <label htmlFor={field} >{message}</label>}
-                <input name={field} type="text" value={ val } onChange={(e) => valueChange(idx, e)} />
+                { multiFields ? null : <label htmlFor={field} >{showMessage(field)}</label>}
+                { idx && idx >= 0
+                    ? (
+                        <input name={field} type="text" value={ val } onChange={(e) => valueChange(idx, e)} />
+                    ) : (
+                        <input name={field} type="text" value={ val } onKeyDown={onKeyDown} onChange={valueChange} />
+                    )
+                }
+
             </div>
         );
     }

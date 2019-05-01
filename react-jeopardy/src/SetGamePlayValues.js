@@ -85,21 +85,25 @@ function SetGamePlayValues({ setValues }) {
     return (
         <div>
             <Formsy onSubmit={showNext}>
-                <div className="">
-                    <label htmlFor="categories">How many categories? (No more than six)</label>
-                    <input type="text" name="categories" value={categories} onKeyDown={handleKeyPress} onChange={categoryChange} disabled={showNextGroup} />
-                </div>
-                <div className="">
-                    <label htmlFor="numPlayers">How many players? (No more than four)</label>
-                    <input type="text" name="numPlayers" value={numPlayers} onKeyDown={handleKeyPress} onChange={playersChange} disabled={showNextGroup} />
-                </div>
+                <BasicTextField
+                    className=""
+                    field="categories"
+                    value={categories}
+                    onKeyDown={handleKeyPress}
+                    onChange={categoryChange}
+                    disabled={showNextGroup}
+                    idx={null}
+                />
+
+                <BasicTextField className="" field="numPlayers" value={numPlayers} onKeyDown={handleKeyPress} onChange={categoryChange} disabled={showNextGroup}/>
+
                 { showNextButton() }
             </Formsy>
             {showNextGroup
                 ?
                 (<>
                     {players.map((val, idx) =>
-                        <BasicTextField key={idx} val={val} idx={idx} valueChange={invokeNameChange}/>
+                        <BasicTextField key={'Player ' + (idx + 1)} idx={idx} value={val} field={'Player ' + (idx + 1)} idx={idx} multiFields={true} onChange={invokeNameChange}/>
                     )}
                 </>)
                 :

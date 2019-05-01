@@ -1,6 +1,6 @@
 import React from 'react';
 import './QuestionAnswer.scss';
-import './bootstrap.min.css';
+import '../bootstrap.min.css';
 
 const QuestionDirectors = (props) => {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../MainGrid.scss';
-import './bootstrap.min.css';
+import '../bootstrap.min.css';
 
 const Answers = ({answers, onClick, bgColor, points, player}) => {
     return (

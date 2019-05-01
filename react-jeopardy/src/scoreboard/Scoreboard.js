@@ -1,6 +1,6 @@
 import React from 'react';
 import '../MainGrid.scss';
-import './bootstrap.min.css';
+import '../bootstrap.min.css';
 import TotalScore from "./TotalScore";
 import IndividualScore from "./IndividualScore";
 
