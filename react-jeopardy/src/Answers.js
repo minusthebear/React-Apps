@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.scss';
+import './MainGrid.scss';
 import './bootstrap.min.css';
 
 const Answers = ({answers, onClick, bgColor, points, player}) => {

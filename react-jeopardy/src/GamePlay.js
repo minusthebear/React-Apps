@@ -65,28 +65,32 @@ function GamePlay({categories, quizGrid, scoreCard}) {
     };
 
     return  (
-        <div className="container game-play-container">
-            { showMainGrid
-                ? (<MainGrid categories={categories}
-                             baseValue={baseValue}
-                             quizGrid={grid}
-                             selectQuestionAnswer={selectQuestionAnswer}
-                />)
-                : (<QuestionAnswer {...questionState}
-                                   bgColor={bgColor}
-                                   points={points}
-                                   selectAnswer={selectAnswer}
-                                   showButton={showButton}
-                                   player={player}
-                                   showNextQuestion={() => {
-                                       resetCatAndAnswer(null, {}, 0);
-                                       setBgColor('white');
-                                       setShowMainGrid(true);
-                                       setPlayerFunc(player);
-                                   }}
-                />)
-            }
-            <Scoreboard totalPoints={playerPoints} player={player} showMainGrid={showMainGrid} />
+        <div className="game-play-container">
+            <div class="container">
+                { showMainGrid
+                    ? (<MainGrid categories={categories}
+                                 baseValue={baseValue}
+                                 quizGrid={grid}
+                                 selectQuestionAnswer={selectQuestionAnswer}
+                    />)
+                    : (<QuestionAnswer {...questionState}
+                                       bgColor={bgColor}
+                                       points={points}
+                                       selectAnswer={selectAnswer}
+                                       showButton={showButton}
+                                       player={player}
+                                       showNextQuestion={() => {
+                                           resetCatAndAnswer(null, {}, 0);
+                                           setBgColor('white');
+                                           setShowMainGrid(true);
+                                           setPlayerFunc(player);
+                                       }}
+                    />)
+                }
+            </div>
+            <div class="table-container">
+                <Scoreboard totalPoints={playerPoints} player={player} showMainGrid={showMainGrid} />
+            </div>
 
         </div>
     );

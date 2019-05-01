@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.scss';
+import './QuestionAnswer.scss';
 import './bootstrap.min.css';
 
 const QuestionDirectors = (props) => {
