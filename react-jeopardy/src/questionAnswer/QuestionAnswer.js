@@ -9,11 +9,8 @@ import QuestionNations from './QuestionNations';
 import NextQuestionButton from '../common/NextQuestionButton';
 
 const QuestionAnswer = (props) => {
-    console.log(props);
 
     const {category, subject, answers, type, extra, bgColor, points, selectAnswer, showButton, player, showNextQuestion} = props;
-
-    console.log(props);
 
     const getQuestionCategory = (category, subject, type, extra) => {
         switch (category) {
