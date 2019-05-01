@@ -1,11 +1,15 @@
 import React from 'react';
-import {Mixin} from 'formsy-react';
+import {withFormsy} from 'formsy-react';
 
+class BasicTextField extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
 
-export const BasicTextField = React.createClass({
-    mixins: [Mixin],
-    
+    getInitialState() {
+
+    }
     render() {
 
         // Set a specific className based on the validation
@@ -29,7 +33,9 @@ export const BasicTextField = React.createClass({
             </div>
         );
     }
-});
+};
+
+export default withFormsy(BasicTextField);
 
 
 // How many categories? (No more than six)

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './index.css';
-import { Form } from 'formsy-react';
+import Formsy from 'formsy-react';
 import utils from './utils';
-import {BasicTextField} from "./common/BasicTextField";
+import BasicTextField from "./common/BasicTextField";
 import { BasicButton } from "./common/BasicButton";
 
 function SetGamePlayValues({ setValues }) {
@@ -84,7 +84,7 @@ function SetGamePlayValues({ setValues }) {
 
     return (
         <div>
-            <Form onSubmit={showNext}>
+            <Formsy onSubmit={showNext}>
                 <div className="">
                     <label htmlFor="categories">How many categories? (No more than six)</label>
                     <input type="text" name="categories" value={categories} onKeyDown={handleKeyPress} onChange={categoryChange} disabled={showNextGroup} />
@@ -94,7 +94,7 @@ function SetGamePlayValues({ setValues }) {
                     <input type="text" name="numPlayers" value={numPlayers} onKeyDown={handleKeyPress} onChange={playersChange} disabled={showNextGroup} />
                 </div>
                 { showNextButton() }
-            </Form>
+            </Formsy>
             {showNextGroup
                 ?
                 (<>
