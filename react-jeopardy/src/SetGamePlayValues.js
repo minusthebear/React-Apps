@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
+import { Form } from 'formsy-react';
 import utils from './utils';
 import {BasicTextField} from "./common/BasicTextField";
 import { BasicButton } from "./common/BasicButton";
@@ -24,6 +25,10 @@ function SetGamePlayValues({ setValues }) {
         let val = Math.floor(e.target.value);
         setNumPlayers(val);
         checkIfAllAreTrue(categories, val);
+    };
+
+    const showNextButton = () => {
+        return !showNextGroup ? <button disabled={invalidValues} >NEXT ONE</button> : null;
     };
 
     const invokeNameChange = (idx, e) => {
@@ -78,30 +83,31 @@ function SetGamePlayValues({ setValues }) {
     };
 
     return (
-        <form>
-            <div className="AddAuthorForm__input">
-                <label htmlFor="categories">How many categories? (No more than six)</label>
-                <input type="text" name="categories" value={categories} onKeyDown={handleKeyPress} onChange={categoryChange} disabled={showNextGroup} />
-            </div>
-            <div className="AddAuthorForm__input">
-                <label htmlFor="numPlayers">How many players? (No more than four)</label>
-                <input type="text" name="numPlayers" value={numPlayers} onKeyDown={handleKeyPress} onChange={playersChange} disabled={showNextGroup} />
-            </div>
+        <div>
+            <Form onSubmit={showNext}>
+                <div className="">
+                    <label htmlFor="categories">How many categories? (No more than six)</label>
+                    <input type="text" name="categories" value={categories} onKeyDown={handleKeyPress} onChange={categoryChange} disabled={showNextGroup} />
+                </div>
+                <div className="">
+                    <label htmlFor="numPlayers">How many players? (No more than four)</label>
+                    <input type="text" name="numPlayers" value={numPlayers} onKeyDown={handleKeyPress} onChange={playersChange} disabled={showNextGroup} />
+                </div>
+                { showNextButton() }
+            </Form>
             {showNextGroup
-                ? (<>
-                    <div className="AddAuthorForm__input">
-                        {players.map((val, idx) =>
-                            <BasicTextField key={idx} val={val} idx={idx} valueChange={invokeNameChange}/>
-                        )}
-                    </div>
+                ?
+                (<>
+                    {players.map((val, idx) =>
+                        <BasicTextField key={idx} val={val} idx={idx} valueChange={invokeNameChange}/>
+                    )}
                 </>)
-                : <></>
+                :
+                <></>
             }
-            {showNextGroup
-                ? <BasicButton  onClick={sendToParent} />
-                : <button onClick={showNext} disabled={invalidValues} >NEXT ONE</button>
-            }
-        </form>
+        </div>
+
+
     );
 }
 
