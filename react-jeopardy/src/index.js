@@ -23,10 +23,10 @@ function App() {
 
     return (
         <>
-            <GamePlay categories={categories} quizGrid={quizGrid} scoreCard={scoreCard} />
+            {/*<GamePlay categories={categories} quizGrid={quizGrid} scoreCard={scoreCard} />*/}
             {/*{ allValuesAreSet ?*/}
             {/*    false :*/}
-            {/*    (<SetGamePlayValues />)}*/}
+                <SetGamePlayValues />
         </>
     );
 }

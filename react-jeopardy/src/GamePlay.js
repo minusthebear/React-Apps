@@ -4,7 +4,6 @@ import QuestionAnswer from "./questionAnswer/QuestionAnswer";
 import Scoreboard from "./scoreboard/Scoreboard";
 import React, {useState} from "react";
 
-
 function GamePlay({categories, quizGrid, scoreCard}) {
     let [ player, setPlayer ] = useState(0);
     let [ playerPoints ] = useState(scoreCard);

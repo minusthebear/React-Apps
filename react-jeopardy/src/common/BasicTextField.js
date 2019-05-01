@@ -1,49 +1,36 @@
 import React from 'react';
 import {withFormsy} from 'formsy-react';
 
-class BasicTextField extends React.Component {
+const BasicTextField = ({ value, idx, field, onKeyDown, onChange, multiFields }) => {
 
-    constructor(props) {
-        super(props);
-    }
 
-    getInitialState() {
+    const showMessage = (field) => {
+        switch (field) {
+            case 'categories':
+                return 'How many categories? (No more than six)';
+            case 'numPlayers':
+                return 'How many categories? (No more than six)';
+        }
+    };
 
-    }
-    render() {
+    const className = '';
 
-        const showMessage = (field) => {
-            switch (field) {
-                case 'categories':
-                    return 'How many categories? (No more than six)';
-                case 'numPlayers':
-                    return 'How many categories? (No more than six)';
+    return (
+        <div key={field} className={className}>
+            { multiFields ? null : <label htmlFor={field} >{showMessage(field)}</label>}
+            { idx && idx >= 0
+                ? (
+                    <input name="name" type="text" value={ value } onChange={(e) => onChange(idx, e)} />
+                ) : (
+                    <input name="name" type="text" value={ value } onKeyDown={onKeyDown} onChange={onChange} />
+                )
             }
-        };
 
-        const className = 'form-group' + (this.props.className || ' ') +
-            (this.showRequired() ? 'required' : this.showError() ? 'error' : '');
+        </div>
+    );
 
-        // An error message is returned ONLY if the component is invalid
-        // or the server has returned an error message
-        const errorMessage = this.getErrorMessage();
-
-        const { val, idx, field, onKeyDown, valueChange, multiFields } = this.props;
-
-        return (
-            <div key={val} className={className}>
-                { multiFields ? null : <label htmlFor={field} >{showMessage(field)}</label>}
-                { idx && idx >= 0
-                    ? (
-                        <input name={field} type="text" value={ val } onChange={(e) => valueChange(idx, e)} />
-                    ) : (
-                        <input name={field} type="text" value={ val } onKeyDown={onKeyDown} onChange={valueChange} />
-                    )
-                }
-
-            </div>
-        );
-    }
+    //(e) => onChange(idx, e)
+    //onChange
 };
 
 export default withFormsy(BasicTextField);

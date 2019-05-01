@@ -16,15 +16,25 @@ function SetGamePlayValues({ setValues }) {
     let [ invalidStrings, setInvalidStrings ] = useState(true);
 
     const categoryChange = e => {
+        e.preventDefault();
         let val = Math.floor(e.target.value);
-        setCategories(val);
+        setCategories(e.target.value);
         checkIfAllAreTrue(val, numPlayers);
     };
 
     const playersChange = e => {
+        e.preventDefault();
         let val = Math.floor(e.target.value);
-        setNumPlayers(val);
+        setNumPlayers(e.target.value);
         checkIfAllAreTrue(categories, val);
+    };
+
+    const checkIfAllAreTrue = (cat, num) => {
+        if (cat >= 1 && cat <= 6 && num >= 1 && num <= 4) {
+            setInvalidValues(false);
+        } else {
+            setInvalidValues(true);
+        }
     };
 
     const showNextButton = () => {
@@ -74,28 +84,28 @@ function SetGamePlayValues({ setValues }) {
         }
     };
 
-    const checkIfAllAreTrue = (cat, num) => {
-        if (cat >= 1 && cat <= 6 && num >= 1 && num <= 4) {
-            setInvalidValues(false);
-        } else {
-            setInvalidValues(true);
-        }
-    };
-
     return (
         <div>
             <Formsy onSubmit={showNext}>
                 <BasicTextField
+                    name="categories"
                     className=""
                     field="categories"
                     value={categories}
                     onKeyDown={handleKeyPress}
                     onChange={categoryChange}
                     disabled={showNextGroup}
-                    idx={null}
                 />
 
-                <BasicTextField className="" field="numPlayers" value={numPlayers} onKeyDown={handleKeyPress} onChange={categoryChange} disabled={showNextGroup}/>
+                <BasicTextField
+                    name="numPlayers"
+                    className=""
+                    field="numPlayers"
+                    value={numPlayers}
+                    onKeyDown={handleKeyPress}
+                    onChange={playersChange}
+                    disabled={showNextGroup}
+                />
 
                 { showNextButton() }
             </Formsy>
@@ -103,7 +113,7 @@ function SetGamePlayValues({ setValues }) {
                 ?
                 (<>
                     {players.map((val, idx) =>
-                        <BasicTextField key={'Player ' + (idx + 1)} idx={idx} value={val} field={'Player ' + (idx + 1)} idx={idx} multiFields={true} onChange={invokeNameChange}/>
+                        <BasicTextField name={'Player ' + (idx + 1)} key={'Player ' + (idx + 1)} idx={idx} value={val} field={'Player ' + (idx + 1)} idx={idx} multiFields={true} onChange={invokeNameChange}/>
                     )}
                 </>)
                 :
