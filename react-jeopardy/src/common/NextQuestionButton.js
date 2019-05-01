@@ -1,5 +1,5 @@
 import React from 'react';
-import './MainGrid.scss';
+import '../MainGrid.scss';
 import './bootstrap.min.css';
 
 const NextQuestionButton = (props) => {

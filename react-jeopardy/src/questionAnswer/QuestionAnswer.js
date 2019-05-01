@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './QuestionAnswer.scss';
 import './bootstrap.min.css';
-import Answers from './Answers';
+import Answers from './questionAnswer/Answers';
 import QuestionMusic from './QuestionMusic';
 import QuestionBooks from './QuestionBooks';
 import QuestionDirectors from './QuestionDirectors';

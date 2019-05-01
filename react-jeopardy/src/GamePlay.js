@@ -1,7 +1,7 @@
 import {resetState} from "./helperMethods";
 import MainGrid from "./MainGrid";
-import QuestionAnswer from "./QuestionAnswer";
-import Scoreboard from "./Scoreboard";
+import QuestionAnswer from "./questionAnswer/QuestionAnswer";
+import Scoreboard from "./scoreboard/Scoreboard";
 import React, {useState} from "react";
 
 

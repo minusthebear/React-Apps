@@ -1,6 +1,6 @@
 import {pluck, sample, shuffle} from "underscore";
 import {cloneDeep, map} from "lodash";
-import {books, directors, music, nations} from "./question-data";
+import {books, directors, music, nations} from "./common/question-data";
 import utils from "./utils";
 
 const shuffleAllArrayValues = (category, format, fourValues) => {
