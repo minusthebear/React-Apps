@@ -4,6 +4,10 @@
   background:linear-gradient(90deg, rgba(236,168,44,1) 0%, rgba(255,215,0,1) 50%, rgba(236,168,44,1) 100%);
 }
 
+.question-answer-container {
+  background: linear-gradient(208deg, rgba(236,168,44,1) 0%, rgba(0,41,255,1) 50%, rgba(236,168,44,1) 100%);
+}
+
 .category-grid-container {
   text-align:center;
   padding: 4rem 2rem 2rem 2rem;
@@ -70,7 +74,7 @@
 
 .category-grid {
 
-  table > tr {
+  table thead tr, table tbody tr {
 
     background: linear-gradient(90deg, rgba(10,4,111,1) 0%, rgba(6,12,233,1) 51%, rgba(10,4,111,1) 100%);
     outline: 1px solid #0b2e13;

@@ -23,30 +23,35 @@ const MainGrid = ({categories, baseValue, quizGrid, selectQuestionAnswer}) => {
             <div className="category-grid-container">
                 <div className=" category-grid col-10 offset-1">
                     <table className="table">
-                        <tr>
-                            {
-                                cats.map((cat) => <th scope="col">{cat.categoryName}</th> )
-                            }
-                        </tr>
+                        <thead>
+                            <tr>
+                                {
+                                    cats.map((cat) => <th key={cat.categoryName}scope="col">{cat.categoryName}</th> )
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
                         <tr className="category-break-row">
                         </tr>
-                        {
+                            {
 
-                            utils.range(0,4).map((val, idx) =>
-                                <tr>
-                                    {
-                                        cats.map((cat) =>
-                                            <CategorySquare category={cat.categoryName}
-                                                            points={baseValue * (idx + 1)}
-                                                            question={cat.questions[idx]}
-                                                            disabledSquare={checkIfInQuizGrid(cat.categoryName, baseValue * (idx + 1))}
-                                                            categoryClickFunc={categoryClickFunc}
-                                            />
-                                        )
-                                    }
-                                </tr>
-                            )
-                        }
+                                utils.range(0,4).map((val, idx) =>
+                                    <tr key={'row' + idx}>
+                                        {
+                                            cats.map((cat) =>
+                                                <CategorySquare key={cat.categoryName + baseValue * (idx + 1)}
+                                                                category={cat.categoryName}
+                                                                points={baseValue * (idx + 1)}
+                                                                question={cat.questions[idx]}
+                                                                disabledSquare={checkIfInQuizGrid(cat.categoryName, baseValue * (idx + 1))}
+                                                                categoryClickFunc={categoryClickFunc}
+                                                />
+                                            )
+                                        }
+                                    </tr>
+                                )
+                            }
+                        </tbody>
                     </table>
                 </div>
             </div>

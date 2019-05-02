@@ -4,9 +4,11 @@ import QuestionAnswer from "./questionAnswer/QuestionAnswer";
 import Scoreboard from "./scoreboard/Scoreboard";
 import React, {useState, useEffect} from "react";
 
-function GamePlay({categories, quizGrid, scorecard, numPlayers}) {
-    console.log(categories);
-    debugger;
+function GamePlay(props) {
+
+    console.log(props);
+
+    const {categories, quizGrid, scorecard, numPlayers} = props;
 
     let [ player, setPlayer ] = useState(0);
     let [ playerPoints ] = useState(scorecard);
@@ -67,8 +69,8 @@ function GamePlay({categories, quizGrid, scorecard, numPlayers}) {
     };
 
     return  (
-        <div className="game-play-container">
-            <div class="container">
+        <div className={ showMainGrid ? 'game-play-container' : 'question-answer-container'}>
+            <div className="container">
                 { showMainGrid
                     ? (<MainGrid categories={categories}
                                  baseValue={baseValue}

@@ -1,16 +1,30 @@
 
 .question-div {
   padding:20px;
+
+  div {
+    background: linear-gradient(315deg, rgba(30,2,120,1) 0%, rgba(74,157,241,1) 50%, rgba(30,2,120,1) 100%);
+    box-shadow: 2rem 4rem 4rem 2rem rgba(0, 0, 0, .7);
+    border-radius:5%;
+    display:table;
+    font-size:32px;
+    height: 400px;
+    width:100%;
+    border-color: #D0E3F0;
+    margin: 0 auto 20px auto;
+
+    div {
+      display:table-cell;
+      vertical-align:middle;
+      background-color:transparent;
+      font-size:3rem;
+      font-weight:bold;
+      color:#fbfcfc;
+    }
+  }
 }
 
 .question-div > div {
-  font-size:32px;
-  height: 400px;
-  background-color: #F0F7FD;
-  border-color: #D0E3F0;
-  margin-bottom: 20px;
-  padding: 15px 30px 15px 15px;
-  border-left: 5px solid #D0E3F0;
 }
 
 .answers-div {

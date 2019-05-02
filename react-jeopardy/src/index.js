@@ -10,32 +10,44 @@ import { getAllQuestions, writeQuizGrid, createScoreCard } from './helperMethods
 /* TODO: change App, maybe MainGrid and maybe QuestionAnswer into class components */
 
 function App() {
-    let [ allValuesAreSet, setAllValuesAreSet ] = useState(false);
-    let [ categories, setCategories ] = useState({});
-    let [ quizGrid, setQuizGrid ] = useState({});
-    let [ scorecard, setScorecard ] = useState({});
-    let [ numPlayers, setNumPlayers ] = useState(0);
+
+    const dummyData = {"settings":{"categories":"6","numPlayers":"4"},"players":["Steve","Jenna","Nick","Jaclyn"]};
+
+    // let [ allValuesAreSet, setAllValuesAreSet ] = useState(false);
+    // let [ categories, setCategories ] = useState({});
+    // let [ quizGrid, setQuizGrid ] = useState({});
+    // let [ scorecard, setScorecard ] = useState({});
+    // let [ numPlayers, setNumPlayers ] = useState(0);
+
+
+    let temp = getAllQuestions(parseInt(dummyData.settings.categories));
+
+    let [ categories, setCategories ] = useState(temp);
+    let [ quizGrid, setQuizGrid ] = useState(writeQuizGrid(temp));
+    let [ scorecard, setScorecard ] = useState(createScoreCard(dummyData.players));
+    let [ numPlayers, setNumPlayers ] = useState(parseInt(dummyData.settings.numPlayers));
 
     const setAllValues = (obj) => {
         if (obj) {
-            console.log(obj);
-            let temp = getAllQuestions(obj.settings.categories);
+            let temp = getAllQuestions(parseInt(obj.settings.categories));
             setNumPlayers(parseInt(obj.settings.numPlayers));
             setCategories(temp);
             setQuizGrid(writeQuizGrid(temp));
             setScorecard(createScoreCard(obj.players));
-            setAllValuesAreSet(true);
+            // setAllValuesAreSet(true);
         }
     };
+
+    // setAllValues(dummyData);
 
     return (
         <>
 
-            {allValuesAreSet
-                ?
+            {/*{allValuesAreSet*/}
+            {/*    ?*/}
                 <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} />
-                :
-                <SetGamePlayValues setValues={setAllValues}/>
+                {/*:*/}
+                {/*<SetGamePlayValues setValues={setAllValues}/>*/}
             }
         </>
     );

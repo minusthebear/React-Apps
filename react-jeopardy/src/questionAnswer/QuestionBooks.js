@@ -20,7 +20,7 @@ const QuestionBooks = (props) => {
     };
 
     return (
-        <div className="question-div col-md-5 col-offset-1">
+        <div className="question-div col-md-12">
             <div>
                 { getQuestion(props.type) }
             </div>

@@ -16,7 +16,7 @@ function SetGamePlayValues({ setValues }) {
 
     const showNext = (settings) => {
         setGameValues({ ...gameValues, settings});
-        setPlayerCount(settings.numPlayers);
+        setPlayerCount(parseInt(settings.numPlayers));
         setShowNextGroup(true);
     };
 
