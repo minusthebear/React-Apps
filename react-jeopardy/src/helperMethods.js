@@ -109,7 +109,7 @@ const nationsMainFunc = (nations, format) => {
     return format === 'nation' ? shuffleAllSubjectValues(format, cloneDeep(fourNations)) : shuffleAllArrayValues(nations, format, cloneDeep(fourNations)    );
 };
 
-const getAllQuestions = () => {
+const getAllQuestions = (num) => {
 
     const allBooks = {
         'categoryName': 'Books',
@@ -128,7 +128,7 @@ const getAllQuestions = () => {
         'questions' : loopThroughAndGetFiveValues(nations, ['nation', 'cities', 'landmarks'], nationsMainFunc)
     };
 
-    return shuffle([allMusic, allBooks, allDirectors, allNations]).slice(0,3);
+    return shuffle([allMusic, allBooks, allDirectors, allNations]).slice(0,num);
 };
 
 const loopThroughAndGetFiveValues = (arr, cats, func) => {

@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import GamePlay from './GamePlay';
 import * as serviceWorker from './serviceWorker';
-import SetGamePlayValues from './SetGamePlayValues';
+import SetGamePlayValues from './GamePlaySetup/SetGamePlayValues';
 import { getAllQuestions, writeQuizGrid, createScoreCard } from './helperMethods';
 
 
@@ -11,22 +11,27 @@ import { getAllQuestions, writeQuizGrid, createScoreCard } from './helperMethods
 
 function App() {
     let [ allValuesAreSet, setAllValuesAreSet ] = useState(false);
-    // let [ categories, setCategories ] = useState({});
+    let [ categories, setCategories ] = useState({});
     // let [ quizGrid, setQuizGrid ] = useState({});
     // let [ scoreCard, setScoreCard ] = useState({});
 
+    const setAllValues = (obj) => {
+        if (obj) {
+            setCategories(getAllQuestions(obj.settings.categories));
+        }
+    };
 
 
-    const categories = getAllQuestions(),
-        quizGrid = writeQuizGrid(categories),
-        scoreCard = createScoreCard();
+// \
+//         quizGrid = writeQuizGrid(categories),
+//         scoreCard = createScoreCard();
 
     return (
         <>
             {/*<GamePlay categories={categories} quizGrid={quizGrid} scoreCard={scoreCard} />*/}
             {/*{ allValuesAreSet ?*/}
             {/*    false :*/}
-                <SetGamePlayValues />
+                <SetGamePlayValues setValues={setAllValues}/>
         </>
     );
 }
