@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import './index.css';
 import Formsy, {addValidationRule} from 'formsy-react';
+import utils from './utils';
 import BasicTextField from "./common/BasicTextField";
 import { BasicButton } from "./common/BasicButton";
 
 
 function SetGamePlayValues({ setValues }) {
-
-    addValidationRule('minAndMaxValue', (values) => {
-
+    addValidationRule('minAndMaxValue', (values, value) => {
         let a = values['categories'],
             b = values['numPlayers'];
 
-        checkIfAllAreTrue(parseInt(a), parseInt(b))
-            ? setInvalidValues(false)
-            : setInvalidValues(true);
+        if (checkIfAllAreTrue(parseInt(a), parseInt(b))) {
+            setInvalidValues(false);
+
+            return;
+        }
+        setInvalidValues(true);
     });
 
     let [ gameValues, setGameValues ] = useState({});
@@ -26,11 +28,11 @@ function SetGamePlayValues({ setValues }) {
     let [ invalidStrings, setInvalidStrings ] = useState(true);
 
     const categoryChange = e => {
-        setCategories(parseInt(e.target.value));
+        setCategories(e.target.value);
     };
 
     const playersChange = e => {
-        setNumPlayers(parseInt(e.target.value));
+        setNumPlayers(e.target.value);
     };
 
     const checkIfAllAreTrue = (cat, num) => {
@@ -41,15 +43,18 @@ function SetGamePlayValues({ setValues }) {
         return !showNextGroup ? <button disabled={invalidValues} >NEXT ONE</button> : null;
     };
 
-    const invokeNameChange = (idx, e) => {
+    const invokeNameChange = (e, idx) => {
+        console.log(e.target);
+        console.log(idx);
         playerNameChange(idx, e);
         changeInvalidStrings(e);
     };
 
     const playerNameChange = (idx, e) => {
         let temp = players;
-        temp[idx] = e.target.value;
-        setPlayers(temp);
+        // console.log(e);
+        // temp[idx] = e.target.value;
+        // console.log(temp);
     };
 
     const changeInvalidStrings = (e) => {
@@ -58,18 +63,37 @@ function SetGamePlayValues({ setValues }) {
         setInvalidStrings(anyInvalidStrings);
     };
 
+    const func = (idx) => {
+        return (<BasicTextField
+            name={'Player ' + (idx + 1)}
+            key={'Player ' + (idx + 1)}
+            idx={idx}
+            value={players[idx]}
+            field={'Player' + (idx + 1)}
+            multiFields={true}
+            onChange={invokeNameChange}
+        />);
+    }
+
     const sendToParent = () => {
 
     };
 
-    const showNext = e => {
-        e.preventDefault();
+    const showNext = (a,b,c,d,e) => {
         let obj = [];
+        console.log('players');
+        console.log(players);
+
+        console.log(numPlayers);
 
         for (let i = 0; i < numPlayers; i++) {
-            obj[i] = null
+            obj[i] = '';
+            console.log(obj);
         }
-        setPlayers(obj);
+        console.log('showNext');
+        console.log(obj);
+        setPlayers(['dave', 'steve', 'mark', 'jenna']);
+        console.log(players);
         setShowNextGroup(true);
     };
 
@@ -114,12 +138,14 @@ function SetGamePlayValues({ setValues }) {
                 { showNextButton() }
             </Formsy>
 
-            {showNextGroup
+            { showNextGroup
                 ?
                 (<Formsy onSubmit={{}}>
-                    {players.map((val, idx) =>
-                        <BasicTextField name={'Player ' + (idx + 1)} key={'Player ' + (idx + 1)} idx={idx} value={val} field={'Player ' + (idx + 1)} idx={idx} multiFields={true} onChange={invokeNameChange}/>
-                    )}
+                    {players.map((val, idx) => {
+                        console.log(val);
+                        return func(idx);
+                    })}
+                    <BasicButton onClick={sendToParent}/>
                 </Formsy>)
                 :
                 <></>

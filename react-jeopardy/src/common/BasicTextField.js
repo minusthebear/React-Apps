@@ -13,16 +13,23 @@ const BasicTextField = ({ value, idx, field, onKeyDown, onChange, multiFields })
         }
     };
 
+    const change = (e, idx) => {
+        onChange(e, idx);
+    };
+
+    console.log(value);
+
     const className = '';
+    console.log(idx);
 
     return (
         <div key={field} className={className}>
             { multiFields ? null : <label htmlFor={field} >{showMessage(field)}</label>}
             { idx && idx >= 0
                 ? (
-                    <input name="name" type="text" value={ value } onChange={(e) => onChange(idx, e)} />
+                    <input name={field} type="text" value={ value } onChange={(e) => onChange(e, idx)} />
                 ) : (
-                    <input name="name" type="text" value={ value } onKeyDown={onKeyDown} onChange={onChange} />
+                    <input name={field} type="text" value={ value } onKeyDown={onKeyDown} onChange={onChange} />
                 )
             }
 
