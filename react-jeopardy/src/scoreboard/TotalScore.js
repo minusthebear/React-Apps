@@ -8,11 +8,11 @@ const TotalScore = ({totalPoints, player}) => {
         return Math.floor(key) === player ? { 'background-color': '#00ff00'} : null;
     };
 
-    const handleNegativeValues = (key) => {
-        return Math.floor(totalPoints[key]) < 0 ? (
-            <div>-${Math.abs(totalPoints[key])}</div>
+    const handleNegativeValues = (num) => {
+        return Math.floor(num) < 0 ? (
+            <div>-${Math.abs(num)}</div>
         ) : (
-            <div>${totalPoints[key]}</div>
+            <div>${num}</div>
         );
     };
 
@@ -20,11 +20,11 @@ const TotalScore = ({totalPoints, player}) => {
         <div key={key} className="total-score-container" style={ isSelectedPlayer(key) }>
             <div className="total-score-container-name" >
                 <div>
-                    {key}
+                    {totalPoints[key].name}
                 </div>
             </div>
             <div className="total-score-container-points">
-                { handleNegativeValues(key)}
+                { handleNegativeValues(totalPoints[key].score)}
             </div>
         </div>
     ));

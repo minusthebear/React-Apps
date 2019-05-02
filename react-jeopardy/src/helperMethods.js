@@ -145,7 +145,7 @@ const loopThroughAndGetFiveValues = (arr, cats, func) => {
 };
 
 const writeQuizGrid = (categories) => {
-    const   catNames = map(categories, (cat) => cat.categoryName),
+    const catNames = map(categories, (cat) => cat.categoryName),
         obj = {},
         int = 100;
 
@@ -168,12 +168,15 @@ const resetState = (cat, qst) => {
     }
 };
 
-const createScoreCard = () => {
-    return {
-        0: 0,
-        1: 0,
-        2: 0
+const createScoreCard = (names) => {
+    let obj = {};
+    for (let i = 0; i < names.length; i++) {
+        obj[i] = {
+            name: names[i],
+            score: 0
+        }
     }
+    return obj;
 };
 
 export { getAllQuestions, writeQuizGrid, resetState, createScoreCard };

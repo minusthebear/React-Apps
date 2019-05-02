@@ -2,11 +2,14 @@ import {resetState} from "./helperMethods";
 import MainGrid from "./MainGrid";
 import QuestionAnswer from "./questionAnswer/QuestionAnswer";
 import Scoreboard from "./scoreboard/Scoreboard";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
-function GamePlay({categories, quizGrid, scoreCard}) {
+function GamePlay({categories, quizGrid, scorecard, numPlayers}) {
+    console.log(categories);
+    debugger;
+
     let [ player, setPlayer ] = useState(0);
-    let [ playerPoints ] = useState(scoreCard);
+    let [ playerPoints ] = useState(scorecard);
     let [ category, setCategory ] = useState(null);
     let [ questionAnswer, setQuestionAnswer ] = useState({});
     let [ grid, setGrid ] = useState(quizGrid);
@@ -18,17 +21,17 @@ function GamePlay({categories, quizGrid, scoreCard}) {
     let [points, setPoints] = useState(0);
 
     const setPlayerFunc = (player) => {
-        player === 2 ? setPlayer(0) : setPlayer(player + 1);
+        player === (numPlayers - 1) ? setPlayer(0) : setPlayer(player + 1);
     };
 
     const selectAnswer = (answer, points, player) => {
 
         if (getAnswer(answer)) {
             setBgColor('green');
-            playerPoints[player] += points;
+            playerPoints[player].score += points;
         } else {
             setBgColor('red');
-            playerPoints[player] -= points;
+            playerPoints[player].score -= points;
         }
 
         setShowButton(true);
