@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import './index.css';
-import Formsy from 'formsy-react';
-import utils from './utils';
+import Formsy, {addValidationRule} from 'formsy-react';
 import BasicTextField from "./common/BasicTextField";
 import { BasicButton } from "./common/BasicButton";
 
+
 function SetGamePlayValues({ setValues }) {
+
+    addValidationRule('minAndMaxValue', (values) => {
+
+        let a = values['categories'],
+            b = values['numPlayers'];
+
+        checkIfAllAreTrue(parseInt(a), parseInt(b))
+            ? setInvalidValues(false)
+            : setInvalidValues(true);
+    });
 
     let [ gameValues, setGameValues ] = useState({});
     let [ invalidValues, setInvalidValues ] = useState(true);
@@ -16,25 +26,15 @@ function SetGamePlayValues({ setValues }) {
     let [ invalidStrings, setInvalidStrings ] = useState(true);
 
     const categoryChange = e => {
-        e.preventDefault();
-        let val = Math.floor(e.target.value);
-        setCategories(e.target.value);
-        checkIfAllAreTrue(val, numPlayers);
+        setCategories(parseInt(e.target.value));
     };
 
     const playersChange = e => {
-        e.preventDefault();
-        let val = Math.floor(e.target.value);
-        setNumPlayers(e.target.value);
-        checkIfAllAreTrue(categories, val);
+        setNumPlayers(parseInt(e.target.value));
     };
 
     const checkIfAllAreTrue = (cat, num) => {
-        if (cat >= 1 && cat <= 6 && num >= 1 && num <= 4) {
-            setInvalidValues(false);
-        } else {
-            setInvalidValues(true);
-        }
+        return (cat >= 1 && cat <= 6 && num >= 1 && num <= 4);
     };
 
     const showNextButton = () => {
@@ -89,9 +89,11 @@ function SetGamePlayValues({ setValues }) {
             <Formsy onSubmit={showNext}>
                 <BasicTextField
                     name="categories"
+                    isInt={true}
                     className=""
                     field="categories"
                     value={categories}
+                    validations="minAndMaxValue"
                     onKeyDown={handleKeyPress}
                     onChange={categoryChange}
                     disabled={showNextGroup}
@@ -99,9 +101,11 @@ function SetGamePlayValues({ setValues }) {
 
                 <BasicTextField
                     name="numPlayers"
+                    isInt={true}
                     className=""
                     field="numPlayers"
                     value={numPlayers}
+                    validations="minAndMaxValue"
                     onKeyDown={handleKeyPress}
                     onChange={playersChange}
                     disabled={showNextGroup}
@@ -109,13 +113,14 @@ function SetGamePlayValues({ setValues }) {
 
                 { showNextButton() }
             </Formsy>
+
             {showNextGroup
                 ?
-                (<>
+                (<Formsy onSubmit={{}}>
                     {players.map((val, idx) =>
                         <BasicTextField name={'Player ' + (idx + 1)} key={'Player ' + (idx + 1)} idx={idx} value={val} field={'Player ' + (idx + 1)} idx={idx} multiFields={true} onChange={invokeNameChange}/>
                     )}
-                </>)
+                </Formsy>)
                 :
                 <></>
             }
