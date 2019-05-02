@@ -21,7 +21,7 @@ const MainGrid = ({categories, baseValue, quizGrid, selectQuestionAnswer}) => {
     return (
         <div className="row">
             <div className="category-grid-container">
-                <div className=" category-grid col-10 offset-1">
+                <div className=" category-grid col-md-12">
                     <table className="table">
                         <thead>
                             <tr>
