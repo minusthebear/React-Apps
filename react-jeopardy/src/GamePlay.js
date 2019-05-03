@@ -1,4 +1,6 @@
 import {resetState} from "./helperMethods";
+import './index.scss';
+import './bootstrap.min.css';
 import MainGrid from "./MainGrid";
 import QuestionAnswer from "./questionAnswer/QuestionAnswer";
 import Scoreboard from "./scoreboard/Scoreboard";

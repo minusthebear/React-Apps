@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import GamePlay from './GamePlay';
 import * as serviceWorker from './serviceWorker';
 import SetGamePlayValues from './GamePlaySetup/SetGamePlayValues';

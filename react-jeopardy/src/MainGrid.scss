@@ -1,5 +1,4 @@
 
-
 .game-play-container {
   background:linear-gradient(90deg, rgba(236,168,44,1) 0%, rgba(255,215,0,1) 50%, rgba(236,168,44,1) 100%);
 }
@@ -29,6 +28,29 @@
 
   div {
     width:100%;
+  }
+}
+
+.individual-score-container {
+  text-align:center;
+
+  div {
+    height:6rem;
+    width:25%;
+    text-align:center;
+    display:inline-table;
+    div {
+      border:.25rem solid #00ff00;
+      width:100%;
+      display:table;
+      text-align:center;
+      div {
+        display:table-cell;
+        vertical-align: middle;
+        font-size:2rem;
+        font-family:clockfont, Arial, sans-serif;
+      }
+    }
   }
 }
 

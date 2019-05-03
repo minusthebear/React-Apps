@@ -12,3 +12,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@font-face{
+  font-family:'clockfont';
+  src: local('clockfont'), url('font/led/led_sas.ttf') format('truetype');
+}

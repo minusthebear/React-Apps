@@ -1,6 +1,7 @@
 import React from 'react';
-import './MainGrid.scss';
 import './bootstrap.min.css';
+import './index.scss';
+import './MainGrid.scss';
 import utils from './utils';
 import {CategorySquare} from "./common/CategorySquare";
 

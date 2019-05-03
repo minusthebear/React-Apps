@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../index.css';
+import '../index.scss';
 import Formsy from 'formsy-react';
 import LoopedTextField from "../common/LoopedTextField";
 import CategoryNumberFormsyElement from './CategoryNumberFormsyElement';

@@ -9,7 +9,6 @@
     font-size:2rem;
     height: 20rem;
     width:100%;
-    border-color: #D0E3F0;
     margin: 0 auto 1.25rem auto;
 
     div {
@@ -24,9 +23,6 @@
   }
 }
 
-.question-div > div {
-}
-
 .answers-div {
   cursor: pointer;
 }
@@ -36,7 +32,7 @@
   display:inline-block;
 
   div {
-    font-size:2rem;
+    font-size:1.75rem;
     display:table;
     text-align:center;
     background:linear-gradient(315deg, rgba(30,2,120,1) 0%, rgba(74,157,241,1) 50%, rgba(30,2,120,1) 100%);
@@ -46,10 +42,11 @@
     font-weight:bold;
     box-shadow: 1rem 1rem 2rem 0rem rgba(0, 0, 0, .7);
 
-
     div {
       display:table-cell;
       vertical-align:middle;
+      padding:.75rem;
+      text-shadow: .25rem .25rem rgba(30,2,120,1);
     }
   }
 
