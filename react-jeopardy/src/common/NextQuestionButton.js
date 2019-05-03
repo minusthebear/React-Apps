@@ -5,14 +5,17 @@ import '../bootstrap.min.css';
 const NextQuestionButton = (props) => {
     return (
         <>
-        {props.show
-            ?
-            <div className="col-11">
-                <button className="btn btn-primary btn-lg float-right" onClick={props.onClick}>Continue</button>
+            <div className="col-md-12 next-question-button-container">
+                <div className="col-12">
+
+                    {props.show
+                        ?
+                        <button className="btn btn-primary btn-lg" onClick={props.onClick}>Back to the quiz grid</button>
+                        :
+                        null
+                    }
+                </div>
             </div>
-            :
-            null
-        }
         </>
     );
 };

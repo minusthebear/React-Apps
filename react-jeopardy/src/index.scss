@@ -14,6 +14,6 @@ code {
 }
 
 @font-face{
-  font-family:'clockfont';
-  src: local('clockfont'), url('font/led/led_sas.ttf') format('truetype');
+  font-family:"clockfont";
+  src: local('clockfont'), url(./font/led/led_sas.ttf) format('truetype');
 }

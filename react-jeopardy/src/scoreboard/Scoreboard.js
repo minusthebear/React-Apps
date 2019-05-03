@@ -6,12 +6,18 @@ import IndividualScore from "./IndividualScore";
 
 const Scoreboard = ({totalPoints, player, showMainGrid}) => {
     return (
-        <div className="flex-table row scoreboard-container">
-                { showMainGrid
-                    ? (<TotalScore totalPoints={totalPoints} player={player} />)
-                    : (<IndividualScore totalPoints={totalPoints} player={player} />)
+        <>
+        { showMainGrid
+            ?
+                (<div className="flex-table row scoreboard-container">
+                    <TotalScore totalPoints={totalPoints} player={player} />
+                </div>)
+                :
+                (<div className="scoreboard-container">
+                    <IndividualScore totalPoints={totalPoints} player={player} />
+                </div>)
                 }
-            </div>
+        </>
     );
 };
 

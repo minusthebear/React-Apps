@@ -9,7 +9,7 @@
 
 .category-grid-container {
   text-align:center;
-  padding: 2rem;
+  padding: 2rem 2rem 0 2rem;
   border-top-left-radius: .3rem;
   border-top-right-radius: .3rem;
   width: 100%;
@@ -36,11 +36,13 @@
 
   div {
     height:6rem;
-    width:25%;
+    width:50%;
     text-align:center;
     display:inline-table;
+    background-color:#000000;
+    border:.25rem solid #000000;
+    outline: .125rem solid #00ff00;
     div {
-      border:.25rem solid #00ff00;
       width:100%;
       display:table;
       text-align:center;
@@ -48,6 +50,7 @@
         display:table-cell;
         vertical-align: middle;
         font-size:2rem;
+        color:#00ff00;
         font-family:clockfont, Arial, sans-serif;
       }
     }

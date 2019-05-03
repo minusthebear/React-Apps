@@ -8,10 +8,7 @@ const IndividualScore = ({totalPoints, player}) => {
         <div class="individual-score-container">
             <div>
                 <div>
-                    <div>{totalPoints[player].name}</div>
-                </div>
-                <div>
-                    <div>{totalPoints[player].score}</div>
+                    <div>{totalPoints[player].name}: {totalPoints[player].score} </div>
                 </div>
             </div>
         </div>
