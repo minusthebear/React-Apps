@@ -10,7 +10,7 @@
 
 .category-grid-container {
   text-align:center;
-  padding: 4rem 2rem 2rem 2rem;
+  padding: 2rem;
   border-top-left-radius: .3rem;
   border-top-right-radius: .3rem;
   width: 100%;
@@ -18,8 +18,7 @@
 
 .scoreboard-container {
   text-align:center;
-  margin-bottom: 2rem;
-  padding: 4rem 2rem;
+  padding: 0 2rem 2rem 2rem;
   border-bottom-left-radius: .3rem;
   border-bottom-right-radius: .3rem;
   width: 100%;
@@ -27,6 +26,10 @@
   justify-content: flex-start;
   align-items: center;
   align-content: flex-start;
+
+  div {
+    width:100%;
+  }
 }
 
 .total-score-container {
@@ -55,8 +58,8 @@
     padding:1rem;
 
     div {
-      height:6rem;
-      font-size: 3rem;
+      height:4rem;
+      font-size: 2rem;
       font-weight:bold;
     }
   }
@@ -65,8 +68,8 @@
     padding:0 1rem 1rem 1rem;
 
     div {
-      height: 12rem;
-      font-size: 5rem;
+      height: 6rem;
+      font-size: 3rem;
       font-weight:bold;
     }
   }
@@ -81,17 +84,17 @@
 
     &.category-break-row {
       background:transparent;
-      height:2rem;
+      height:1rem;
       outline:0;
     }
 
     th, td {
-      height: 8rem;
+      height: 4rem;
       vertical-align: middle;
     }
 
     th {
-      font-size:2.5rem;
+      font-size:1.5rem;
       font-weight:bold;
       color:#fbfcfc;
       border-right:.5rem solid #1d2124;
@@ -99,7 +102,7 @@
 
     td {
       color:#ffff00;
-      font-size:4rem;
+      font-size:2rem;
       font-weight:bolder;
       border-top:.2rem solid #1d2124;
       border-left:.2rem solid #1d2124;

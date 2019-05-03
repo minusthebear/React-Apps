@@ -76,6 +76,6 @@ const QuestionAnswer = (props) => {
             {/*</div>*/}
         </>
     );
-}
+};
 
 export default QuestionAnswer;

@@ -5,8 +5,10 @@ import '../bootstrap.min.css';
 const IndividualScore = ({totalPoints, player}) => {
     return (
         <div>
-            <div>Player: {totalPoints[player].name}</div>
-            <div>Score: {totalPoints[player].score}</div>
+            <div>
+                <div>Player: {totalPoints[player].name}</div>
+                <div>Score: {totalPoints[player].score}</div>
+            </div>
         </div>
     );
 };
