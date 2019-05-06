@@ -12,7 +12,7 @@ import {CategorySquare} from "../common/CategorySquare";
 
 const QuestionAnswer = (props) => {
 
-    const {category, subject, answers, type, extra, bgColor, points, selectAnswer, showButton, player, showNextQuestion} = props;
+    const {category, subject, answers, type, extra, points, selectAnswer, showButton, player, showNextQuestion, correctAnswer} = props;
 
     const getQuestionCategory = (category, subject, type, extra) => {
         switch (category) {
@@ -35,7 +35,7 @@ const QuestionAnswer = (props) => {
             <div className="row">
                 <div className="category-grid-container">
                     { template }
-                    <Answers answers={answers} onClick={selectAnswer} bgColor={bgColor} points={points} player={player} />
+                    <Answers answers={answers} onClick={selectAnswer} points={points} player={player} answered={showButton} correctAnswer={correctAnswer}/>
                 </div>
             </div>
             <div className="row">

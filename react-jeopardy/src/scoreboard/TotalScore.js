@@ -5,7 +5,7 @@ import '../bootstrap.min.css';
 const TotalScore = ({totalPoints, player}) => {
 
     const isSelectedPlayer = (key) => {
-        return Math.floor(key) === player ? { 'background-color': '#00ff00'} : null;
+        return Math.floor(key) === player ? { 'backgroundColor': '#00ff00'} : null;
     };
 
     const handleNegativeValues = (num) => {

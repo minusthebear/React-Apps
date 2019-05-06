@@ -1,14 +1,13 @@
-import {resetState} from "./helperMethods";
+import {resetState, resetCorrectAnswer } from "./helperMethods";
 import './index.scss';
 import './bootstrap.min.css';
 import MainGrid from "./MainGrid";
 import QuestionAnswer from "./questionAnswer/QuestionAnswer";
 import Scoreboard from "./scoreboard/Scoreboard";
 import React, {useState, useEffect} from "react";
+import { intersection } from 'lodash'
 
 function GamePlay(props) {
-
-    console.log(props);
 
     const {categories, quizGrid, scorecard, numPlayers} = props;
 
@@ -17,27 +16,20 @@ function GamePlay(props) {
     let [ category, setCategory ] = useState(null);
     let [ questionAnswer, setQuestionAnswer ] = useState({});
     let [ grid, setGrid ] = useState(quizGrid);
-
-    let [bgColor, setBgColor] = useState('white');
     let [showButton, setShowButton] = useState(false);
     let [showMainGrid, setShowMainGrid] = useState(true);
     let [questionState, setQuestionState] = useState(resetState(category, questionAnswer));
     let [points, setPoints] = useState(0);
+    let [correctAnswer, setCorrectAnswer] = useState(resetCorrectAnswer());
 
     const setPlayerFunc = (player) => {
         player === (numPlayers - 1) ? setPlayer(0) : setPlayer(player + 1);
     };
 
     const selectAnswer = (answer, points, player) => {
-
-        if (getAnswer(answer)) {
-            setBgColor('green');
-            playerPoints[player].score += points;
-        } else {
-            setBgColor('red');
-            playerPoints[player].score -= points;
-        }
-
+        let ansr = getAnswer(answer);
+        setCorrectAnswer(ansr);
+        ansr.isCorrect ? playerPoints[player].score += points : playerPoints[player].score -= points;
         setShowButton(true);
     };
 
@@ -48,6 +40,7 @@ function GamePlay(props) {
         quizGrid[category][points] = true;
         setGrid(quizGrid);
         setShowMainGrid(false);
+        console.log(questionAnswer);
     };
 
     const resetCatAndAnswer = (category, questionAnswer, points) => {
@@ -56,18 +49,28 @@ function GamePlay(props) {
         setPoints(points);
         setShowButton(false);
         setQuestionState(resetState(category, questionAnswer));
+        setCorrectAnswer(resetCorrectAnswer());
     };
 
     const getAnswer = (answer) => {
-        let type = questionAnswer.type;
-        let subject = questionAnswer.subject;
+        let type = questionAnswer.type,
+            subject = questionAnswer.subject,
+            allAnswers = questionAnswer.answers,
+            correctAnswer = {};
+
+        correctAnswer.answer = answer;
 
         if (typeof subject[type] === 'string') {
-            return subject[type] === answer;
+            correctAnswer.isCorrect = subject[type] === answer;
+            correctAnswer.correctAnswer = subject[type];
         } else if (Array.isArray(subject[type])) {
-            return subject[type].some((ans) => ans === answer);
+            correctAnswer.isCorrect = subject[type].some((ans) => ans === answer);
+            correctAnswer.correctAnswer = intersection(subject[type], allAnswers)[0];
+        } else {
+            correctAnswer.isCorrect = false;
+            correctAnswer.correctAnswer = null;
         }
-        return false;
+        return correctAnswer;
     };
 
     return  (
@@ -80,21 +83,20 @@ function GamePlay(props) {
                                  selectQuestionAnswer={selectQuestionAnswer}
                     />)
                     : (<QuestionAnswer {...questionState}
-                                       bgColor={bgColor}
                                        points={points}
                                        selectAnswer={selectAnswer}
                                        showButton={showButton}
                                        player={player}
+                                       correctAnswer={correctAnswer}
                                        showNextQuestion={() => {
                                            resetCatAndAnswer(null, {}, 0);
-                                           setBgColor('white');
                                            setShowMainGrid(true);
                                            setPlayerFunc(player);
                                        }}
                     />)
                 }
             </div>
-            <div class="table-container">
+            <div className="table-container">
                 <Scoreboard totalPoints={playerPoints} player={player} showMainGrid={showMainGrid} />
             </div>
 

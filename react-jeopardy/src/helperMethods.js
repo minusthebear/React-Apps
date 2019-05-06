@@ -168,6 +168,14 @@ const resetState = (cat, qst) => {
     }
 };
 
+const resetCorrectAnswer = () => {
+  return {
+      isCorrect: null,
+      correctAnswer: null,
+      answer: null
+  };
+};
+
 const createScoreCard = (names) => {
     let obj = {};
     for (let i = 0; i < names.length; i++) {
@@ -179,4 +187,4 @@ const createScoreCard = (names) => {
     return obj;
 };
 
-export { getAllQuestions, writeQuizGrid, resetState, createScoreCard };
+export { getAllQuestions, writeQuizGrid, resetState, createScoreCard, resetCorrectAnswer };
