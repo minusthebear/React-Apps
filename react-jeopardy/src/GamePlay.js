@@ -2,25 +2,27 @@ import {resetState, resetCorrectAnswer } from "./helperMethods";
 import './index.scss';
 import './bootstrap.min.css';
 import MainGrid from "./MainGrid";
-import QuestionAnswer from "./questionAnswer/QuestionAnswer";
-import Scoreboard from "./scoreboard/Scoreboard";
+import QuestionAnswer from "./QuestionAnswer/QuestionAnswer";
+import Scoreboard from "./Scoreboard/Scoreboard";
 import React, {useState, useEffect} from "react";
 import { intersection } from 'lodash'
+import GutsyWager from "./GutsyWager/GutsyWager";
 
 function GamePlay(props) {
 
-    const {categories, quizGrid, scorecard, numPlayers} = props;
+    const { categories, quizGrid, scorecard, numPlayers, gutsyWager } = props;
 
+    let [ category, setCategory ] = useState(null);
+    let [ correctAnswer, setCorrectAnswer ] = useState(resetCorrectAnswer());
+    let [ grid, setGrid ] = useState(quizGrid);
     let [ player, setPlayer ] = useState(0);
     let [ playerPoints ] = useState(scorecard);
-    let [ category, setCategory ] = useState(null);
+    let [ points, setPoints ] = useState(0);
     let [ questionAnswer, setQuestionAnswer ] = useState({});
-    let [ grid, setGrid ] = useState(quizGrid);
-    let [showButton, setShowButton] = useState(false);
-    let [showMainGrid, setShowMainGrid] = useState(true);
-    let [questionState, setQuestionState] = useState(resetState(category, questionAnswer));
-    let [points, setPoints] = useState(0);
-    let [correctAnswer, setCorrectAnswer] = useState(resetCorrectAnswer());
+    let [ questionState, setQuestionState ] = useState(resetState(category, questionAnswer));
+    let [ showButton, setShowButton ] = useState(false);
+    let [ showMainGrid, setShowMainGrid ] = useState(true);
+    let [ hitBonus, setHitBonus ] = useState(false);
 
     const setPlayerFunc = (player) => {
         player === (numPlayers - 1) ? setPlayer(0) : setPlayer(player + 1);
@@ -36,11 +38,16 @@ function GamePlay(props) {
     const baseValue = 100;
 
     const selectQuestionAnswer = (category, questionAnswer, points) => {
-        resetCatAndAnswer(category, questionAnswer, points);
-        quizGrid[category][points] = true;
-        setGrid(quizGrid);
-        setShowMainGrid(false);
-        console.log(questionAnswer);
+        if (gutsyWager.indexOf(questionAnswer) > -1) {
+            setHitBonus(true);
+            setQuestionAnswer(questionAnswer);
+            setCategory(category);
+        } else {
+            resetCatAndAnswer(category, questionAnswer, points);
+            quizGrid[category][points] = true;
+            setGrid(quizGrid);
+            setShowMainGrid(false);
+        }
     };
 
     const resetCatAndAnswer = (category, questionAnswer, points) => {
@@ -73,33 +80,56 @@ function GamePlay(props) {
         return correctAnswer;
     };
 
+    const questionAnswerScreen = () => {
+        return (<QuestionAnswer {...questionState}
+                         points={points}
+                         selectAnswer={selectAnswer}
+                         showButton={showButton}
+                         player={player}
+                         correctAnswer={correctAnswer}
+                         showNextQuestion={() => {
+                             resetCatAndAnswer(null, {}, 0);
+                             setShowMainGrid(true);
+                             setPlayerFunc(player);
+                         }}
+        />);
+    };
+
+    const gutsyWagerScreen = () => {
+        return <GutsyWager questionAnswer={questionAnswer}
+                           maxAmount={playerPoints[player].score}
+                           selectQuestionAnswer={selectQuestionAnswer}
+                           category={category}
+        />;
+    };
+
+    const checkIfBonus = () => {
+        return hitBonus ? gutsyWagerScreen() : mainGridScreen();
+    };
+
+    const mainGridScreen = () => {
+        return (<MainGrid categories={categories}
+                          baseValue={baseValue}
+                          quizGrid={grid}
+                          selectQuestionAnswer={selectQuestionAnswer}
+        />);
+    };
+
     return  (
         <div className={ showMainGrid ? 'game-play-container' : 'question-answer-container'}>
-            <div className="container">
                 { showMainGrid
-                    ? (<MainGrid categories={categories}
-                                 baseValue={baseValue}
-                                 quizGrid={grid}
-                                 selectQuestionAnswer={selectQuestionAnswer}
-                    />)
-                    : (<QuestionAnswer {...questionState}
-                                       points={points}
-                                       selectAnswer={selectAnswer}
-                                       showButton={showButton}
-                                       player={player}
-                                       correctAnswer={correctAnswer}
-                                       showNextQuestion={() => {
-                                           resetCatAndAnswer(null, {}, 0);
-                                           setShowMainGrid(true);
-                                           setPlayerFunc(player);
-                                       }}
-                    />)
+                    ? checkIfBonus()
+                    : questionAnswerScreen()
                 }
-            </div>
-            <div className="table-container">
-                <Scoreboard totalPoints={playerPoints} player={player} showMainGrid={showMainGrid} />
-            </div>
-
+            {
+                hitBonus
+                    ? null
+                    : (
+                        <div className="table-container">
+                            <Scoreboard totalPoints={playerPoints} player={player} showMainGrid={showMainGrid} />
+                        </div>
+                    )
+            }
         </div>
     );
 }

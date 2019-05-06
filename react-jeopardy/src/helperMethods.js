@@ -187,4 +187,23 @@ const createScoreCard = (names) => {
     return obj;
 };
 
-export { getAllQuestions, writeQuizGrid, resetState, createScoreCard, resetCorrectAnswer };
+const getGutsyWagerQuestions = (allAnswers) => {
+    let bonusAnswers = []
+    console.log(allAnswers);
+
+    for (let i = 0; i < 2; i++) {
+        let catPlucked = sample(allAnswers),
+            catCopy = Array.from(catPlucked.questions),
+            ansr = sample(catCopy);
+
+        if (bonusAnswers.indexOf(ansr) > -1) {
+            catCopy.splice(catCopy.indexOf(ansr), 1);
+            ansr = sample(catCopy);
+        }
+        bonusAnswers.push(ansr);
+    }
+    console.log(bonusAnswers);
+    return bonusAnswers;
+};
+
+export { getAllQuestions, writeQuizGrid, resetState, createScoreCard, resetCorrectAnswer, getGutsyWagerQuestions };

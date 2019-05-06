@@ -4,7 +4,7 @@ import './index.scss';
 import GamePlay from './GamePlay';
 import * as serviceWorker from './serviceWorker';
 import SetGamePlayValues from './GamePlaySetup/SetGamePlayValues';
-import { getAllQuestions, writeQuizGrid, createScoreCard } from './helperMethods';
+import { getAllQuestions, writeQuizGrid, createScoreCard, getGutsyWagerQuestions } from './helperMethods';
 
 
 /* TODO: change App, maybe MainGrid and maybe QuestionAnswer into class components */
@@ -18,7 +18,7 @@ function App() {
     let [ quizGrid, setQuizGrid ] = useState(writeQuizGrid(temp));
     let [ scorecard, setScorecard ] = useState(createScoreCard(dummyData.players));
     let [ numPlayers, setNumPlayers ] = useState(parseInt(dummyData.settings.numPlayers));
-
+    let [ gutsyWager, setGutsyWager ] = useState(getGutsyWagerQuestions(temp));
 
     //
     // let [ allValuesAreSet, setAllValuesAreSet ] = useState(false);
@@ -26,6 +26,7 @@ function App() {
     // let [ quizGrid, setQuizGrid ] = useState({});
     // let [ scorecard, setScorecard ] = useState({});
     // let [ numPlayers, setNumPlayers ] = useState(0);
+    // let [ wildCard, setWildCard ] = useState({});
 
 
     const setAllValues = (obj) => {
@@ -35,6 +36,7 @@ function App() {
             setCategories(temp);
             setQuizGrid(writeQuizGrid(temp));
             setScorecard(createScoreCard(obj.players));
+            setGutsyWager(getGutsyWagerQuestions(temp));
             // setAllValuesAreSet(true);
         }
     };
@@ -46,7 +48,7 @@ function App() {
 
             {/*{allValuesAreSet*/}
             {/*    ?*/}
-                <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} />
+                <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
                 {/*:*/}
                 {/*<SetGamePlayValues setValues={setAllValues}/>*/}
             {/*}*/}

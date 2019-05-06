@@ -30,8 +30,7 @@ const QuestionAnswer = (props) => {
     const template = getQuestionCategory(category, subject, type, extra);
 
     return (
-
-        <>
+        <div className="container">
             <div className="row">
                 <div className="category-grid-container">
                     { template }
@@ -41,7 +40,7 @@ const QuestionAnswer = (props) => {
             <div className="row">
                 <NextQuestionButton onClick={showNextQuestion} show={showButton}/>
             </div>
-        </>
+        </div>
     );
 };
 

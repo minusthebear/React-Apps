@@ -1,0 +1,64 @@
+.gutsy-wager-container {
+  height: 100%;
+  width:100%;
+  position:absolute;
+  text-align:center;
+  background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+
+  .gutsy-wager-heading {
+    height:100%;
+    width:100%;
+    display:table;
+    font-size:13rem;
+    color:#ffd700;
+    text-shadow: .5rem .5rem #830062;
+
+    div {
+      display:table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  .gutsy-wager-form {
+    height:inherit;
+
+    .gutsy-wager-formsy-form > div {
+      padding-top:20%;
+      display:table;
+
+      div.gutsy-wager-formsy-form-head, .gutsy-wager-formsy-form-warning, button {
+        font-weight:bold;
+        text-shadow: .3rem .3rem #000000;
+        color:#ffffff;
+      }
+
+      div {
+        position:relative;
+        padding-left:25%;
+        padding-right:25%;
+        font-size:3rem;
+        padding-bottom:1.5rem;
+      }
+
+      input, button {
+        height:4rem;
+        display:table-cell;
+        vertical-align:middle;
+      }
+
+      input {
+        font-size:3rem;
+        width:14rem;
+        margin-right:3rem;
+      }
+
+      button {
+        border:.25rem solid #830062;
+        border-radius:.5rem;
+        width:8rem;
+        font-size:2rem;
+        background: radial-gradient(circle, rgba(29,200,200,1) 0%, rgba(131,58,180,1) 50%, rgba(29,29,253,1) 100%);
+      }
+    }
+  }
+}
