@@ -7,9 +7,6 @@ import '../bootstrap.min.css';
 const Answers = ({answers, onClick, points, player, answered, correctAnswer}) => {
 
     const setBgColor = (answer) => {
-        console.log(answer);
-        console.log(correctAnswer);
-
         if (!answered) {
             return 'non-answer';
         }

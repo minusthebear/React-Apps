@@ -38,7 +38,7 @@ function GamePlay(props) {
     const baseValue = 100;
 
     const selectQuestionAnswer = (category, questionAnswer, points) => {
-        if (gutsyWager.indexOf(questionAnswer) > -1) {
+        if (gutsyWager.indexOf(questionAnswer) > -1 && !hitBonus) {
             setHitBonus(true);
             setQuestionAnswer(questionAnswer);
             setCategory(category);
@@ -57,6 +57,7 @@ function GamePlay(props) {
         setShowButton(false);
         setQuestionState(resetState(category, questionAnswer));
         setCorrectAnswer(resetCorrectAnswer());
+        setHitBonus(false);
     };
 
     const getAnswer = (answer) => {

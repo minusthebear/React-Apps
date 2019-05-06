@@ -38,6 +38,8 @@ const GutsyWager = (props) => {
     const checkIfValidAmount = () => {
         if (wager > setMaxBettingAmount()) {
             setInvalidAmount(true);
+        } else {
+            selectQuestionAnswer(category, questionAnswer, Number(wager));
         }
     };
 
@@ -61,7 +63,7 @@ const GutsyWager = (props) => {
                 <Formsy className="gutsy-wager-formsy-form" onSubmit={checkIfValidAmount}>
                     <div>
                         <div className="gutsy-wager-formsy-form-head">
-                            Choose an amount between 0 and { setMaxBettingAmount }
+                            Choose an amount between 0 and { setMaxBettingAmount() }
                         </div>
                         <input name="wager" onKeyDown={handleKeyPress} onChange={wagerChange} value={wager} />
                         <button>OK</button>
@@ -69,7 +71,7 @@ const GutsyWager = (props) => {
                             invalidAmount
                                 ? (
                                     <div className="gutsy-wager-formsy-form-warning">
-                                        Choose an amount between 0 and
+                                        You must have a basic math or literacy problem.
                                     </div>
                                 ) : null
                         }
