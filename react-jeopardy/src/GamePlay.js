@@ -38,14 +38,18 @@ function GamePlay(props) {
     const baseValue = 100;
 
     const selectQuestionAnswer = (category, questionAnswer, points) => {
+
+        if (!hitBonus) {
+            quizGrid[category][points] = true;
+            setGrid(quizGrid);
+        }
+
         if (gutsyWager.indexOf(questionAnswer) > -1 && !hitBonus) {
             setHitBonus(true);
             setQuestionAnswer(questionAnswer);
             setCategory(category);
         } else {
             resetCatAndAnswer(category, questionAnswer, points);
-            quizGrid[category][points] = true;
-            setGrid(quizGrid);
             setShowMainGrid(false);
         }
     };
@@ -82,6 +86,7 @@ function GamePlay(props) {
     };
 
     const questionAnswerScreen = () => {
+        console.log(questionState);
         return (<QuestionAnswer {...questionState}
                          points={points}
                          selectAnswer={selectAnswer}

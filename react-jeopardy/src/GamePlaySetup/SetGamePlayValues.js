@@ -32,7 +32,7 @@ function SetGamePlayValues({ setValues }) {
     });
 
     return (
-        <div>
+        <div className="container">
             <CategoryNumberFormsyElement
                 showNextGroup={showNextGroup}
                 showNext={showNext}

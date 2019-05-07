@@ -44,7 +44,7 @@ const CategoryNumberFormsyElement = ({ showNextGroup, showNext }) => {
     };
 
     return (
-        <Formsy onSubmit={showNext}>
+        <Formsy className="category-number-form" onSubmit={showNext}>
             <BasicTextField
                 name="categories"
                 isInt={true}
@@ -68,8 +68,13 @@ const CategoryNumberFormsyElement = ({ showNextGroup, showNext }) => {
                 onChange={playersChange}
                 disabled={showNextGroup}
             />
+            {
+                showNextGroup
+                    ? null
+                    : <button disabled={invalidValues} >NEXT</button>
+            }
 
-            <button disabled={invalidValues && !showNextGroup} >NEXT ONE</button>
+
         </Formsy>
     );
 };

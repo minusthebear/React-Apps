@@ -1,9 +1,12 @@
 import {pluck, sample, shuffle} from "underscore";
 import {cloneDeep, map} from "lodash";
-import {books, directors, music, nations} from "./common/question-data";
+import {books, directors, music, nations, disneyFilms, cuisine} from "./common/question-data";
 import utils from "./utils";
 
 const shuffleAllArrayValues = (category, format, fourValues) => {
+    if (format ==='cuisine') {
+        console.log('shuffleAllArrayValues');
+    }
 
     const fourRandomValues = fourValues.reduce(function(av, cv) {
         return getSingleValue(fourValues, av, cv, format);
@@ -18,7 +21,6 @@ const shuffleAllArrayValues = (category, format, fourValues) => {
     };
 };
 
-// For getting songs
 function getSingleValue(fourValues, av, cv, format) {
     let currentValue = shuffle(cv[format]).slice(0, 1)[0];
     const otherValues = fourValues.filter((artist) => artist !== cv);
@@ -42,6 +44,9 @@ function findIfValueInArray(otherValues, currentValue, format) {
 /////////
 
 const shuffleAllSubjectValues = (format, fourValues) => {
+    if (format ==='cuisine') {
+        console.log('shuffleAllSubjectValues');
+    }
 
     const subject = cloneDeep(sample(fourValues));
 
@@ -64,6 +69,14 @@ const shuffleAllSubjectValues = (format, fourValues) => {
         case 'nation':
             key = 'landmarks';
             extra = { landmark: sample(subject.landmarks) };
+            break;
+        case 'disneyFilm':
+            key = 'characters';
+            extra = { character: sample(subject.characters) };
+            break;
+        case 'cuisine':
+            key = 'food';
+            extra = { food: sample(subject.food) };
             break;
     }
 
@@ -109,6 +122,16 @@ const nationsMainFunc = (nations, format) => {
     return format === 'nation' ? shuffleAllSubjectValues(format, cloneDeep(fourNations)) : shuffleAllArrayValues(nations, format, cloneDeep(fourNations)    );
 };
 
+const disneyMainFunc = (films, format) => {
+    const fourFilms = shuffle(films).slice(0,4);
+    return format === 'disneyFilm' ? shuffleAllSubjectValues(format, cloneDeep(fourFilms)) : shuffleAllArrayValues(films, format, cloneDeep(fourFilms)    );
+};
+
+const cuisineFunc = (cuisine, format) => {
+    const fourCuisines = shuffle(cuisine).slice(0,4);
+    return format === 'cuisine' ? shuffleAllSubjectValues(format, cloneDeep(fourCuisines)) : shuffleAllArrayValues(cuisine, format, cloneDeep(fourCuisines)    );
+};
+
 const getAllQuestions = (num) => {
 
     const allBooks = {
@@ -128,7 +151,17 @@ const getAllQuestions = (num) => {
         'questions' : loopThroughAndGetFiveValues(nations, ['nation', 'cities', 'landmarks'], nationsMainFunc)
     };
 
-    return shuffle([allMusic, allBooks, allDirectors, allNations]).slice(0,num);
+    const allDisneyFilms = {
+        'categoryName': 'Disney Films',
+        'questions': loopThroughAndGetFiveValues(disneyFilms, ['disneyFilm', 'songs', 'characters'], disneyMainFunc)
+    };
+
+    const allCuisine = {
+        'categoryName': 'Cuisine',
+        'questions': loopThroughAndGetFiveValues(cuisine, ['cuisine', 'food'], cuisineFunc)
+    };
+
+    return shuffle([allMusic, allBooks, allDirectors, allNations, allDisneyFilms, allCuisine]).slice(0,num);
 };
 
 const loopThroughAndGetFiveValues = (arr, cats, func) => {
@@ -188,8 +221,7 @@ const createScoreCard = (names) => {
 };
 
 const getGutsyWagerQuestions = (allAnswers) => {
-    let bonusAnswers = []
-    console.log(allAnswers);
+    let bonusAnswers = [];
 
     for (let i = 0; i < 2; i++) {
         let catPlucked = sample(allAnswers),
@@ -202,7 +234,6 @@ const getGutsyWagerQuestions = (allAnswers) => {
         }
         bonusAnswers.push(ansr);
     }
-    console.log(bonusAnswers);
     return bonusAnswers;
 };
 

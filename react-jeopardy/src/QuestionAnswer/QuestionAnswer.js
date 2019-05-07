@@ -7,6 +7,8 @@ import QuestionBooks from './QuestionBooks';
 import QuestionDirectors from './QuestionDirectors';
 import QuestionNations from './QuestionNations';
 import NextQuestionButton from '../common/NextQuestionButton';
+import QuestionDisneyFilms from './QuestionDisneyFilms';
+import QuestionCuisine from './QuestionCuisine';
 import utils from "../utils";
 import {CategorySquare} from "../common/CategorySquare";
 
@@ -24,6 +26,10 @@ const QuestionAnswer = (props) => {
                 return (<QuestionDirectors question={subject} type={type} extra={extra} />);
             case 'Nations':
                 return (<QuestionNations question={subject} type={type} extra={extra} />);
+            case 'Disney Films':
+                return (<QuestionDisneyFilms question={subject} type={type} extra={extra} />);
+            case 'Cuisine':
+                return (<QuestionCuisine question={subject} type={type} extra={extra} />);
         }
     };
 

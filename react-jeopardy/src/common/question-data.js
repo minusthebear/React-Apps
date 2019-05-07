@@ -185,7 +185,7 @@ const cuisine = [
     },
     {
         cuisine: 'Indian',
-        food: ['tikka masala', 'naan', 'samosa', 'tandoori chicken', 'biryani']
+        food: ['tikka masala', 'naan', 'samosa', 'tandoori chicken', 'biryani', 'fried rice']
     },
     {
         cuisine: 'French',
@@ -197,42 +197,42 @@ const cuisine = [
     }
 ];
 
-const DisneyMovies = [
+const disneyFilms = [
     {
-        film: 'Aladdin',
+        disneyFilm: 'Aladdin',
         songs: ['A Whole New World', 'Prince Ali', 'One Jump Ahead', 'Arabian Nights', 'Friend Like Me'],
         characters: ['Rajah', 'Princess Jasmine', 'Iago', 'the Genie', 'Apu']
     },
     {
-        film: 'Frozen',
+        disneyFilm: 'Frozen',
         songs: ['Let It Go', 'Do You Want To Build A Snowman?', 'In Summer', 'For The First Time In Forever'],
         characters: ['Elsa', 'Anna', 'Olaf', 'Kristoff', 'Hans']
     },
     {
-        film: 'Beauty and the Beast',
+        disneyFilm: 'Beauty and the Beast',
         songs: ['Be Our Guest'],
         characters: ['Belle', 'Gaston', 'Lumiere', 'Cogsworth', 'Mrs. Potts']
     },
     {
-        film: 'Pocahontas',
+        disneyFilm: 'Pocahontas',
         songs: ['Colors Of The Wind', 'Just Around The Riverbend'],
         characters: ['John Smith', 'Governor Ratcliffe', 'Chief Powhatan', 'Meeko', 'Grandmother Willow']
     },
     {
-        film: 'The Lion King',
+        disneyFilm: 'The Lion King',
         songs: ['Be Prepared', 'Hakuna Matata', 'Just Can\'t Wait To Be King', 'Can You Feel The Love Tonight'],
         characters: ['Simba', 'Nala', 'Pumbaa', 'Timon', 'Mufasa', 'Scar', 'Sarabi']
     },
     {
-        film: 'The Little Mermaid',
+        disneyFilm: 'The Little Mermaid',
         songs: ['Under The Sea', 'Part Of Your World', 'Kiss The Girl'],
         characters: ['Ariel', 'Eric', 'Ursula', 'Triton', 'Sebastian', 'Flounder']
     },
     {
-        film: 'Moana',
+        disneyFilm: 'Moana',
         songs: ['How Far I\'ll Go', 'Shiny', 'You\'re Welcome', 'Where You Are'],
         characters: ['Maui', 'Tala', 'Tamatoa', 'Heihei']
     }
 ];
 
-export { music, books, directors, nations, cuisine, DisneyMovies };
+export { music, books, directors, nations, cuisine, disneyFilms };

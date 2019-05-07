@@ -43,14 +43,19 @@ const PlayersNamesFormsyElement = ({ playerCount, sendNames }) => {
     };
 
     return (
-        <Formsy onSubmit={finalFunc}>
-            {players.map((val, idx) => {
-                    return (<div name={'Player' + (idx + 1)} key={idx}>
-                        <input name={'Player' + (idx + 1)} type="text" value={val}
-                               onChange={(e) => invokeNameChange(e.target.value, idx)}/>
-                    </div>)
-                }
-            )}
+        <Formsy className="player-name-form" onSubmit={finalFunc}>
+            <div className="player-name-form-label-container">
+                <div className="player-name-form-label">Enter the names of all the players</div>
+            </div>
+            <div className="player-name-form-names">
+                {players.map((val, idx) => {
+                        return (<div className="form-group" name={'Player' + (idx + 1)} key={idx}>
+                            <input name={'Player' + (idx + 1)} type="text" value={val}
+                                   onChange={(e) => invokeNameChange(e.target.value, idx)}/>
+                        </div>)
+                    }
+                )}
+            </div>
             <BasicButton isDisabled={invalidStrings || doneUpdating }/>
         </Formsy>
     );

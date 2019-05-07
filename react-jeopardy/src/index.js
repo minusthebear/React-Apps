@@ -12,21 +12,21 @@ import { getAllQuestions, writeQuizGrid, createScoreCard, getGutsyWagerQuestions
 function App() {
 
     //NOTE: Dummy data setup
-    const dummyData = {"settings":{"categories":"6","numPlayers":"4"},"players":["Steve","Jenna","Nick","Jaclyn"]};
-    let temp = getAllQuestions(parseInt(dummyData.settings.categories));
-    let [ categories, setCategories ] = useState(temp);
-    let [ quizGrid, setQuizGrid ] = useState(writeQuizGrid(temp));
-    let [ scorecard, setScorecard ] = useState(createScoreCard(dummyData.players));
-    let [ numPlayers, setNumPlayers ] = useState(parseInt(dummyData.settings.numPlayers));
-    let [ gutsyWager, setGutsyWager ] = useState(getGutsyWagerQuestions(temp));
+    // const dummyData = {"settings":{"categories":"1","numPlayers":"4"},"players":["Steve","Jenna","Nick","Jaclyn"]};
+    // let temp = getAllQuestions(parseInt(dummyData.settings.categories));
+    // let [ categories, setCategories ] = useState(temp);
+    // let [ quizGrid, setQuizGrid ] = useState(writeQuizGrid(temp));
+    // let [ scorecard, setScorecard ] = useState(createScoreCard(dummyData.players));
+    // let [ numPlayers, setNumPlayers ] = useState(parseInt(dummyData.settings.numPlayers));
+    // let [ gutsyWager, setGutsyWager ] = useState(getGutsyWagerQuestions(temp));
 
     //
-    // let [ allValuesAreSet, setAllValuesAreSet ] = useState(false);
-    // let [ categories, setCategories ] = useState({});
-    // let [ quizGrid, setQuizGrid ] = useState({});
-    // let [ scorecard, setScorecard ] = useState({});
-    // let [ numPlayers, setNumPlayers ] = useState(0);
-    // let [ wildCard, setWildCard ] = useState({});
+    let [ allValuesAreSet, setAllValuesAreSet ] = useState(false);
+    let [ categories, setCategories ] = useState({});
+    let [ quizGrid, setQuizGrid ] = useState({});
+    let [ scorecard, setScorecard ] = useState({});
+    let [ numPlayers, setNumPlayers ] = useState(0);
+    let [ gutsyWager, setGutsyWager ] = useState({});
 
 
     const setAllValues = (obj) => {
@@ -37,7 +37,7 @@ function App() {
             setQuizGrid(writeQuizGrid(temp));
             setScorecard(createScoreCard(obj.players));
             setGutsyWager(getGutsyWagerQuestions(temp));
-            // setAllValuesAreSet(true);
+            setAllValuesAreSet(true);
         }
     };
 
@@ -46,12 +46,12 @@ function App() {
     return (
         <>
 
-            {/*{allValuesAreSet*/}
-            {/*    ?*/}
+            {allValuesAreSet
+                ?
                 <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
-                {/*:*/}
-                {/*<SetGamePlayValues setValues={setAllValues}/>*/}
-            {/*}*/}
+                :
+                <SetGamePlayValues setValues={setAllValues}/>
+            }
         </>
     );
 }
