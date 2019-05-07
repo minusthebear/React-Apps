@@ -6,8 +6,6 @@ const QuestionDisneyFilms = (props) => {
 
     const qstn = props.question;
 
-    console.log(props);
-
     const getQuestion = (type) => {
         switch(type) {
             case 'characters':

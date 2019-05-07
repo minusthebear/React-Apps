@@ -4,9 +4,6 @@ import {books, directors, music, nations, disneyFilms, cuisine} from "./common/q
 import utils from "./utils";
 
 const shuffleAllArrayValues = (category, format, fourValues) => {
-    if (format ==='cuisine') {
-        console.log('shuffleAllArrayValues');
-    }
 
     const fourRandomValues = fourValues.reduce(function(av, cv) {
         return getSingleValue(fourValues, av, cv, format);
@@ -44,9 +41,6 @@ function findIfValueInArray(otherValues, currentValue, format) {
 /////////
 
 const shuffleAllSubjectValues = (format, fourValues) => {
-    if (format ==='cuisine') {
-        console.log('shuffleAllSubjectValues');
-    }
 
     const subject = cloneDeep(sample(fourValues));
 

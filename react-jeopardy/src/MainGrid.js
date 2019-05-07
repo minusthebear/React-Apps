@@ -19,8 +19,6 @@ const MainGrid = ({categories, baseValue, quizGrid, selectQuestionAnswer}) => {
         return false;
     };
 
-    console.log(cats);
-
     return (
         <div className="row">
             <div className="category-grid-container">

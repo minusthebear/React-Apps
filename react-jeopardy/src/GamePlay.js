@@ -86,7 +86,6 @@ function GamePlay(props) {
     };
 
     const questionAnswerScreen = () => {
-        console.log(questionState);
         return (<QuestionAnswer {...questionState}
                          points={points}
                          selectAnswer={selectAnswer}
