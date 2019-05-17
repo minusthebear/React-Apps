@@ -30,6 +30,6 @@ const QuestionDisneyFilms = (props) => {
             </div>
         </div>
     );
-}
+};
 
 export default QuestionDisneyFilms;
