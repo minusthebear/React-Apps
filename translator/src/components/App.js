@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import List from './List';
 import Form from './Form';
+import { getTranslation } from '../api/translateApi';
 
-const App = () => {
+const App = (props) => {
+
+    useEffect(() => {
+        console.log('useEffect');
+        console.log(props);
+
+        getTranslation().then(res => {
+            console.log(res[0]);
+        });
+    }, []);
 
     const submitForm = (val) => {
         console.log(val);
