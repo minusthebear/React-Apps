@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import Formsy from 'formsy-react'
 import { connect } from 'react-redux';
 import uuidv1 from 'uuid';
-import { addArticle } from "../actions";
+import { addArticle } from '../actions';
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -11,37 +12,40 @@ function mapDispatchToProps(dispatch) {
 
 // change to function component later
 function ConnectedForm (props) {
-    let [ title, setTitle ] = useState('');
+    const { submitForm } = props;
+
+    let [ translation, setTranslation ] = useState('');
 
     function handleChange(e) {
         if (e.target && e.target.value) {
-            this.setState(e.target.value);
+            setTranslation(e.target.value);
         }
     }
 
-    function handleSubmit(event) {
-        event.preventDefault();
-        const { title } = this.state;
-        const id = uuidv1();
-        this.props.addArticle({ title, id });
-        setTitle('');
+    function handleSubmit() {
+        submitForm(translation);
+        // event.preventDefault();
+        // const { title } = this.state;
+        // const id = uuidv1();
+        // //this.props.addArticle({ title, id });
+        // setTitle('');
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <Formsy onSubmit={handleSubmit}>
             <div className="form-group">
-                <label htmlFor="title">Title</label>
+                <label htmlFor="title">Translation</label>
                 <input
-                    type="text"
+                    type="textarea"
                     className="form-control"
-                    value={title}
+                    value={translation}
                     onChange={handleChange}
                 />
             </div>
             <button type="submit" className="btn btn-success btn-lg">
                 SAVE
             </button>
-        </form>
+        </Formsy>
     );
 }
 

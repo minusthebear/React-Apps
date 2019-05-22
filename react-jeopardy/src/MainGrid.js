@@ -35,7 +35,7 @@ const MainGrid = ({categories, baseValue, quizGrid, selectQuestionAnswer}) => {
                             <tr className="category-break-row">
                             </tr>
                                 {
-
+                                    /*  TODO: Change this helper function later  */
                                     utils.range(0,4).map((val, idx) =>
                                         <tr key={'row' + idx}>
                                             {
