@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import uuidv1 from 'uuid';
 import { addArticle } from "../actions";
@@ -10,50 +10,39 @@ function mapDispatchToProps(dispatch) {
 }
 
 // change to function component later
-class ConnectedForm extends Component {
-    constructor() {
-        super();
+function ConnectedForm (props) {
+    let [ title, setTitle ] = useState('');
 
-        this.state = {
-            title: ''
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    function handleChange(e) {
+        if (e.target && e.target.value) {
+            this.setState(e.target.value);
+        }
     }
 
-    handleChange(event) {
-        this.setState({ [event.target.id]: event.target.value });
-    }
-
-    handleSubmit(event) {
+    function handleSubmit(event) {
         event.preventDefault();
         const { title } = this.state;
         const id = uuidv1();
         this.props.addArticle({ title, id });
-        this.setState({ title: '' });
+        setTitle('');
     }
 
-    render() {
-        const { title } = this.state;
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="title">Title</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="title"
-                        value={title}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <button type="submit" className="btn btn-success btn-lg">
-                    SAVE
-                </button>
-            </form>
-        );
-    }
+    return (
+        <form onSubmit={handleSubmit}>
+            <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    value={title}
+                    onChange={handleChange}
+                />
+            </div>
+            <button type="submit" className="btn btn-success btn-lg">
+                SAVE
+            </button>
+        </form>
+    );
 }
 
 const Form = connect(
