@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import List from './List';
 import Form from './Form';
 import { getTranslation } from '../api/translateApi';
 
 const App = (props) => {
+
 
     useEffect(() => {
         console.log('useEffect');
@@ -36,4 +38,19 @@ const App = (props) => {
         </div>
     );
 };
-export default App;
+
+// ownProps is second param built in to React-Redux
+const mapStateToProps = (state, ownProps) => ({
+    translateId: state.translationReducer.translateId
+});
+//
+// const mapDispatchToProps = {
+//     loadCourses,
+//     loadAuthors,
+//     saveCourse
+// };
+
+export default connect(
+    mapStateToProps,
+    null
+)(App);

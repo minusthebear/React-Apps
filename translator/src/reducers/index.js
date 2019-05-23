@@ -1,21 +1,8 @@
-import { ADD_ARTICLE, ADD_TRANSLATE_ID } from "../constants/action-types";
+import { combineReducers } from "redux";
+import translationReducer from "./translationReducer";
 
-const initialState = {
-    articles: [],
-    translateId: null
-};
-
-function rootReducer(state = initialState, action) {
-    if (action.type === ADD_ARTICLE) {
-        return Object.assign({}, state, {
-           articles: state.articles.concat(action.payload)
-        });
-    } else if (action.type === ADD_TRANSLATE_ID) {
-        return Object.assign({}, state, {
-            articles: state.translateId
-        });
-    }
-    return state;
-}
+const rootReducer = combineReducers({
+    translationReducer
+});
 
 export default rootReducer;
