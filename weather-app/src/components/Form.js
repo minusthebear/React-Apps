@@ -19,18 +19,15 @@ function ConnectedForm (props) {
     let [ countryCode, setCountryCode ] = useState(null);
 
     function handleChange(e) {
-        if (e.target && e.target.value) {
-            setCity(e.target.value);
-        }
+        setCity(e.target.value);
     }
 
     function handleSubmit() {
-        submitForm();
-        // event.preventDefault();
-        // const { title } = this.state;
-        // const id = uuidv1();
-        // //this.props.addArticle({ title, id });
-        // setTitle('');
+        if (city.length) {
+            submitForm(city, countryCode);
+            setCity('');
+            setCountryCode(null);
+        }
     }
 
     const selectCountryCode = (val) => {

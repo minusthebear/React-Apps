@@ -27,3 +27,20 @@ export async function getAllCountryAPIs() {
     const res = await fetch(ALL_COUNTRY_APIS);
     return res.json();
 }
+
+// 'api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=55e3c9fc34a1cfe3fc0782d7f0ede2fa'
+
+export async function getCityAPI(city, country) {
+    let url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city;
+    if (country) {
+        url = url + ',' + country;
+    }
+    url = url + '&APPID=' + API_KEY;
+    console.log(url);
+    const res = await fetch(url).then(r => {
+        return r;
+    });
+    const r = await res.json();
+    console.log(r);
+    return r;
+}
