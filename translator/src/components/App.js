@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import List from './List';
 import Form from './Form';
 import { setTranslateId } from '../actions/index';
+import { getTranslation } from '../api/translateApi';
 
 const App = (props) => {
 
@@ -17,6 +18,7 @@ const App = (props) => {
         console.log('submitForm');
         console.log(props);
         console.log(val);
+        getTranslation().then(() => {});
     };
 
     return (
