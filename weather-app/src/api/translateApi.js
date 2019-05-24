@@ -1,4 +1,6 @@
 import { handleResponse, handleError } from "./apiUtils";
+import { API_KEY } from "../constants/API_key";
+import {  ALL_COUNTRY_APIS } from '../constants/API_URL';
 
 export async function getProjectJSON() {
     // const res = await fetch(process.env.PUBLIC_URL + '/Project-83aad4a1ca01.json');
@@ -19,4 +21,9 @@ export async function getTranslation(projectId) {
     // const [translation] = await translate.translate(text, target);
     // console.log(`Text: ${text}`);
     // console.log(`Translation: ${translation}`)
+}
+
+export async function getAllCountryAPIs() {
+    const res = await fetch(ALL_COUNTRY_APIS);
+    return res.json();
 }

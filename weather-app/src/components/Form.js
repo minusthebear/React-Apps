@@ -3,6 +3,7 @@ import Formsy from 'formsy-react'
 import { connect } from 'react-redux';
 import uuidv1 from 'uuid';
 import { addArticle } from '../actions';
+import List from "./List";
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -14,16 +15,17 @@ function mapDispatchToProps(dispatch) {
 function ConnectedForm (props) {
     const { submitForm } = props;
 
-    let [ translation, setTranslation ] = useState('');
+    let [ city, setCity ] = useState('');
+    let [ countryCode, setCountryCode ] = useState(null);
 
     function handleChange(e) {
         if (e.target && e.target.value) {
-            setTranslation(e.target.value);
+            setCity(e.target.value);
         }
     }
 
     function handleSubmit() {
-        submitForm(translation);
+        submitForm();
         // event.preventDefault();
         // const { title } = this.state;
         // const id = uuidv1();
@@ -31,16 +33,22 @@ function ConnectedForm (props) {
         // setTitle('');
     }
 
+    const selectCountryCode = (val) => {
+        console.log(val);
+    };
+
     return (
         <Formsy onSubmit={handleSubmit}>
             <div className="form-group">
-                <label htmlFor="title">Translation</label>
+                <label htmlFor="City">City</label>
                 <input
                     type="textarea"
                     className="form-control"
-                    value={translation}
+                    value={city}
                     onChange={handleChange}
                 />
+                <label htmlFor="Country">Country</label>
+                <List selectCountryCode={selectCountryCode} />
             </div>
             <button type="submit" className="btn btn-success btn-lg">
                 SAVE

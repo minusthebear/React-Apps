@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import List from './List';
 import Form from './Form';
 // import { setTranslateId } from '../actions/index';
-import { getTranslation } from '../api/translateApi';
+import { getTranslation, getAllCountryAPIs } from '../api/translateApi';
 
 const App = (props) => {
 
@@ -11,6 +11,9 @@ const App = (props) => {
     useEffect(() => {
         console.log('useEffect');
         console.log(props);
+        getAllCountryAPIs().then(res => {
+           console.log(res);
+        });
         // props.setTranslateId();
     }, []);
 
@@ -25,14 +28,9 @@ const App = (props) => {
         <div className="row mt-5">
             <div className="col-md-4 offset-md-1">
                 <h2>Articles</h2>
-                <List/>
             </div>
             <div className="col-md-4 offset-md-1">
                 <h2>Add a new article</h2>
-                <Form submitForm={submitForm}
-                />
-                <p/>
-                <p/>
                 <Form submitForm={submitForm}
                 />
             </div>

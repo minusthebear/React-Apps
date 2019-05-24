@@ -1,0 +1,1 @@
+export const ALL_COUNTRY_APIS = 'http://api.worldbank.org/v2/country?format=json';
