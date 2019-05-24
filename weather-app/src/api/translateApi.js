@@ -1,9 +1,8 @@
 import { handleResponse, handleError } from "./apiUtils";
-import {Translate} from '@google-cloud/translate';
 
 export async function getProjectJSON() {
-    const res = await fetch(process.env.PUBLIC_URL + '/Project-83aad4a1ca01.json');
-    return res.json();
+    // const res = await fetch(process.env.PUBLIC_URL + '/Project-83aad4a1ca01.json');
+    // return res.json();
 }
 
 export async function getTranslation(projectId) {

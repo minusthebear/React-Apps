@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import List from './List';
 import Form from './Form';
-import { setTranslateId } from '../actions/index';
+// import { setTranslateId } from '../actions/index';
 import { getTranslation } from '../api/translateApi';
 
 const App = (props) => {
@@ -11,7 +11,7 @@ const App = (props) => {
     useEffect(() => {
         console.log('useEffect');
         console.log(props);
-        props.setTranslateId();
+        // props.setTranslateId();
     }, []);
 
     const submitForm = (val) => {
@@ -42,11 +42,11 @@ const App = (props) => {
 
 // ownProps is second param built in to React-Redux
 const mapStateToProps = (state, ownProps) => ({
-    translateId: state.translationReducer.translateId
+    // translateId: state.translationReducer.translateId
 });
 
 const mapDispatchToProps = {
-    setTranslateId
+    // setTranslateId
 };
 
 export default connect(
