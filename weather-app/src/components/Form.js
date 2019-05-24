@@ -34,7 +34,7 @@ function ConnectedForm (props) {
     }
 
     const selectCountryCode = (val) => {
-        console.log(val);
+        setCountryCode(val);
     };
 
     return (
