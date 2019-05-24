@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import List from './List';
 import Form from './Form';
-import { getTranslation } from '../api/translateApi';
+import { setTranslateId } from '../actions/index';
 
 const App = (props) => {
 
@@ -10,13 +10,12 @@ const App = (props) => {
     useEffect(() => {
         console.log('useEffect');
         console.log(props);
-
-        getTranslation().then(res => {
-            console.log(res[0]);
-        });
+        props.setTranslateId();
     }, []);
 
     const submitForm = (val) => {
+        console.log('submitForm');
+        console.log(props);
         console.log(val);
     };
 
@@ -43,14 +42,12 @@ const App = (props) => {
 const mapStateToProps = (state, ownProps) => ({
     translateId: state.translationReducer.translateId
 });
-//
-// const mapDispatchToProps = {
-//     loadCourses,
-//     loadAuthors,
-//     saveCourse
-// };
+
+const mapDispatchToProps = {
+    setTranslateId
+};
 
 export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(App);

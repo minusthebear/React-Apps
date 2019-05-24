@@ -11,6 +11,9 @@ function translationReducer(state = initialState, action) {
             articles: state.articles.concat(action.payload)
         });
     } else if (action.type === ADD_TRANSLATE_ID) {
+        console.log('translationReducer');
+        console.log(state);
+        console.log(action);
         return Object.assign({}, state, {
             translateId: action.translateId
         });
