@@ -1,6 +1,6 @@
 import { handleResponse, handleError } from "./apiUtils";
 import { API_KEY } from "../constants/API_key";
-import {  ALL_COUNTRY_APIS } from '../constants/API_URL';
+import { ALL_COUNTRY_APIS } from '../constants/API_URL';
 
 export async function getProjectJSON() {
     // const res = await fetch(process.env.PUBLIC_URL + '/Project-83aad4a1ca01.json');
