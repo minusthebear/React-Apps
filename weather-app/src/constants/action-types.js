@@ -1,2 +1,1 @@
-export const ADD_ARTICLE = "ADD_ARTICLE";
-export const ADD_TRANSLATE_ID = 'ADD_TRANSLATE_ID';
+export const ADD_LOCATION = 'ADD_LOCATION';

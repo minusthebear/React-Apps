@@ -3,18 +3,12 @@ import { connect } from 'react-redux';
 import List from './List';
 import Form from './Form';
 // import { setTranslateId } from '../actions/index';
-import { getTranslation, getAllCountryAPIs, getCityAPI } from '../api/translateApi';
+import { getCityAPI } from '../api/translateApi';
 
 const App = (props) => {
 
-
     useEffect(() => {
-        console.log('useEffect');
-        console.log(props);
-        getAllCountryAPIs().then(res => {
-           console.log(res);
-        });
-        // props.setTranslateId();
+
     }, []);
 
     const submitForm = (city, cCode) => {
