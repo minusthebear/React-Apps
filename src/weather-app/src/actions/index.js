@@ -6,6 +6,10 @@ export function addLocation(location) {
     return { type: ADD_LOCATION, location }
 };
 
+export function addArticle(article) {
+    return { type: 'ADD_ARTICLE', article}
+};
+
 
 export function setTranslateId() {
     // return function(dispatch) {
