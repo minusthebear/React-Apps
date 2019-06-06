@@ -7,7 +7,7 @@ const mapStateToProps = state => {
     return {  };
 };
 
-const ConnectedList = ({ selectCountryCode }) => {
+const ConnectedList = ({ selectCountryCode, countryCode }) => {
 
     let [ selectValue, setSelectValue ] = useState('SELECT');
 
@@ -19,6 +19,12 @@ const ConnectedList = ({ selectCountryCode }) => {
         });
         val.code && val.name ? execCountrySelect(val.code, val.code) : execCountrySelect(e.target.value, null);
     };
+
+    useEffect(() => {
+        if (countryCode === null && selectValue !== 'SELECT') {
+            setSelectValue('SELECT');
+        }
+    }, [countryCode]);
 
     const execCountrySelect = (selVal, codeVal) => {
         setSelectValue(selVal);

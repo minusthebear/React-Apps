@@ -6,12 +6,23 @@ import { getCityAPI } from '../api/translateApi';
 
 const App = (props) => {
 
+    let [ invalidLocation, setInvalidLocation ] = useState(false);
+
     useEffect(() => {
 
     }, []);
 
-    const submitForm = (city, cCode) => {
-        getCityAPI(city, cCode).then((res) => { console.log(res) });
+    const makeApiCall = (city, cCode) => {
+        getCityAPI(city, cCode)
+            .then((res) => {
+                res.cod === 200 ? setInvalidLocation(false) : setInvalidLocation(true);
+            }).catch((err) => {
+                throw new Error(err);
+            });
+    };
+
+    const submitForm = () => {
+
     };
 
     return (
@@ -21,11 +32,12 @@ const App = (props) => {
             </div>
             <div className="col-md-4 offset-md-1">
                 <h2>Add a new article</h2>
-                <Form submitForm={submitForm}
+                <Form
+                    makeApiCall={makeApiCall}
+                    submitForm={submitForm}
+                    invalidLocation={invalidLocation}
                 />
             </div>
-
-            {/*<div className="row mt-5">*/}
         </div>
     );
 };

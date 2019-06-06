@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Formsy from 'formsy-react'
 import { connect } from 'react-redux';
+import { DebounceInput } from "react-debounce-input";
 import uuidv1 from 'uuid';
 import { addArticle } from '../actions';
 import List from "./List";
@@ -12,13 +13,19 @@ function mapDispatchToProps(dispatch) {
 }
 
 // change to function component later
-function ConnectedForm (props) {
-    const { submitForm } = props;
+function Form (props) {
+    const { submitForm, makeApiCall, invalidLocation } = props;
 
     let [ city, setCity ] = useState('');
     let [ countryCode, setCountryCode ] = useState(null);
 
-    function handleChange(e) {
+    useEffect(() => {
+        if (city.length) {
+            makeApiCall(city, countryCode);
+        }
+    }, []);
+
+    function handleChange(e)  {
         setCity(e.target.value);
     }
 
@@ -30,33 +37,37 @@ function ConnectedForm (props) {
         }
     }
 
-    const selectCountryCode = (val) => {
+    function selectCountryCode(val) {
         setCountryCode(val);
-    };
+    }
 
     return (
         <Formsy onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="City">City</label>
-                <input
+                <DebounceInput
                     type="textarea"
+                    debounceTimeout={1000}
                     className="form-control"
                     value={city}
                     onChange={handleChange}
                 />
                 <label htmlFor="Country">Country</label>
-                <List selectCountryCode={selectCountryCode} />
+                <List
+                    selectCountryCode={selectCountryCode}
+                    countryCode={countryCode}
+                />
             </div>
-            <button type="submit" className="btn btn-success btn-lg">
+            <button disabled={invalidLocation} type="submit" className="btn btn-success btn-lg">
                 SAVE
             </button>
         </Formsy>
     );
 }
 
-const Form = connect(
+const ConnectedForm = connect(
     null,
     mapDispatchToProps
-)(ConnectedForm);
+)(Form);
 
-export default Form;
+export default ConnectedForm;
