@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import reactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import List from './List';
 import Form from './Form';
@@ -16,7 +17,7 @@ const App = (props) => {
     };
 
     return (
-        <div className="row mt-5">
+        <div className="row md-5">
             <div className="col-md-4 offset-md-1">
                 <h2>Articles</h2>
             </div>
@@ -25,6 +26,8 @@ const App = (props) => {
                 <Form submitForm={submitForm}
                 />
             </div>
+
+            {/*<div className="row mt-5">*/}
         </div>
     );
 };

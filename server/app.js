@@ -5,7 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const setRoutes = require('./server/setRoutes');
+const setRoutes = require('./setRoutes');
 // const pino = require('express-pino-logger')();
 
 const port = process.env.PORT || 8080;
@@ -16,6 +16,8 @@ app.use(cors());
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+console.log(path.resolve());
+
 app.set('views', path.join(__dirname, 'public'));
 app.set('view engine', 'html');
 app.use(express.static(path.join(__dirname, 'public')));
