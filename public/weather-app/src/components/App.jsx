@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import reactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import List from './List';
 import Form from './Form';
 // import { setTranslateId } from '../actions/index';
 import { getCityAPI } from '../api/translateApi';
@@ -17,7 +15,7 @@ const App = (props) => {
     };
 
     return (
-        <div className="row md-5">
+        <div className="row mt-5">
             <div className="col-md-4 offset-md-1">
                 <h2>Articles</h2>
             </div>
