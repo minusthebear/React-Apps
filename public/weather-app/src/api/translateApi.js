@@ -32,25 +32,8 @@ export async function getAllCountryAPIs() {
     return res.json();
 }
 
-export async function testBackEnd() {
-    let data = qs.stringify({ bar: 123 })
-
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    const config = {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(data)
-    };
-
-    const request = new Request(URL + '/backEndTest',{
-        method: 'POST',
-        headers,
-        body: JSON.stringify(data)
-    });
-
-    const res = await axios.post(URL + '/backEndTest', JSON.stringify(data));
+export async function testBackEnd(obj) {
+    const res = await axios.post(URL + '/backEndTest', obj);
     const status = await res;
     console.log(status);
     return status;

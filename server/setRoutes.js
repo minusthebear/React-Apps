@@ -1,4 +1,4 @@
-
+const { addLocation } = require('./mongodb/weather-db');
 const path = require('path');
 
 
@@ -12,11 +12,8 @@ const setRoutes = app => {
 		res.sendFile(path.resolve('public', 'test.html'));
 	});
 
-	app.post('/backEndTest', (req,res) => {
-		console.log('back-end test');
-		console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
-		console.log(console.log(req.body));
-		console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
+	app.post('/backEndTest', async (req,res) => {
+		await addLocation(req.body);
 		res.send({ data: 'it worked!!! '});
 	});
 
