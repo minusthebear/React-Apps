@@ -14,11 +14,11 @@ const App = (props) => {
     }, []);
 
     const makeApiCall = (city, cCode) => {
-        console.log(getCityAPI(city, cCode));
-            // .then((res) => {
-            //     console.log(res);
-            //     res.cod === 200 ? successFunc(res) : failFunc();
-            // });
+        getCityAPI(city, cCode)
+            .then((res) => {
+                successFunc(res.data);
+            })
+            .catch(failFunc);
     };
 
     const successFunc = (res) => {
@@ -33,12 +33,18 @@ const App = (props) => {
 
     const submitForm = () => {
         if (coords) {
+            console.log(coords);
             const obj = {
                 city: coords.name,
-                country: sys.country,
-                lat: coord.lat,
-                lon: coord.lon
-            }
+                country: coords.sys.country,
+                lat: coords.coord.lat,
+                lon: coords.coord.lon
+            };
+
+
+
+            setCoords(null);
+            setInvalidLocation(false);
         }
     };
 
