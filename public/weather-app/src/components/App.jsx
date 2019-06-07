@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Form from './Form';
 // import { setTranslateId } from '../actions/index';
-import { getCityAPI } from '../api/translateApi';
+import { getCityAPI, testBackEnd } from '../api/translateApi';
 
 const App = (props) => {
 
@@ -33,7 +33,6 @@ const App = (props) => {
 
     const submitForm = () => {
         if (coords) {
-            console.log(coords);
             const obj = {
                 city: coords.name,
                 country: coords.sys.country,
@@ -41,8 +40,15 @@ const App = (props) => {
                 lon: coords.coord.lon
             };
 
+            testBackEnd(obj)
+                .then((res) => {
+                   console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
 
-
+            console.log('Outside of testBackEnd');
             setCoords(null);
             setInvalidLocation(false);
         }

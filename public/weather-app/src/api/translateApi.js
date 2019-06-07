@@ -2,6 +2,9 @@ import { handleResponse, handleError } from "./apiUtils";
 import { API_KEY } from "../constants/API_key";
 import { ALL_COUNTRY_APIS } from '../constants/API_URL';
 import axios from 'axios';
+import qs from 'qs';
+
+const URL = 'http://localhost:8080';
 
 export async function getProjectJSON() {
     // const res = await fetch(process.env.PUBLIC_URL + '/Project-83aad4a1ca01.json');
@@ -29,35 +32,43 @@ export async function getAllCountryAPIs() {
     return res.json();
 }
 
+export async function testBackEnd() {
+    let data = qs.stringify({ bar: 123 })
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const config = {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(data)
+    };
+
+    const request = new Request(URL + '/backEndTest',{
+        method: 'POST',
+        headers,
+        body: JSON.stringify(data)
+    });
+
+    const res = await axios.post(URL + '/backEndTest', JSON.stringify(data));
+    const status = await res;
+    console.log(status);
+    return status;
+}
+
 // 'api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=55e3c9fc34a1cfe3fc0782d7f0ede2fa'
 
 export function getCityAPI(city, country) {
-    // let url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city;
-    // if (country) {
-    //     url = url + ',' + country;
-    // }
-    // url = url + '&APPID=' + API_KEY;
-    // console.log(url);
-    // const res = await fetch(url).then(r => {
-    //     return r;
-    // });
-    // const r = await res.json();
-    // console.log(r);
-    // return r;
-
-
     let url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city;
     if (country) {
         url = url + ',' + country;
     }
     url = url + '&APPID=' + API_KEY;
-    console.log(url);
     let res;
 
     try {
         return axios.get(url);
     } catch (e) {
-        return null;
+        throw new Error(e);
     }
-
 }
