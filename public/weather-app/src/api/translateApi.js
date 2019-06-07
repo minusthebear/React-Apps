@@ -43,4 +43,21 @@ export async function getCityAPI(city, country) {
     const r = await res.json();
     console.log(r);
     return r;
+
+    //
+    // console.log(api);
+    // let url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city;
+    // if (country) {
+    //     url = url + ',' + country;
+    // }
+    // url = url + '&APPID=' + API_KEY;
+    // console.log(url);
+    // let res;
+    //
+    // try {
+    //     return api.get(url);
+    // } catch (e) {
+    //     return null;
+    // }
+    //
 }

@@ -19,14 +19,15 @@ function Form (props) {
     let [ city, setCity ] = useState('');
     let [ countryCode, setCountryCode ] = useState(null);
 
-    useEffect(() => {
-        if (city.length) {
-            makeApiCall(city, countryCode);
-        }
-    }, []);
 
     function handleChange(e)  {
-        setCity(e.target.value);
+        let val = e.target.value;
+
+        setCity(val);
+
+        if (val.length) {
+            makeApiCall(val, countryCode);
+        }
     }
 
     function handleSubmit() {
@@ -39,6 +40,10 @@ function Form (props) {
 
     function selectCountryCode(val) {
         setCountryCode(val);
+
+        if (city.length) {
+            makeApiCall(city, val);
+        }
     }
 
     return (
@@ -56,6 +61,7 @@ function Form (props) {
                 <List
                     selectCountryCode={selectCountryCode}
                     countryCode={countryCode}
+                    value={countryCode}
                 />
             </div>
             <button disabled={invalidLocation} type="submit" className="btn btn-success btn-lg">

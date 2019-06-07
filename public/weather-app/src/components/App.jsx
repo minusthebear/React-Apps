@@ -7,22 +7,39 @@ import { getCityAPI } from '../api/translateApi';
 const App = (props) => {
 
     let [ invalidLocation, setInvalidLocation ] = useState(false);
+    let [ coords, setCoords ] = useState(null);
 
     useEffect(() => {
 
     }, []);
 
     const makeApiCall = (city, cCode) => {
-        getCityAPI(city, cCode)
-            .then((res) => {
-                res.cod === 200 ? setInvalidLocation(false) : setInvalidLocation(true);
-            }).catch((err) => {
-                throw new Error(err);
-            });
+        console.log(getCityAPI(city, cCode));
+            // .then((res) => {
+            //     console.log(res);
+            //     res.cod === 200 ? successFunc(res) : failFunc();
+            // });
+    };
+
+    const successFunc = (res) => {
+        setCoords(res);
+        setInvalidLocation(false);
+    };
+
+    const failFunc = () => {
+        setCoords(null);
+        setInvalidLocation(true);
     };
 
     const submitForm = () => {
-
+        if (coords) {
+            const obj = {
+                city: coords.name,
+                country: sys.country,
+                lat: coord.lat,
+                lon: coord.lon
+            }
+        }
     };
 
     return (
