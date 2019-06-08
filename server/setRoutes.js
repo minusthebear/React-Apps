@@ -1,25 +1,23 @@
-const { addLocation } = require('./mongodb/weather-db');
+const { addLocation, getAllLocations } = require('./mongodb/weather-db');
 const path = require('path');
-
 
 const setRoutes = app => {
 
 	app.get('/test', function(req, res) {
-		console.log('IT HIT TEST');
-		console.log(path.join());
-		console.log(path.resolve('public', 'index.jsx.html'));
-		// console.log(path.join('..', __dirname, 'public', 'index.html'));
 		res.sendFile(path.resolve('public', 'test.html'));
 	});
 
-	app.post('/backEndTest', async (req,res) => {
+	app.post('/addNewLocation', async (req,res) => {
 		await addLocation(req.body);
 		res.send({ data: 'it worked!!! '});
 	});
 
+	app.get('/allLocations', async (req,res) => {
+		let val = await getAllLocations();
+		res.send(val);
+	});
+
 	app.get('/*', function(req, res)  {
-		console.log(req.data);
-		console.log('We have a winner!');
 		res.render('index.jsx');
 	});
 

@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Form from './Form';
 // import { setTranslateId } from '../actions/index';
-import { getCityAPI, testBackEnd } from '../api/translateApi';
+import { getCityAPI, addNewLocation } from '../api/weatherApi';
+import Locations from './Locations';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = (props) => {
 
@@ -40,7 +43,7 @@ const App = (props) => {
                 lon: coords.coord.lon
             };
 
-            testBackEnd(obj)
+			addNewLocation(obj)
                 .then((res) => {
                    console.log(res);
                 })
@@ -55,19 +58,22 @@ const App = (props) => {
     };
 
     return (
-        <div className="row mt-5">
-            <div className="col-md-4 offset-md-1">
-                <h2>Articles</h2>
-            </div>
-            <div className="col-md-4 offset-md-1">
-                <h2>Add a new article</h2>
-                <Form
-                    makeApiCall={makeApiCall}
-                    submitForm={submitForm}
-                    invalidLocation={invalidLocation}
-                />
-            </div>
-        </div>
+    	<div className="container">
+			<div className="row">
+				<div className="col-md-5 offset-md-1">
+					<h2>All Locations</h2>
+					<Locations />
+				</div>
+				<div className="col-md-5 offset-md-1">
+					<h2>Add a new location</h2>
+					<Form
+						makeApiCall={makeApiCall}
+						submitForm={submitForm}
+						invalidLocation={invalidLocation}
+					/>
+				</div>
+			</div>
+		</div>
     );
 };
 

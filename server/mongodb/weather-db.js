@@ -6,4 +6,11 @@ async function addLocation(location) {
 	await collection.insertOne(location);
 }
 
-module.exports = { addLocation };
+async function getAllLocations() {
+	let db = await connectWeatherDB();
+	let collection = db.collection('locations');
+	let ret = await collection.find({}).toArray();
+	return ret;
+}
+
+module.exports = { addLocation, getAllLocations };
