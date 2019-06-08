@@ -1,42 +1,34 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
-import { getAllLocations } from '../api/weatherApi';
+import {LocationTableRow} from "./LocationTableRow";
 
-const Locations = (props) => {
-
-	let [ allLocations, setAllLocations ] = useState(null)
-
-	const displayLocations = async () => {
-		let locations = await getAllLocations();
-		setAllLocations(locations);
-	};
+const Locations = ({ allLocations, displayLocations, selectCity }) => {
 
 	const showAllLocations = () => {
 		if (allLocations.length) {
 			return (
 				<table>
 					<thead>
-						<tr>
-							<th>City</th>
-							<th>Country</th>
-							<th>Latitude</th>
-							<th>Longitude</th>
-						</tr>
+					<tr>
+						<th>City</th>
+						<th>Country</th>
+						<th>Latitude</th>
+						<th>Longitude</th>
+					</tr>
 					</thead>
 					<tbody>
 					{
 						allLocations.map((val) =>
-							<tr key={val._id}>
-								<td>{val.city}</td>
-								<td>{val.country}</td>
-								<td>{val.lat}</td>
-								<td>{val.lon}</td>
-							</tr>
+							<LocationTableRow
+								key={val._id}
+								loc={val}
+								selectCity={selectCity}
+							/>
 						)
 					}
 					</tbody>
 				</table>
-			)
+			);
 		}
 		return null;
 	};
