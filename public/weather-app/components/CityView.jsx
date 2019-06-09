@@ -23,6 +23,9 @@ const CityView = ({ loc, back }) => {
 		return null;
 	};
 
+	const displayAllLoggedWeather = () => {
+	};
+
 	return (
 		<>
 			<div>
@@ -33,7 +36,8 @@ const CityView = ({ loc, back }) => {
 				<div>Longitude: {loc.lon}</div>
 			</div>
 			<div>
-				<button className="btn btn-lg" onClick={getLocationWeather}>Get today's weather</button>
+				<button className="btn btn-lg btn-info" onClick={getLocationWeather}>Get today's weather</button>
+				<button className="btn btn-lg btn-warning" onClick={displayAllLoggedWeather}>Get all logged weather events</button>
 				<button className="btn btn-lg btn-primary" onClick={back} >Back</button>
 			</div>
 			<div>

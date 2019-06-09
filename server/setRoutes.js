@@ -1,5 +1,11 @@
-const { addLocation, addCurrentWeather, getAllLocations } = require('./mongodb/weather-db');
 const path = require('path');
+
+const {
+	addLocation,
+	addCurrentWeather,
+	findOneLocation,
+	getAllLocations
+} = require('./mongodb/weather-db');
 
 const setRoutes = app => {
 
@@ -8,19 +14,48 @@ const setRoutes = app => {
 	});
 
 	app.post('/addNewLocation', async (req,res) => {
-		await addLocation(req.body);
-		res.send({ data: 'it worked!!! '});
+		let ret;
+		try {
+			ret = await findOneLocation(req.body);
+		} catch(e) {
+			throw new Error(e);
+		}
+
+		if (ret) {
+			res.status(304);
+			res.send({ message: 'Entry already exists.' })
+		} else {
+			try {
+				await addLocation(req.body);
+				res.status(200);
+				res.send({ message: 'it worked!!! '});
+			} catch (e) {
+				res.status(404);
+				res.send({ message: 'Unable to post at this time' });
+			}
+		}
 	});
 
 	app.post('/saveCurrentWeather', async (req,res) => {
 		console.log(req.body);
-		await addCurrentWeather(req.body);
-		res.send({ data: 'Current Weather Saved'});
+		try {
+			await addCurrentWeather(req.body);
+			res.status(200);
+			res.send({ data: 'Current Weather Saved'});
+		} catch(e) {
+			res.status(404);
+			res.send({ message: 'Unable to post at this time' });
+		}
 	});
 
 	app.get('/allLocations', async (req,res) => {
-		let val = await getAllLocations();
-		res.send(val);
+		try {
+			let val = await getAllLocations();
+			res.send(val);
+		} catch (e) {
+			res.status(404);
+			res.send({ message: 'Unable to get data at this time' });
+		}
 	});
 
 	app.get('/*', function(req, res)  {
