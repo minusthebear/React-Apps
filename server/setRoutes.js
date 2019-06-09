@@ -1,10 +1,12 @@
 const path = require('path');
+const _ = require('lodash');
 
 const {
 	addLocation,
 	addCurrentWeather,
 	findOneLocation,
-	getAllLocations
+	getAllLocations,
+	getAllWeatherLogsByLocation
 } = require('./mongodb/weather-db');
 
 const setRoutes = app => {
@@ -37,7 +39,31 @@ const setRoutes = app => {
 	});
 
 	app.post('/saveCurrentWeather', async (req,res) => {
-		console.log(req.body);
+
+		let ret,
+			objMatch;
+		
+		try {
+			ret = await getAllWeatherLogsByLocation(req.body.id);
+		} catch(e) {
+			throw new Error(e);
+		}
+
+		if (ret.length) {
+			objMatch = _.find(ret, (item) => {
+				let timeOne = new Date((new Date(req.body.dt).toLocaleDateString())).getTime(),
+					timeTwo = new Date((new Date(item.dt).toLocaleDateString())).getTime();
+
+				return timeOne === timeTwo;
+			});
+		}
+
+		if (objMatch) {
+			res.status(304);
+			res.send({ message: 'Weather log for this date and location already exists.' })
+			return;
+		}
+
 		try {
 			await addCurrentWeather(req.body);
 			res.status(200);

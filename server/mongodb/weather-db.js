@@ -12,6 +12,13 @@ async function addCurrentWeather(weather) {
 	await collection.insertOne(weather);
 }
 
+async function getAllWeatherLogsByLocation(id) {
+	let db = await connectWeatherDB();
+	let collection = db.collection('weatherLog');
+	let ret = await collection.find({ id: id }).toArray();
+	return ret;
+}
+
 async function findOneLocation(location) {
 	let db = await connectWeatherDB();
 	let collection = db.collection('locations');
@@ -26,4 +33,10 @@ async function getAllLocations() {
 	return ret;
 }
 
-module.exports = { addLocation, addCurrentWeather, findOneLocation, getAllLocations };
+module.exports = {
+	addLocation,
+	addCurrentWeather,
+	findOneLocation,
+	getAllLocations,
+	getAllWeatherLogsByLocation
+};
