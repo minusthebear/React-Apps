@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Form from './Form';
+import { createLocationObj } from '../helpers/createObjects';
 import {getCityAPI, addNewLocation, getAllLocations} from '../api/weatherApi';
 import Locations from './Locations';
 import CityView from './CityView';
@@ -40,12 +41,7 @@ const App = (props) => {
     const submitForm = () => {
     	console.log(coords);
         if (coords) {
-            const obj = {
-                city: coords.name,
-                country: coords.sys.country,
-                lat: coords.coord.lat,
-                lon: coords.coord.lon
-            };
+            const obj = createLocationObj(coords);
 
 			addNewLocation(obj)
                 .then((res) => {

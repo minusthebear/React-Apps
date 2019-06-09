@@ -1,4 +1,4 @@
-const { addLocation, getAllLocations } = require('./mongodb/weather-db');
+const { addLocation, addCurrentWeather, getAllLocations } = require('./mongodb/weather-db');
 const path = require('path');
 
 const setRoutes = app => {
@@ -10,6 +10,12 @@ const setRoutes = app => {
 	app.post('/addNewLocation', async (req,res) => {
 		await addLocation(req.body);
 		res.send({ data: 'it worked!!! '});
+	});
+
+	app.post('/saveCurrentWeather', async (req,res) => {
+		console.log(req.body);
+		await addCurrentWeather(req.body);
+		res.send({ data: 'Current Weather Saved'});
 	});
 
 	app.get('/allLocations', async (req,res) => {

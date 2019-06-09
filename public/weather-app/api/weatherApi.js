@@ -13,14 +13,18 @@ export async function getAllCountryAPIs() {
 
 export async function addNewLocation(obj) {
     const res = await axios.post(URL + '/addNewLocation', obj);
-    const status = await res;
-    return status;
+    return res;
 }
 
 export async function getAllLocations() {
     const res = await axios.get(URL + '/allLocations');
     return res.data;
 }
+
+export async function saveCurrentWeather(obj) {
+    const res = await axios.post(URL + '/saveCurrentWeather', obj);
+    return res;
+};
 
 export function getCityAPI(city, country) {
     let url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city;

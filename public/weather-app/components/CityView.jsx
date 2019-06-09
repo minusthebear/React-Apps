@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
-import { getCityAPI } from '../api/weatherApi';
+import { createWeatherObj } from '../helpers/createObjects';
+import { getCityAPI, saveCurrentWeather } from '../api/weatherApi';
 import { countryCodeConverter } from '../helpers/countryCode';
 import { connect } from 'react-redux';
 import WeatherDetails from './WeatherDetails';
@@ -10,12 +11,9 @@ const CityView = ({ loc, back }) => {
 
 	const getLocationWeather = async () => {
 		const wt = await getCityAPI(loc.city, loc.country);
-		console.log(wt);
-		wt.dt = wt.dt * 1000;
-		wt.sys.sunrise = wt.sys && wt.sys.sunrise ? wt.sys.sunrise * 1000 : null;
-		wt.sys.sunset = wt.sys && wt.sys.sunset ? wt.sys.sunset * 1000 : null;
-		wt.icon = wt.weather.length ? wt.weather[0].icon : null;
-		setWeather(wt);
+		const retWt = createWeatherObj(wt);
+		setWeather(retWt);
+		await saveCurrentWeather(retWt);
 	};
 
 	const getWeatherDetails = () => {
