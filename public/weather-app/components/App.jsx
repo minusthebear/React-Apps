@@ -21,12 +21,13 @@ const App = (props) => {
     const makeApiCall = (city, cCode) => {
         getCityAPI(city, cCode)
             .then((res) => {
-                successFunc(res.data);
+                successFunc(res);
             })
             .catch(failFunc);
     };
 
     const successFunc = (res) => {
+    	console.log(res);
         setCoords(res);
         setInvalidLocation(false);
     };
@@ -37,6 +38,7 @@ const App = (props) => {
     };
 
     const submitForm = () => {
+    	console.log(coords);
         if (coords) {
             const obj = {
                 city: coords.name,

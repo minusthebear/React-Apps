@@ -14,7 +14,6 @@ export async function getAllCountryAPIs() {
 export async function addNewLocation(obj) {
     const res = await axios.post(URL + '/addNewLocation', obj);
     const status = await res;
-    console.log(status);
     return status;
 }
 
@@ -29,10 +28,9 @@ export function getCityAPI(city, country) {
         url = url + ',' + country;
     }
     url = url + '&APPID=' + API_KEY;
-    let res;
 
     try {
-        return axios.get(url);
+        return axios.get(url).then((res) => res.data);
     } catch (e) {
         throw new Error(e);
     }
