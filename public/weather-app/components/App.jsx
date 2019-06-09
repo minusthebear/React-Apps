@@ -53,7 +53,8 @@ const App = (props) => {
                 })
                 .catch((err) => {
                     console.log(err);
-                });
+                })
+				.finally(displayLocations);
             setCoords(null);
             setInvalidLocation(false);
         }

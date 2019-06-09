@@ -61,7 +61,7 @@ const WeatherData = ({ weather }) => {
 					</tr>
 					<tr>
 						<td>Wind direction:</td>
-						<td>{checkIfPropAndSubProp('wind', 'deg') }</td>
+						<td>{checkIfPropAndSubProp('wind', 'deg') || 'N/A'}</td>
 					</tr>
 					<tr>
 						<td>Sunrise:*</td>
