@@ -13,11 +13,24 @@ async function addCurrentWeather(weather) {
 	await collection.insertOne(weather);
 }
 
-async function getAllWeatherLogsByLocation(id) {
+async function deleteAllWeatherLogs(id) {
 	let db = await connectWeatherDB();
 	let collection = db.collection('weatherLog');
-	let ret = await collection.find({id}).toArray();
-	console.log(ret);
+	let ret = collection.deleteMany({id});
+	return ret;
+}
+
+async function deleteWeatherLog(_id) {
+	let db = await connectWeatherDB();
+	let collection = await db.collection('weatherLog');
+	let ret = collection.deleteOne({ _id: ObjectId(_id) });
+	return ret;
+}
+
+async function deleteLocation(id) {
+	let db = await connectWeatherDB();
+	let collection = await db.collection('locations');
+	let ret = await collection.deleteMany({ id });
 	return ret;
 }
 
@@ -35,6 +48,14 @@ async function getAllLocations() {
 	return ret;
 }
 
+async function getAllWeatherLogsByLocation(id) {
+	let db = await connectWeatherDB();
+	let collection = db.collection('weatherLog');
+	let ret = await collection.find({id}).toArray();
+	console.log(ret);
+	return ret;
+}
+
 async function getWeatherLog(_id) {
 	let db = await connectWeatherDB();
 	let collection = db.collection('weatherLog');
@@ -45,8 +66,12 @@ async function getWeatherLog(_id) {
 module.exports = {
 	addLocation,
 	addCurrentWeather,
+	deleteAllWeatherLogs,
+	deleteLocation,
+	deleteWeatherLog,
 	findOneLocation,
 	getAllLocations,
 	getAllWeatherLogsByLocation,
-	getWeatherLog
+	getWeatherLog,
+
 };

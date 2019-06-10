@@ -4,6 +4,9 @@ const _ = require('lodash');
 const {
 	addLocation,
 	addCurrentWeather,
+	deleteAllWeatherLogs,
+	deleteLocation,
+	deleteWeatherLog,
 	findOneLocation,
 	getAllLocations,
 	getAllWeatherLogsByLocation,
@@ -30,7 +33,7 @@ const setRoutes = app => {
 		} else {
 			try {
 				await addLocation(req.body);
-				res.status(200);
+				res.status(204);
 				res.send({ message: 'it worked!!! '});
 			} catch (e) {
 				res.status(404);
@@ -67,7 +70,7 @@ const setRoutes = app => {
 
 		try {
 			await addCurrentWeather(req.body);
-			res.status(200);
+			res.status(204);
 			res.send({ data: 'Current Weather Saved'});
 		} catch(e) {
 			res.status(404);
@@ -77,10 +80,7 @@ const setRoutes = app => {
 
 	app.post('/getWeatherLog', async (req, res) => {
 		try {
-			console.log(req.body);
-			console.log(req.body._id);
 			let val = await getWeatherLog(req.body._id);
-			console.log(val);
 			res.status(200);
 			res.send(val);
 		} catch(e) {
@@ -103,12 +103,37 @@ const setRoutes = app => {
 	app.get('/allLocations', async (req,res) => {
 		try {
 			let val = await getAllLocations();
+			res.status(204);
 			res.send(val);
 		} catch (e) {
 			res.status(404);
 			res.send({ message: 'Unable to get data at this time' });
 		}
 	});
+
+	app.delete('/deleteLocation', async (req, res) => {
+		try {
+			let val1 = await deleteAllWeatherLogs(req.body.id);
+			let val2 = await deleteLocation(req.body.id);
+			res.status(204);
+			res.send({ data: 'Location successfully deleted' })
+		} catch (e) {
+			res.status(404);
+			res.send({ message: 'Unable to delete location at this time' });
+		}
+	});
+
+	app.delete('/deleteWeatherLog', async (req, res) => {
+		try {
+			let val = await deleteWeatherLog(req.body._id);
+			res.status(204);
+			res.send({ data : 'Weather log successfully deleted' })
+		} catch (e) {
+			res.status(404);
+			res.send({ message: 'Unable to delete weather log at this time' });
+		}
+	});
+
 
 	app.get('/*', function(req, res)  {
 		res.render('index.jsx');
