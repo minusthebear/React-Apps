@@ -6,7 +6,8 @@ const {
 	addCurrentWeather,
 	findOneLocation,
 	getAllLocations,
-	getAllWeatherLogsByLocation
+	getAllWeatherLogsByLocation,
+	getWeatherLog
 } = require('./mongodb/weather-db');
 
 const setRoutes = app => {
@@ -24,13 +25,16 @@ const setRoutes = app => {
 		}
 
 		if (ret) {
-			send304(res, 'Entry already exists.');
+			res.status(304);
+			res.send({ message: 'Entry already exists.' })
 		} else {
 			try {
 				await addLocation(req.body);
-				send200(res, 'it worked!!! ');
+				res.status(200);
+				res.send({ message: 'it worked!!! '});
 			} catch (e) {
-				send404(res, 'Unable to post at this time');
+				res.status(404);
+				res.send({ message: 'Unable to post at this time' });
 			}
 		}
 	});
@@ -56,24 +60,53 @@ const setRoutes = app => {
 		}
 
 		if (objMatch) {
-			send304(res, 'Weather log for this date and location already exists.');
+			res.status(304);
+			res.send({ message: 'Weather log for this date and location already exists.' })
 			return;
 		}
 
 		try {
 			await addCurrentWeather(req.body);
-			send200(res, 'Current Weather Saved');
+			res.status(200);
+			res.send({ data: 'Current Weather Saved'});
 		} catch(e) {
-			send404(res, 'Unable to post at this time');
+			res.status(404);
+			res.send({ message: 'Unable to post at this time' });
+		}
+	});
+
+	app.post('/getWeatherLog', async (req, res) => {
+		try {
+			console.log(req.body);
+			console.log(req.body._id);
+			let val = await getWeatherLog(req.body._id);
+			console.log(val);
+			res.status(200);
+			res.send(val);
+		} catch(e) {
+			res.status(404);
+			res.send({ message: 'Unable to send data at this time'});
+		}
+	});
+
+	app.get('/allWeatherLogsByLocation', async (req, res) => {
+		try {
+			let val = await getAllWeatherLogsByLocation(parseInt(req.query.id));
+			res.status(200);
+			res.send(val);
+		} catch(e) {
+			res.status(404);
+			res.send({ message: 'Unable to send data at this time'});
 		}
 	});
 
 	app.get('/allLocations', async (req,res) => {
 		try {
 			let val = await getAllLocations();
-			send200WithData(res, val);
+			res.send(val);
 		} catch (e) {
-			send404(res, 'Unable to get data at this time');
+			res.status(404);
+			res.send({ message: 'Unable to get data at this time' });
 		}
 	});
 
@@ -92,26 +125,6 @@ const setRoutes = app => {
 		res.status(err.status || 500);
 		res.sendFile(path.resolve('public', 'error.html'));
 	});
-};
-
-const send200 = (res, msg) => {
-	res.status(200);
-	res.send({ message: msg });
-};
-
-const send200WithData = (res, data) => {
-	res.status(200);
-	res.send({ data: data });
-};
-
-const send304 = (res, msg) => {
-	res.status(304);
-	res.send({ message: msg });
-}
-
-const send404 = (res, msg) => {
-	res.status(404);
-	res.send({ message: msg });
 };
 
 module.exports = setRoutes;

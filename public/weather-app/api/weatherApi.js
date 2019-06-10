@@ -26,6 +26,16 @@ export async function saveCurrentWeather(obj) {
     return res;
 };
 
+export async function allWeatherLogsByLocation(id) {
+    const res = await axios.get(URL + '/allWeatherLogsByLocation', { params: { id }});
+    return res.data;
+}
+
+export async function getWeatherLog(_id) {
+    const res = await axios.post(URL + '/getWeatherLog', { _id });
+    return res.data;
+}
+
 export function getCityAPI(city, country) {
     let url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city;
     if (country) {

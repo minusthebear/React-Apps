@@ -1,4 +1,5 @@
 const { connectWeatherDB } = require('./connectDB');
+const ObjectId = require('mongodb').ObjectId;
 
 async function addLocation(location) {
 	let db = await connectWeatherDB();
@@ -15,7 +16,8 @@ async function addCurrentWeather(weather) {
 async function getAllWeatherLogsByLocation(id) {
 	let db = await connectWeatherDB();
 	let collection = db.collection('weatherLog');
-	let ret = await collection.find({ id: id }).toArray();
+	let ret = await collection.find({id}).toArray();
+	console.log(ret);
 	return ret;
 }
 
@@ -33,10 +35,18 @@ async function getAllLocations() {
 	return ret;
 }
 
+async function getWeatherLog(_id) {
+	let db = await connectWeatherDB();
+	let collection = db.collection('weatherLog');
+	let ret = await collection.findOne({_id: ObjectId(_id)});
+	return ret;
+}
+
 module.exports = {
 	addLocation,
 	addCurrentWeather,
 	findOneLocation,
 	getAllLocations,
-	getAllWeatherLogsByLocation
+	getAllWeatherLogsByLocation,
+	getWeatherLog
 };
