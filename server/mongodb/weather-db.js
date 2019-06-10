@@ -22,14 +22,14 @@ async function deleteAllWeatherLogs(id) {
 
 async function deleteWeatherLog(_id) {
 	let db = await connectWeatherDB();
-	let collection = await db.collection('weatherLog');
-	let ret = collection.deleteOne({ _id: ObjectId(_id) });
+	let collection = db.collection('weatherLog');
+	let ret = await collection.deleteOne({ _id: ObjectId(_id) });
 	return ret;
 }
 
 async function deleteLocation(id) {
 	let db = await connectWeatherDB();
-	let collection = await db.collection('locations');
+	let collection = db.collection('locations');
 	let ret = await collection.deleteMany({ id });
 	return ret;
 }
@@ -52,7 +52,6 @@ async function getAllWeatherLogsByLocation(id) {
 	let db = await connectWeatherDB();
 	let collection = db.collection('weatherLog');
 	let ret = await collection.find({id}).toArray();
-	console.log(ret);
 	return ret;
 }
 

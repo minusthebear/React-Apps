@@ -26,12 +26,12 @@ module.exports = {
 			},
 			{
 				test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-				loader: 'url-loader?limit=100000'
+				loader: 'url-loader'
 			}
 		]
 	},
 	resolve: {
-		extensions: ['*', '.js', '.jsx', '.css', '.scss']
+		extensions: ['*', '.js', '.jsx', '.css', '.scss', '.png']
 	},
 	devServer: {
 		port: 3000,

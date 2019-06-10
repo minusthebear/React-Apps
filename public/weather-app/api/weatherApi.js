@@ -6,11 +6,6 @@ import qs from 'qs';
 
 const URL = 'http://localhost:8080';
 
-export async function getAllCountryAPIs() {
-    const res = await fetch(ALL_COUNTRY_APIS);
-    return res.json();
-}
-
 export async function addNewLocation(obj) {
     const res = await axios.post(URL + '/addNewLocation', obj);
     return res;
@@ -22,8 +17,13 @@ export async function getAllLocations() {
 }
 
 export async function saveCurrentWeather(obj) {
-    const res = await axios.post(URL + '/saveCurrentWeather', obj);
-    return res;
+    try {
+        const res = await axios.post(URL + '/saveCurrentWeather', obj);
+        return res;
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
 };
 
 export async function allWeatherLogsByLocation(id) {
@@ -33,6 +33,16 @@ export async function allWeatherLogsByLocation(id) {
 
 export async function getWeatherLog(_id) {
     const res = await axios.post(URL + '/getWeatherLog', { _id });
+    return res.data;
+}
+
+export async function deleteLocation(id) {
+    const res = await axios.delete(URL + '/deleteLocation', { data: {id} });
+    return res.data;
+}
+
+export async function deleteWeatherLog(_id) {
+    const res = await axios.delete(URL + '/deleteWeatherLog', { data: {_id} });
     return res.data;
 }
 

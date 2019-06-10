@@ -1,15 +1,14 @@
 import React from 'react';
 import {capitalize} from 'lodash';
+import trash from '../images/icons8-waste-64.png';
 
-export default function WeatherLogDetails({ weatherLogs, onClick }) {
-	console.log(weatherLogs);
+export default function WeatherLogDetails({ weatherLogs, onClick, deleteLog }) {
 	return (
 		<>
 			<table>
 				<thead>
 					<tr>
 						<th>Date</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -22,6 +21,7 @@ export default function WeatherLogDetails({ weatherLogs, onClick }) {
 									 alt={log.weather[0].description}
 								/>
 							</td>
+							<td><img onClick={ () => deleteLog(log._id) } src={trash} alt="Trash it!" /></td>
 						</tr>
 					)}
 				</tbody>

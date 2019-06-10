@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Form from './Form';
 import { createLocationObj } from '../helpers/createObjects';
-import {getCityAPI, addNewLocation, getAllLocations} from '../api/weatherApi';
+import {getCityAPI, addNewLocation, getAllLocations, deleteLocation} from '../api/weatherApi';
 import Locations from './Locations';
 import CityView from './CityView';
 
@@ -65,6 +65,11 @@ const App = (props) => {
 		setCity(loc);
 	};
 
+	const deleteCity = async (id) => {
+		let ret1 = await deleteLocation(id);
+		let ret2 = await displayLocations();
+	}
+
 	const getLocationsElement = () => {
 		return (
 			<>
@@ -73,6 +78,7 @@ const App = (props) => {
 					allLocations={allLocations}
 					displayLocations={displayLocations}
 					selectCity={selectCity}
+					deleteCity={deleteCity}
 				/>
 			</>
 		)

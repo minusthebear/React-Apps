@@ -1,6 +1,12 @@
 import React, { useState} from 'react';
 import { createWeatherObj } from '../helpers/createObjects';
-import {getCityAPI, saveCurrentWeather, allWeatherLogsByLocation, getWeatherLog} from '../api/weatherApi';
+import {
+	getCityAPI,
+	saveCurrentWeather,
+	allWeatherLogsByLocation,
+	getWeatherLog,
+	deleteWeatherLog
+} from '../api/weatherApi';
 import { countryCodeConverter } from '../helpers/countryCode';
 import { connect } from 'react-redux';
 import WeatherDetails from './WeatherDetails';
@@ -16,7 +22,9 @@ const CityView = ({ loc, back }) => {
 		const wt = await getCityAPI(loc.city, loc.country);
 		const retWt = createWeatherObj(wt);
 		setWeather(retWt);
-		await saveCurrentWeather(retWt);
+		let ret = await saveCurrentWeather(retWt);
+		console.log(ret);
+		setWeatherFlag(false);
 	};
 
 	const getWeatherDetails = () => {
@@ -41,8 +49,13 @@ const CityView = ({ loc, back }) => {
 
 	const getLogDetails = () => {
 		if (Array.isArray(weatherLogs) && weatherLogs.length) {
-			return <WeatherLogDetails weatherLogs={weatherLogs} onClick={getWeatherLogDetail} />;
+			return <WeatherLogDetails weatherLogs={weatherLogs} onClick={getWeatherLogDetail} deleteLog={deleteLog} />;
 		}
+	};
+
+	const deleteLog = async (_id) => {
+		let ret1 = await deleteWeatherLog(_id);
+		let ret2 = await displayAllLoggedWeather();
 	};
 
 	return (

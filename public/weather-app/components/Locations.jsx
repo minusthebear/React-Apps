@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import {LocationTableRow} from "./LocationTableRow";
 
-const Locations = ({ allLocations, displayLocations, selectCity }) => {
+const Locations = ({ allLocations, displayLocations, selectCity, deleteCity }) => {
 
 	const showAllLocations = () => {
 		if (allLocations.length) {
@@ -23,6 +23,7 @@ const Locations = ({ allLocations, displayLocations, selectCity }) => {
 								key={val._id}
 								loc={val}
 								selectCity={selectCity}
+								deleteCity={deleteCity}
 							/>
 						)
 					}
