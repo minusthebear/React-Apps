@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import {LocationTableRow} from "./LocationTableRow";
 
-const Locations = ({ allLocations, displayLocations, selectCity, deleteCity }) => {
+const Locations = ({ allLocations, selectCity, deleteCity }) => {
 
 	const showAllLocations = () => {
 		if (allLocations.length) {
@@ -36,12 +36,7 @@ const Locations = ({ allLocations, displayLocations, selectCity, deleteCity }) =
 
 	return (
 		<div>
-			<button className="btn btn-primary btn-lg" onClick={displayLocations}>
-				Get all locations
-			</button>
-			<div>
-				{ allLocations ? showAllLocations() : null }
-			</div>
+			{ allLocations ? showAllLocations() : null }
 		</div>
 	)
 };

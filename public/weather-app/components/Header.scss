@@ -1,0 +1,11 @@
+.header-row {
+  padding: 2rem 2rem 0 2rem;
+  background-color: inherit;
+
+  .list-inline-item {
+    padding-right: 2rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

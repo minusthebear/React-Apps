@@ -145,8 +145,7 @@ const setRoutes = app => {
 		res.locals.error = req.app.get('env') === 'development' ? err : {};
 
 		// render the error page
-		res.status(err.status || 500);
-		res.sendFile(path.resolve('public', 'error.html'));
+		res.status(err.status || 500).sendFile(path.resolve('public', 'error.html'));
 	});
 };
 

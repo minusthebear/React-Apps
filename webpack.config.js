@@ -21,17 +21,20 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.css$/,
-				use: ['style-loader', 'css-loader']
+				test: /\.(css|scss)$/,
+				use: ['style-loader', 'css-loader', 'sass-loader']
 			},
 			{
-				test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-				loader: 'url-loader'
+				test: /\.(png|woff|woff2|eot|ttf|svg|jpe?g)$/,
+				use: {
+					options: { limit: 10000000 },
+					loader: 'file-loader'
+				}
 			}
 		]
 	},
 	resolve: {
-		extensions: ['*', '.js', '.jsx', '.css', '.scss', '.png']
+		extensions: ['*', '.js', '.jsx', '.css', '.scss', '.png', '.jpg', '.jpeg']
 	},
 	devServer: {
 		port: 3000,

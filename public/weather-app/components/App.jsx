@@ -5,6 +5,9 @@ import { createLocationObj } from '../helpers/createObjects';
 import {getCityAPI, addNewLocation, getAllLocations, deleteLocation} from '../api/weatherApi';
 import Locations from './Locations';
 import CityView from './CityView';
+import Header from './Header';
+import bgImage from '../images/4b8d49460051b86921dce5c522c1107e.jpg';
+import './App.scss';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -14,9 +17,15 @@ const App = (props) => {
     let [ coords, setCoords ] = useState(null);
     let [ allLocations, setAllLocations ] = useState(null);
     let [ city, setCity ] = useState(null);
+    let [ mainPage, setMainPage ] = useState(true);
 
     useEffect(() => {
-
+    	async function triggerDisplayLocations() {
+    		await displayLocations();
+		}
+		let ret = triggerDisplayLocations();
+    	console.log(ret);
+		console.log('hit!!!');
     }, []);
 
     const makeApiCall = (city, cCode) => {
@@ -59,6 +68,7 @@ const App = (props) => {
 	const displayLocations = async () => {
 		let locations = await getAllLocations();
 		setAllLocations(locations);
+		setCurPage(null);
 	};
 
 	const selectCity = (loc) => {
@@ -76,7 +86,6 @@ const App = (props) => {
 				<h2>All Locations</h2>
 				<Locations
 					allLocations={allLocations}
-					displayLocations={displayLocations}
 					selectCity={selectCity}
 					deleteCity={deleteCity}
 				/>
@@ -96,19 +105,34 @@ const App = (props) => {
 		setCity(null);
 	};
 
+	const showAddNewLocationElement = () => {
+		return (
+			<div className="col-md-10 offset-md-1">
+				<h2>Add a new location</h2>
+				<Form
+					makeApiCall={makeApiCall}
+					submitForm={submitForm}
+					invalidLocation={invalidLocation}
+				/>
+			</div>
+		);
+	};
+
+	const showLocation = () => {
+		return (
+
+			<div className="col-md-10 offset-md-1">
+				{ city ? getCityViewElement() : getLocationsElement() }
+			</div>
+		);
+	}
+
     return (
-    	<div className="container">
-			<div className="row">
-				<div className="col-md-5 offset-md-1">
-					{ city ? getCityViewElement() : getLocationsElement() }
-				</div>
-				<div className="col-md-5 offset-md-1">
-					<h2>Add a new location</h2>
-					<Form
-						makeApiCall={makeApiCall}
-						submitForm={submitForm}
-						invalidLocation={invalidLocation}
-					/>
+    	<div style={{backgroundImage: `url(${bgImage})`}} className="weather-app-container" >
+			<div className="container">
+				<Header locations={displayLocations}/>
+				<div className="row">
+					{ mainPage ? showLocation() : showAddNewLocationElement() }
 				</div>
 			</div>
 		</div>
