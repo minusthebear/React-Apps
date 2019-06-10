@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { createWeatherObj } from '../helpers/createObjects';
 import {
 	getCityAPI,
@@ -11,6 +11,7 @@ import { countryCodeConverter } from '../helpers/countryCode';
 import { connect } from 'react-redux';
 import WeatherDetails from './WeatherDetails';
 import WeatherLogDetails from './WeatherLogDetails';
+import './CityView.scss';
 
 const CityView = ({ loc, back }) => {
 
@@ -18,12 +19,18 @@ const CityView = ({ loc, back }) => {
 	let [ weatherLogs, setWeatherLogs] = useState(null);
 	let [ weatherFlag, setWeatherFlag ] = useState(false);
 
+	useEffect(() => {
+		async function execGetLocationWeather() {
+			await getLocationWeather();
+		}
+		let ret = execGetLocationWeather();
+	}, []);
+
 	const getLocationWeather = async () => {
 		const wt = await getCityAPI(loc.city, loc.country);
 		const retWt = createWeatherObj(wt);
 		setWeather(retWt);
 		let ret = await saveCurrentWeather(retWt);
-		console.log(ret);
 		setWeatherFlag(false);
 	};
 
@@ -59,13 +66,12 @@ const CityView = ({ loc, back }) => {
 	};
 
 	return (
-		<>
-			<div>
-				<h3>{ loc.city }{ loc.country ? ', ' : null}{countryCodeConverter(loc.country)}</h3>
-			</div>
-			<div>
-				<div>Latitude: {loc.lat}</div>
-				<div>Longitude: {loc.lon}</div>
+		<div className="city-view-container">
+			<div className="city-view-header-container">
+				<h2>{ loc.city }</h2>
+				<h3>{countryCodeConverter(loc.country)}</h3>
+				<h5>Latitude: {loc.lat}</h5>
+				<h5>Longitude: {loc.lon}</h5>
 			</div>
 			<div>
 				<button className="btn btn-lg btn-info" onClick={getLocationWeather}>Get today's weather</button>
@@ -75,7 +81,7 @@ const CityView = ({ loc, back }) => {
 			<div>
 				{ weatherFlag ? getLogDetails() : getWeatherDetails() }
 			</div>
-		</>
+		</div>
 	)
 };
 

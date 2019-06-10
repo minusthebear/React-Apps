@@ -36,9 +36,17 @@ const Locations = ({ allLocations, selectCity, deleteCity }) => {
 		return null;
 	};
 
+	const noSavedLocations = () => {
+		return (
+			<>
+				<h3>You've yet to add a location.</h3>
+			</>
+		)
+	};
+
 	return (
 		<div className="locations-table-container">
-			{ allLocations ? showAllLocations() : null }
+			{ allLocations && allLocations.length ? showAllLocations() : noSavedLocations() }
 		</div>
 	)
 };

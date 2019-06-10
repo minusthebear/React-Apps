@@ -1,0 +1,22 @@
+.city-view-container {
+  width:100%;
+  padding:1rem;
+  background:rgba(255,255,255,0.75);
+
+  .city-view-header-container {
+    text-align:left;
+    h2, h3, h5 {
+      margin-bottom: .25rem;
+    }
+  }
+  .weather-details-table {
+    width:100%;
+
+    td, th {
+      text-align:left;
+      &:first-child {
+        width:30%;
+      }
+    }
+  }
+}
