@@ -13,7 +13,6 @@ export const createWeatherObj = (obj) => {
 		visibility: obj.visibility,
 		timezone: obj.timezone,
 		weather: obj.weather
-
 	};
 };
 

@@ -49,9 +49,9 @@ const CityView = ({ loc, back }) => {
 
 	const getWeatherLogDetail = async (_id) => {
 		const res = await getWeatherLog(_id);
-		console.log(res);
+		setWeather(res);
 		// setWeatherLogs(null);
-		// setWeatherFlag(false);
+		setWeatherFlag(false);
 	}
 
 	const getLogDetails = () => {

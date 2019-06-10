@@ -35,7 +35,7 @@ const WeatherData = ({ weather }) => {
 
 	return (
 		<>
-			<table class="weather-details-table">
+			<table className="weather-details-table">
 				<thead>
 					<tr>
 						<th>{convertDate(weather.dt)}</th>
