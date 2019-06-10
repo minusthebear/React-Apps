@@ -120,6 +120,10 @@ const App = (props) => {
 		);
 	};
 
+	const displayAddLocation = () => {
+		setMainPage(false);
+	};
+
 	const showLocation = () => {
 		return (
 
@@ -132,7 +136,7 @@ const App = (props) => {
     return (
     	<div style={{backgroundImage: `url(${bgImage})`}} className="weather-app-container" >
 			<div className="container">
-				<Header locations={displayLocations}/>
+				<Header locations={displayLocations} add={displayAddLocation}/>
 				<div className="row weather-body-container">
 					{ mainPage ? showLocation() : showAddNewLocationElement() }
 				</div>
