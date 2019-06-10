@@ -1,14 +1,17 @@
 import React from 'react';
 import {capitalize} from 'lodash';
 import trash from '../images/icons8-waste-64.png';
+import './WeatherLogDetails.scss';
 
 export default function WeatherLogDetails({ weatherLogs, onClick, deleteLog }) {
 	return (
 		<>
-			<table>
+			<table className="weather-log-details-container">
 				<thead>
 					<tr>
 						<th>Date</th>
+						<th>Weather</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>

@@ -5,6 +5,12 @@
 
   .city-view-header-container {
     text-align:left;
+    h3 {
+      padding-right:1rem;
+    }
+    h2, h3 {
+      display:inline-block;
+    }
     h2, h3, h5 {
       margin-bottom: .25rem;
     }
@@ -18,5 +24,18 @@
         width:30%;
       }
     }
+  }
+
+  .get-log-details {
+    padding: 2rem 0;
+  }
+
+  .btn-primary {
+    float:right;
+  }
+
+  .weather-details-denotation {
+    padding-top:1rem;
+    text-align:left;
   }
 }

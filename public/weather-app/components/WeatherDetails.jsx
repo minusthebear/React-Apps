@@ -85,7 +85,7 @@ const WeatherData = ({ weather }) => {
 					</tr>
 				</tbody>
 			</table>
-			<div>
+			<div className="weather-details-denotation">
 				<p>* - Denotes the time relative to the user's current time zone.</p>
 			</div>
 		</>

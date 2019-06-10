@@ -56,7 +56,11 @@ const CityView = ({ loc, back }) => {
 
 	const getLogDetails = () => {
 		if (Array.isArray(weatherLogs) && weatherLogs.length) {
-			return <WeatherLogDetails weatherLogs={weatherLogs} onClick={getWeatherLogDetail} deleteLog={deleteLog} />;
+			return (
+				<div className="get-log-details">
+					<WeatherLogDetails weatherLogs={weatherLogs} onClick={getWeatherLogDetail} deleteLog={deleteLog} />
+				</div>
+			);
 		}
 	};
 
@@ -65,21 +69,27 @@ const CityView = ({ loc, back }) => {
 		let ret2 = await displayAllLoggedWeather();
 	};
 
+	const getTodaysWeatherButton = () => {
+		return <button className="btn btn-lg btn-info" onClick={getLocationWeather}>Get today's weather</button>;
+	};
+
+	const getAllLoggedWeatherEventsButton = () => {
+		return <button className="btn btn-lg btn-warning" onClick={displayAllLoggedWeather}>Get all logged weather events</button>
+	};
+
 	return (
 		<div className="city-view-container">
 			<div className="city-view-header-container">
 				<h2>{ loc.city }</h2>
-				<h3>{countryCodeConverter(loc.country)}</h3>
+				{ loc.country ? (<h3>, </h3>) : null}
+				<h2>{countryCodeConverter(loc.country)}</h2>
 				<h5>Latitude: {loc.lat}</h5>
 				<h5>Longitude: {loc.lon}</h5>
 			</div>
-			<div>
-				<button className="btn btn-lg btn-info" onClick={getLocationWeather}>Get today's weather</button>
-				<button className="btn btn-lg btn-warning" onClick={displayAllLoggedWeather}>Get all logged weather events</button>
+			{ weatherFlag ? getLogDetails() : getWeatherDetails() }
+			<div className="text-left">
+				{ weatherFlag ? getTodaysWeatherButton() : getAllLoggedWeatherEventsButton() }
 				<button className="btn btn-lg btn-primary" onClick={back} >Back</button>
-			</div>
-			<div>
-				{ weatherFlag ? getLogDetails() : getWeatherDetails() }
 			</div>
 		</div>
 	)
