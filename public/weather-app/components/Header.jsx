@@ -12,7 +12,7 @@ export default function Header({ locations }) {
 			<div className="col-md-12">
 				<ul className="list-inline">
 					<li className="list-inline-item" onClick={locations}>SEE ALL CITIES</li>
-					<li className="list-inline-item" onCLick={() => {}}>ADD A LOCATION</li>
+					<li className="list-inline-item" onClick={() => {}}>ADD A LOCATION</li>
 				</ul>
 			</div>
 		</div>

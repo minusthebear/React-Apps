@@ -17,7 +17,7 @@ const App = (props) => {
     let [ coords, setCoords ] = useState(null);
     let [ allLocations, setAllLocations ] = useState(null);
     let [ city, setCity ] = useState(null);
-    let [ mainPage, setMainPage ] = useState(true);
+    let [ mainPage, setMainPage ] = useState(false);
 
     useEffect(() => {
     	async function triggerDisplayLocations() {
@@ -66,9 +66,11 @@ const App = (props) => {
     };
 
 	const displayLocations = async () => {
-		let locations = await getAllLocations();
-		setAllLocations(locations);
-		setCurPage(null);
+		if (!mainPage) {
+			let locations = await getAllLocations();
+			setAllLocations(locations);
+			setMainPage(true);
+		}
 	};
 
 	const selectCity = (loc) => {
@@ -83,7 +85,7 @@ const App = (props) => {
 	const getLocationsElement = () => {
 		return (
 			<>
-				<h2>All Locations</h2>
+				<h2>All Saved Locations</h2>
 				<Locations
 					allLocations={allLocations}
 					selectCity={selectCity}
@@ -131,7 +133,7 @@ const App = (props) => {
     	<div style={{backgroundImage: `url(${bgImage})`}} className="weather-app-container" >
 			<div className="container">
 				<Header locations={displayLocations}/>
-				<div className="row">
+				<div className="row weather-body-container">
 					{ mainPage ? showLocation() : showAddNewLocationElement() }
 				</div>
 			</div>

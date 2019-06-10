@@ -1,0 +1,38 @@
+.locations-table-container {
+  width:100%;
+  padding:1rem;
+
+  .locations-table {
+    width:100%;
+    font-size:1.5rem;
+
+    thead > tr {
+      background:rgba(255,255,255,0.75);
+
+      th {
+        padding:.5rem 0 .5rem 0;
+      }
+
+    }
+
+    tbody > tr {
+      &:nth-child(even) {
+        background:rgba(255,255,255,0.75);
+      }
+
+      &:nth-child(odd) {
+        background:rgba(52, 217, 217,0.5);
+      }
+
+      cursor:pointer;
+
+      td {
+        padding: 1rem 0 1rem 0;
+      }
+
+      img {
+        height:50%;
+      }
+    }
+  }
+}
