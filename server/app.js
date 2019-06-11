@@ -5,7 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const setRoutes = require('./setRoutes');
+const setRoutes = require('./routes/setRoutes');
 // const pino = require('express-pino-logger')();
 
 const port = process.env.PORT || 8080;

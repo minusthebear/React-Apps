@@ -1,4 +1,3 @@
-const path = require('path');
 const _ = require('lodash');
 
 const {
@@ -11,13 +10,9 @@ const {
 	getAllLocations,
 	getAllWeatherLogsByLocation,
 	getWeatherLog
-} = require('./mongodb/weather-db');
+} = require('../mongodb/weather-db');
 
-const setRoutes = app => {
-
-	app.get('/test', function(req, res, next) {
-		res.sendFile(path.resolve('public', 'test.html'));
-	});
+const setWeatherRoutes = app => {
 
 	app.post('/addNewLocation', async (req, res, next) => {
 		let ret;
@@ -127,22 +122,6 @@ const setRoutes = app => {
 			next(e);
 		}
 	});
-
-
-	app.get('/*', function(req, res)  {
-		res.render('index.jsx');
-	});
-
-	// error handler
-	app.use(function(err, req, res, next) {
-		// set locals, only providing error in development
-		console.log('error, fool!')
-		res.locals.message = err.message;
-		res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-		// render the error page
-		res.status(err.status || 500).sendFile(path.resolve('public', 'error.html'));
-	});
 };
 
-module.exports = setRoutes;
+module.exports = setWeatherRoutes;
