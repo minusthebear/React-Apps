@@ -1,31 +1,22 @@
 const _ = require('lodash');
-const initDB = require('../mongodb/jeopardy-db');
+const { initDB, getAllCategories } = require('../mongodb/jeopardy-db');
+
 const setJeopardyRoutes = app => {
 
 	initDB();
-	//
-	// app.post('/addNewLocation', async (req, res, next) => {
-	// 	let ret;
-	// 	try {
-	// 		ret = await findOneLocation(req.body);
-	// 	} catch(e) {
-	// 		res.status(404).send({ message: 'Unable to post at this time' });
-	// 		return;
-	// 	}
-	//
-	// 	if (ret) {
-	// 		res.status(200).send({ message: 'Entry already exists.' });
-	// 		return;
-	// 	} else {
-	// 		try {
-	// 			await addLocation(req.body);
-	// 			res.status(204).send();
-	// 		} catch (e) {
-	// 			res.status(404).send({ message: 'Unable to post at this time' });
-	// 			next(e);
-	// 		}
-	// 	}
-	// });
+	console.log('\n *** -- setJeopardyRoutes -- *** \n')
+
+	app.get('/getAllCategories', async (req, res, next) => {
+		let ret;
+		try {
+			ret = await getAllCategories();
+		} catch(e) {
+			res.status(404).send({ message: 'Unable to post at this time' });
+			return;
+		}
+
+		res.status(200).send(ret);
+	});
 	//
 	// app.post('/saveCurrentWeather', async (req,res,next) => {
 	//

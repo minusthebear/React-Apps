@@ -8,7 +8,37 @@ const REACT_JEOPARDY_CATEGORIES = 'reactJeopardyCategories';
 
 /* This code initializes the database with sample users.
  Note, it does not drop the database - this can be done manually. Having code in your application that could drop your whole DB is a fairly risky choice.*/
-async function initializeReactJeopardyDB(){
+async function initializeReactJeopardyDB(categories){
+
+	try {
+		fs.readFile(STARTING_JEOPARDY_JSON, async (err, data) => {
+			if (err) {
+				throw err;
+			}
+			let parsedData = JSON.parse(data);
+
+			try {
+				for (let categoryName in parsedData) {
+					categories = db.collection('reactJeopardyCategories');
+					await categories.insertOne({categoryName});
+					let collection = db.collection(categoryName);
+					await collection.insertMany(parsedData[categoryName]);
+				}
+			}
+			catch (e) {
+				throw e;
+			}
+		});
+
+		db.close();
+
+	} catch(e) {
+		throw new Error('Damn, this sucks!');
+	}
+}
+
+async function checkIfReactJeopardyDbExists() {
+
 	let db;
 	let categories;
 	try {
@@ -18,38 +48,15 @@ async function initializeReactJeopardyDB(){
 		let existsSync = fs.existsSync(STARTING_JEOPARDY_JSON);
 
 		if ((!categories || !categories.length) && existsSync) {
-
-			fs.readFile(STARTING_JEOPARDY_JSON, async (err, data) => {
-				if (err) {
-					throw err;
-				}
-				let parsedData = JSON.parse(data);
-
-				try {
-
-					for (let categoryName in parsedData) {
-						categories = db.collection('reactJeopardyCategories');
-						await categories.insertOne({categoryName});
-						let collection = db.collection(categoryName);
-						await collection.insertMany(parsedData[categoryName]);
-					}
-				}
-				catch (e) {
-					throw e;
-				}
-
-			});
+			await initializeReactJeopardyDB(categories);
 		}
-		db.close();
-
 	} catch(e) {
 		if (db) {
 			db.close();
 		}
 		throw new Error('Damn, this sucks!');
-
 	}
-	return categories;
+
 }
 
 /*
@@ -100,4 +107,4 @@ hat are not handled will terminate the Node.js process with a non-zero exit code
 
  */
 
-module.exports = {initializeReactJeopardyDB };
+module.exports = {checkIfReactJeopardyDbExists };
