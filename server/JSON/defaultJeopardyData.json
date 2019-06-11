@@ -89,37 +89,37 @@
 
 	"directors": [
 		{
-			"director":: "Stanley Kubrick",
+			"director": "Stanley Kubrick",
 			"films": ["Dr. Strangelove", "2001: A Space Odyssey", "Eyes Wide Shut", "The Shining"],
 			"nationality": "American"
 		},
 		{
-			"director":: "Guillermo Del Toro",
+			"director": "Guillermo Del Toro",
 			"films": ["Pan's Labyrinth", "The Shape of Water", "Hellboy", "Pacific Rim"],
 			"nationality": "Mexican"
 		},
 		{
-			"director":: "Kathryn Bigelow",
+			"director": "Kathryn Bigelow",
 			"films": ["Point Break", "Zero Dark Thirty", "The Hurt Locker"],
 			"nationality": "American"
 		},
 		{
-			"director":: "Woody Allen",
+			"director": "Woody Allen",
 			"films": ["The Purple Rose of Cairo", "Blue Jasmine", "Annie Hall", "Midnight in Paris"],
 			"nationality": "American"
 		},
 		{
-			"director":: "John Woo",
+			"director": "John Woo",
 			"films": ["A Better Tomorrow", "Hard Boiled", "Hard Target", "Face/Off", "Mission: Impossible II"],
 			"nationality": "Chinese"
 		},
 		{
-			"director":: "Quentin Tarantino",
+			"director": "Quentin Tarantino",
 			"films": ["Pulp Fiction", "Reservoir Dogs", "Django Unchained", "Inglorious Basterds"],
 			"nationality": "American"
 		},
 		{
-			"director":: "Hayao Miyazaki",
+			"director": "Hayao Miyazaki",
 			"films": ["Spirited Away", "My Neighbor Totoro", "Howl's Moving Castle", "Princess Mononoke"],
 			"nationality": "Japanese"
 		}

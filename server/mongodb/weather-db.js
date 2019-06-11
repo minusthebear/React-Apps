@@ -1,4 +1,4 @@
-const { connectWeatherDB } = require('./connectDB');
+const { connectWeatherDB } = require('./connect-db');
 const ObjectId = require('mongodb').ObjectId;
 
 async function addLocation(location) {
