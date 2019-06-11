@@ -29,11 +29,12 @@ const setRoutes = app => {
 		}
 
 		if (ret) {
-			res.status(200).send({ message: 'Entry already exists.' })
+			res.status(200).send({ message: 'Entry already exists.' });
+			return;
 		} else {
 			try {
 				await addLocation(req.body);
-				res.status(204);
+				res.status(204).send();
 			} catch (e) {
 				res.status(404).send({ message: 'Unable to post at this time' });
 				next(e);
@@ -54,18 +55,15 @@ const setRoutes = app => {
 		}
 
 		if (ret.length) {
-			console.log('ret.length');
 			objMatch = _.find(ret, (item) => {
 				let timeOne = new Date((new Date(req.body.dt).toLocaleDateString())).getTime(),
 					timeTwo = new Date((new Date(item.dt).toLocaleDateString())).getTime();
 
 				return timeOne === timeTwo;
 			});
-			console.log(objMatch);
 		}
 
 		if (objMatch) {
-			console.log('objMatch');
 			res.status(200).send({ message: 'No entry was saved. Weather log for this date and location already exists.' });
 			return;
 		}
@@ -123,9 +121,7 @@ const setRoutes = app => {
 	app.delete('/deleteWeatherLog', async (req, res, next) => {
 		try {
 			let val = await deleteWeatherLog(req.body._id);
-			console.log('here');
-			res.status(204).send();;
-			console.log('success!');
+			res.status(204).send();
 		} catch (e) {
 			res.status(404).send({ message: 'Unable to delete weather log at this time' });
 			next(e);

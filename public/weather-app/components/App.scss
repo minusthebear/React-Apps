@@ -9,10 +9,16 @@
   .container {
     background-color: rgba(255,255,255,.5);
     height: 100%;
+    overflow-x: scroll;
 
     .weather-body-container {
       padding-top:2rem;
       text-align:center;
+    }
+
+    .add-new-location-container {
+      padding:1rem;
+      background:rgba(255,255,255,0.75);
     }
   }
 }

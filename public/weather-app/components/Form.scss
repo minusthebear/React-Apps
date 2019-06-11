@@ -1,0 +1,29 @@
+
+
+.add-new-location-container, .location-results-container {
+  padding:1rem;
+  background:rgba(255,255,255,0.75);
+}
+
+.location-results-container {
+  margin-top:3rem;
+}
+
+.form-group {
+  display:inline-block;
+  width:50%;
+
+  label {
+    display:block;
+    text-align: left;
+    padding-left: 7.5%;
+  }
+
+  .form-input-element {
+    width:85%;
+  }
+}
+
+.btn-success {
+  display: block;
+}

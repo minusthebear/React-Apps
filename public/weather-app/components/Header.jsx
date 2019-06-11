@@ -16,5 +16,5 @@ export default function Header({ locations, add }) {
 				</ul>
 			</div>
 		</div>
-	)
+	);
 }

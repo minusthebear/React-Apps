@@ -32,7 +32,7 @@ const ConnectedList = ({ selectCountryCode, countryCode }) => {
     };
 
     return (
-        <select className="" onChange={countrySelect} value={selectValue}>
+        <select className="form-input-element" onChange={countrySelect} value={selectValue}>
             <option value="SELECT">
                 SELECT
             </option>

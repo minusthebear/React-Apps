@@ -37,7 +37,6 @@ const App = (props) => {
     };
 
     const successFunc = (res) => {
-    	console.log(res);
         setCoords(res);
         setInvalidLocation(false);
     };
@@ -48,9 +47,9 @@ const App = (props) => {
     };
 
     const submitForm = () => {
-    	console.log(coords);
         if (coords) {
             const obj = createLocationObj(coords);
+            console.log(obj);
 
 			addNewLocation(obj)
                 .then((res) => {
@@ -59,18 +58,20 @@ const App = (props) => {
                 .catch((err) => {
                     console.log(err);
                 })
-				.finally(displayLocations);
-            setCoords(null);
-            setInvalidLocation(false);
+				.finally(async () => {
+					await displayLocations();
+					setCoords(null);
+					setInvalidLocation(false);
+					setMainPage(true);
+				});
         }
     };
 
 	const displayLocations = async () => {
-		if (!mainPage) {
-			let locations = await getAllLocations();
-			setAllLocations(locations);
-			setMainPage(true);
-		}
+		let locations = await getAllLocations();
+		setAllLocations(locations);
+		setMainPage(true);
+		setCity(null);
 	};
 
 	const selectCity = (loc) => {
@@ -78,8 +79,18 @@ const App = (props) => {
 	};
 
 	const deleteCity = async (id) => {
-		let ret1 = await deleteLocation(id);
-		let ret2 = await displayLocations();
+		try {
+			let ret1 = await deleteLocation(id);
+		} catch(e) {
+			throw new Error(e);
+		}
+
+		try {
+			let ret2 = await displayLocations();
+		}
+		catch(e) {
+			throw new Error(e);
+		}
 	}
 
 	const getLocationsElement = () => {
@@ -115,6 +126,7 @@ const App = (props) => {
 					makeApiCall={makeApiCall}
 					submitForm={submitForm}
 					invalidLocation={invalidLocation}
+					coords={coords}
 				/>
 			</div>
 		);
@@ -126,7 +138,6 @@ const App = (props) => {
 
 	const showLocation = () => {
 		return (
-
 			<div className="col-md-10 offset-md-1">
 				{ city ? getCityViewElement() : getLocationsElement() }
 			</div>
