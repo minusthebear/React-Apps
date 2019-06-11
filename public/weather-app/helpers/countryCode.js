@@ -1,5 +1,5 @@
 import {find} from "lodash";
-import countryCodes from "../constants/allCountryCodes";
+import countryCodes from "../../constants/allCountryCodes";
 
 export const countryCodeConverter = (val) => {
 	const country = find(countryCodes, (country) => {

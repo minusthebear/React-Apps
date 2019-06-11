@@ -1,4 +1,4 @@
-import { ADD_LOCATION } from '../constants/action-types';
+import { ADD_LOCATION } from '../../constants/action-types';
 import { getProjectJSON } from '../api/weatherApi';
 
 

@@ -1,4 +1,4 @@
-import { KELVIN_DIFF, CELSIUS, FAHRENHEIT, KELVIN } from '../constants/TEMP_CONSTANTS'
+import { KELVIN_DIFF, CELSIUS, FAHRENHEIT, KELVIN } from '../../constants/TEMP_CONSTANTS'
 
 function fahrenheitToCelsius(f) {
     return (f - 32) / 1.8;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import countries from '../constants/allCountryCodes';
+import countries from '../../constants/allCountryCodes';
 import { find } from 'lodash'
 
 const mapStateToProps = state => {

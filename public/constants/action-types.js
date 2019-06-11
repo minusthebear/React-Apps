@@ -1,0 +1,2 @@
+export const ADD_LOCATION = 'ADD_LOCATION';
+export const SET_ALL_CATEGORIES = 'SET_ALL_CATEGORIES';

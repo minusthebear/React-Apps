@@ -1,6 +1,6 @@
 import { handleResponse, handleError } from "./apiUtils";
-import { API_KEY } from "../constants/API_key";
-import { ALL_COUNTRY_APIS } from '../constants/API_URL';
+import { API_KEY } from "../../constants/API_key";
+import { ALL_COUNTRY_APIS } from '../../constants/API_URL';
 import axios from 'axios';
 import qs from 'qs';
 
