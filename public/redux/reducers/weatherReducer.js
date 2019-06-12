@@ -4,7 +4,7 @@ const initialState = {
     locations: []
 };
 
-function translationReducer(state = initialState, action) {
+function weatherReducer(state = initialState, action) {
     if (action.type === ADD_LOCATION) {
         return Object.assign({}, state, {
             locations: state.locations.concat(action.location)
@@ -20,4 +20,4 @@ function translationReducer(state = initialState, action) {
     return state;
 }
 
-export default translationReducer;
+export default weatherReducer;

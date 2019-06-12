@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import './index.scss';
 import GamePlay from './GamePlay';
-import * as serviceWorker from './serviceWorker';
 import SetGamePlayValues from './GamePlaySetup/SetGamePlayValues';
 import { getAllCategories } from './actions/index';
 import { getAllQuestions, writeQuizGrid, createScoreCard, getGutsyWagerQuestions } from './helperMethods';
@@ -10,7 +8,7 @@ import { connect } from 'react-redux';
 
 /* TODO: change App, maybe MainGrid and maybe QuestionAnswer into class components */
 
-function App({ getAllCategories }) {
+function App({ getAllCategories, allQuestionData }) {
 
     //NOTE: Dummy data setup
     // const dummyData = {"settings":{"categories":"1","numPlayers":"4"},"players":["Steve","Jenna","Nick","Jaclyn"]};
@@ -50,7 +48,8 @@ function App({ getAllCategories }) {
 
     return (
         <>
-
+            <button onClick={() => { console.log( allQuestionData )}} >FUCK BUTTON</button>
+            
             {allValuesAreSet
                 ?
                 <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
@@ -63,7 +62,7 @@ function App({ getAllCategories }) {
 
 
 const mapStateToProps = state => {
-    return {};
+    return { allQuestionData: state.jeopardyReducer.allQuestionData };
 };
 
 function mapDispatchToProps(dispatch) {
@@ -73,23 +72,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-// <GamePlay categories={categories} quizGrid={quizGrid} scoreCard={scoreCard} />
-//
-// function render() {
-//
-//     ReactDOM.render(
-//             <Fragment>
-//                 <App />
-//             </Fragment>
-//         , document.getElementById('root')
-//     );
-// }
-//
-//
-// render();
-//
-// // If you want your app to work offline and load faster, you can change
-// // unregister() to register() below. Note this comes with some pitfalls.
-// // Learn more about service workers: https://bit.ly/CRA-PWA
-// serviceWorker.unregister();

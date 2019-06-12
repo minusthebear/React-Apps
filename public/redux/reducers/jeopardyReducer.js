@@ -1,23 +1,22 @@
-import { SET_ALL_CATEGORIES } from "../../constants/action-types";
+import { SET_ALL_CATEGORIES, SET_ALL_QUESTION_DATA } from "../../constants/action-types";
 
 const initialState = {
-	categories: {}
+	categories: null,
+	allQuestionData: null
 };
 
-function translationReducer(state = initialState, action) {
+function jeopardyReducer(state = initialState, action) {
 	if (action.type === SET_ALL_CATEGORIES) {
 		return Object.assign({}, state, {
 			categories: action.categories
 		});
-		// } else if (action.type === ADD_TRANSLATE_ID) {
-		// console.log('translationReducer');
-		// console.log(state);
-		// console.log(action);
-		// return Object.assign({}, state, {
-		//     translateId: action.translateId
-		// });
+	}
+	if (action.type === SET_ALL_QUESTION_DATA) {
+		return Object.assign({}, state, {
+			allQuestionData: action.allQuestionData
+		});
 	}
 	return state;
 }
 
-export default translationReducer;
+export default jeopardyReducer;

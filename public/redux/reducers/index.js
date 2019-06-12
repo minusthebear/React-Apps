@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import translationReducer from "./translationReducer";
+import jeopardyReducer from './jeopardyReducer';
+import weatherReducer from "./weatherReducer";
 
 const rootReducer = combineReducers({
-    translationReducer
+    jeopardyReducer,
+    weatherReducer
 });
 
 export default rootReducer;
