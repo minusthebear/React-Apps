@@ -6,16 +6,14 @@ const setJeopardyRoutes = app => {
 	initDB();
 	console.log('\n *** -- setJeopardyRoutes -- *** \n')
 
-	app.get('/getAllCategories', async (req, res, next) => {
+	app.get('/getAllCategories', async (req, res) => {
 		let ret;
 		try {
 			ret = await getAllCategories();
+			res.status(200).send(ret);
 		} catch(e) {
-			res.status(404).send({ message: 'Unable to post at this time' });
-			return;
+			res.status(404).send({ message: 'Unable to get data at this time' });
 		}
-
-		res.status(200).send(ret);
 	});
 	//
 	// app.post('/saveCurrentWeather', async (req,res,next) => {
