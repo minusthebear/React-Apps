@@ -25,7 +25,7 @@ function App({ getAllCategories, allQuestionData }) {
 
     const setAllValues = (obj) => {
         if (obj) {
-            let temp = getAllQuestions(parseInt(obj.settings.categories));
+            let temp = getAllQuestions(allQuestionData, parseInt(obj.settings.categories));
             setNumPlayers(parseInt(obj.settings.numPlayers));
             setCategories(temp);
             setQuizGrid(writeQuizGrid(temp));
@@ -37,8 +37,6 @@ function App({ getAllCategories, allQuestionData }) {
 
     return (
         <>
-            <button onClick={() => { console.log( allQuestionData )}} >FUCK BUTTON</button>
-
             {allValuesAreSet
                 ?
                 <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />

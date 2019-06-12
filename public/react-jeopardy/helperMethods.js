@@ -1,6 +1,5 @@
 import {pluck, sample, shuffle} from "underscore";
 import {cloneDeep, map} from "lodash";
-import {books, directors, music, nations, disneyFilms, cuisine} from "./common/question-data";
 import utils from "./utils";
 
 const shuffleAllArrayValues = (category, format, fourValues) => {
@@ -126,7 +125,9 @@ const cuisineFunc = (cuisine, format) => {
     return format === 'cuisine' ? shuffleAllSubjectValues(format, cloneDeep(fourCuisines)) : shuffleAllArrayValues(cuisine, format, cloneDeep(fourCuisines)    );
 };
 
-const getAllQuestions = (num) => {
+const getAllQuestions = (allQuestionData, num) => {
+
+    const {books, directors, music, nations, disneyFilms, cuisine} = allQuestionData;
 
     const allBooks = {
         'categoryName': 'Books',
