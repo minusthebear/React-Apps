@@ -24,8 +24,6 @@ const App = (props) => {
     		await displayLocations();
 		}
 		let ret = triggerDisplayLocations();
-    	console.log(ret);
-		console.log('hit!!!');
     }, []);
 
     const makeApiCall = (city, cCode) => {
@@ -49,7 +47,6 @@ const App = (props) => {
     const submitForm = () => {
         if (coords) {
             const obj = createLocationObj(coords);
-            console.log(obj);
 
 			addNewLocation(obj)
                 .then((res) => {

@@ -21,7 +21,6 @@ export async function saveCurrentWeather(obj) {
         const res = await axios.post(URL + '/saveCurrentWeather', obj);
         return res;
     } catch (e) {
-        console.log(e);
         return e;
     }
 };

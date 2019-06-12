@@ -4,7 +4,6 @@ const { initDB, getAllCategories } = require('../mongodb/jeopardy-db');
 const setJeopardyRoutes = app => {
 
 	initDB();
-	console.log('\n *** -- setJeopardyRoutes -- *** \n')
 
 	app.get('/getAllCategories', async (req, res) => {
 		let ret;

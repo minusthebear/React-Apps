@@ -10,15 +10,6 @@ import { connect } from 'react-redux';
 
 function App({ getAllCategories, allQuestionData }) {
 
-    //NOTE: Dummy data setup
-    // const dummyData = {"settings":{"categories":"1","numPlayers":"4"},"players":["Steve","Jenna","Nick","Jaclyn"]};
-    // let temp = getAllQuestions(parseInt(dummyData.settings.categories));
-    // let [ categories, setCategories ] = useState(temp);
-    // let [ quizGrid, setQuizGrid ] = useState(writeQuizGrid(temp));
-    // let [ scorecard, setScorecard ] = useState(createScoreCard(dummyData.players));
-    // let [ numPlayers, setNumPlayers ] = useState(parseInt(dummyData.settings.numPlayers));
-    // let [ gutsyWager, setGutsyWager ] = useState(getGutsyWagerQuestions(temp));
-
     useEffect(() => {
         getAllCategories();
     }, []);
@@ -44,12 +35,10 @@ function App({ getAllCategories, allQuestionData }) {
         }
     };
 
-    // setAllValues(dummyData);
-
     return (
         <>
             <button onClick={() => { console.log( allQuestionData )}} >FUCK BUTTON</button>
-            
+
             {allValuesAreSet
                 ?
                 <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />

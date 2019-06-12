@@ -9,13 +9,6 @@ function weatherReducer(state = initialState, action) {
         return Object.assign({}, state, {
             locations: state.locations.concat(action.location)
         });
-    // } else if (action.type === ADD_TRANSLATE_ID) {
-        // console.log('translationReducer');
-        // console.log(state);
-        // console.log(action);
-        // return Object.assign({}, state, {
-        //     translateId: action.translateId
-        // });
     }
     return state;
 }
