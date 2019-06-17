@@ -8,7 +8,13 @@ async function getAllCategories() {
 		db = await connectJeopardyDB();
 
 		let collection = db.collection('reactJeopardyCategories');
+
 		let ret = await collection.find({}).toArray();
+
+		if (!ret || !ret.length) {
+			console.log('return null');
+			return null;
+		}
 
 		let data = await loopThroughResults(ret, db);
 		return data;
@@ -24,7 +30,7 @@ async function initDB() {
 	try {
 		await checkIfReactJeopardyDbExists();
 	} catch(e) {
-		throw new Error(e);
+		throw e;
 	}
 }
 

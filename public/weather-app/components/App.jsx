@@ -20,10 +20,10 @@ const App = (props) => {
     let [ mainPage, setMainPage ] = useState(false);
 
     useEffect(() => {
-    	async function triggerDisplayLocations() {
+		(async function triggerDisplayLocations() {
     		await displayLocations();
-		}
-		let ret = triggerDisplayLocations();
+		})();
+		// let ret = triggerDisplayLocations();
     }, []);
 
     const makeApiCall = (city, cCode) => {

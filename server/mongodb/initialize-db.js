@@ -8,7 +8,7 @@ const REACT_JEOPARDY_CATEGORIES = 'reactJeopardyCategories';
 
 /* This code initializes the database with sample users.
  Note, it does not drop the database - this can be done manually. Having code in your application that could drop your whole DB is a fairly risky choice.*/
-async function initializeReactJeopardyDB(categories){
+async function initializeReactJeopardyDB(categories, db){
 
 	try {
 		fs.readFile(STARTING_JEOPARDY_JSON, async (err, data) => {
@@ -30,10 +30,8 @@ async function initializeReactJeopardyDB(categories){
 			}
 		});
 
-		db.close();
-
 	} catch(e) {
-		throw new Error('Damn, this sucks!');
+		throw e;
 	}
 }
 
@@ -48,13 +46,13 @@ async function checkIfReactJeopardyDbExists() {
 		let existsSync = fs.existsSync(STARTING_JEOPARDY_JSON);
 
 		if ((!categories || !categories.length) && existsSync) {
-			await initializeReactJeopardyDB(categories);
+			await initializeReactJeopardyDB(categories, db);
 		}
 	} catch(e) {
 		if (db) {
 			db.close();
 		}
-		throw new Error('Damn, this sucks!');
+		throw e;
 	}
 
 }
@@ -107,4 +105,4 @@ hat are not handled will terminate the Node.js process with a non-zero exit code
 
  */
 
-module.exports = {checkIfReactJeopardyDbExists };
+module.exports = { checkIfReactJeopardyDbExists };
