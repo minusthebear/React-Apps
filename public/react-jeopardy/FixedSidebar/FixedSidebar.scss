@@ -1,0 +1,28 @@
+.fixed-sidebar {
+  position:fixed;
+  left:-8rem;
+  top:0;
+  height:100%;
+  width:10rem;
+  //transition: transform .3s cubic-bezier(0, .52, 0, 1);
+
+  &.toggle-container-hovered {
+    left:0rem;
+  }
+
+  .fixed-sidebar-content-container {
+    vertical-align:top;
+    background-color:red;
+    width:80%;
+    height:inherit;
+    display: inline-block;
+  }
+
+  .fixed-sidebar-toggle-container {
+    vertical-align:top;
+    width:20%;
+    background-color:blue;
+    height: inherit;
+    display: inline-block;
+  }
+}

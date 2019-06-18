@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './index.scss';
 import GamePlay from './GamePlay';
 import SetGamePlayValues from './GamePlaySetup/SetGamePlayValues';
+import FixedSidebar from './FixedSidebar/FixedSidebar';
 import { getAllCategories } from './actions/index';
 import { getAllQuestions, writeQuizGrid, createScoreCard, getGutsyWagerQuestions } from './helperMethods';
 import { connect } from 'react-redux';
@@ -43,6 +44,7 @@ function App({ getAllCategories, allQuestionData }) {
                 :
                 <SetGamePlayValues setValues={setAllValues}/>
             }
+            <FixedSidebar />
         </>
     );
 }

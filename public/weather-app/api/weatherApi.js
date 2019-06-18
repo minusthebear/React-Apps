@@ -1,6 +1,5 @@
 import { handleResponse, handleError } from "./apiUtils";
 import { API_KEY } from "../../constants/API_key";
-import { ALL_COUNTRY_APIS } from '../../constants/API_URL';
 import axios from 'axios';
 import qs from 'qs';
 
@@ -23,7 +22,7 @@ export async function saveCurrentWeather(obj) {
     } catch (e) {
         return e;
     }
-};
+}
 
 export async function allWeatherLogsByLocation(id) {
     const res = await axios.get(URL + '/allWeatherLogsByLocation', { params: { id }});
