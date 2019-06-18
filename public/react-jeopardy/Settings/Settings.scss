@@ -1,0 +1,41 @@
+.settings-container {
+  text-align: center;
+  padding-top:2rem;
+
+  .settings-heading, .settings-content-container {
+    width: 100%;
+  }
+
+  .settings-content-container {
+    margin-top:2rem;
+    padding:1.5rem;
+    border:0.0625rem solid black;
+    border-radius:1rem;
+    width:25rem;
+    display: inline-block;
+    text-align: center;
+
+    .settings-read-write-questions-header {
+      margin-bottom:1rem;
+    }
+
+
+    .settings-read-write-questions {
+      display: table;
+      width: 100%;
+
+      .settings-read-write-questions-content {
+        display:table-cell;
+        vertical-align: middle;
+
+        label {
+          margin-right:1rem;
+        }
+
+        .settings-toggle-align {
+          vertical-align:middle;
+        }
+      }
+    }
+  }
+}

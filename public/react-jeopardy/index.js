@@ -3,6 +3,7 @@ import './index.scss';
 import GamePlay from './GamePlay';
 import SetGamePlayValues from './GamePlaySetup/SetGamePlayValues';
 import FixedSidebar from './FixedSidebar/FixedSidebar';
+import SettingsPage from './Settings/Settings';
 import { getAllCategories } from './actions/index';
 import { getAllQuestions, writeQuizGrid, createScoreCard, getGutsyWagerQuestions } from './helperMethods';
 import { connect } from 'react-redux';
@@ -15,13 +16,13 @@ function App({ getAllCategories, allQuestionData }) {
         getAllCategories();
     }, []);
 
-    //
     let [ allValuesAreSet, setAllValuesAreSet ] = useState(false);
     let [ categories, setCategories ] = useState({});
     let [ quizGrid, setQuizGrid ] = useState({});
     let [ scorecard, setScorecard ] = useState({});
     let [ numPlayers, setNumPlayers ] = useState(0);
     let [ gutsyWager, setGutsyWager ] = useState({});
+    let [ settingsPage, setSettingsPage ] = useState(false);
 
 
     const setAllValues = (obj) => {
@@ -36,15 +37,37 @@ function App({ getAllCategories, allQuestionData }) {
         }
     };
 
+    const gamePlayContainer = () => {
+        return allValuesAreSet
+            ?
+            <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
+            :
+            <SetGamePlayValues setValues={setAllValues}/>
+    };
+
+    const menuSelect = (val) => {
+        if (val) {
+            switch (val) {
+                case 'Settings':
+                    setSettingsPage(true);
+                    break;
+                default:
+                    setSettingsPage(false);
+            }
+
+        }
+    };
+
+    const showSettingsPage = () => {
+        return <SettingsPage />;
+    };
+
     return (
         <>
-            {allValuesAreSet
-                ?
-                <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
-                :
-                <SetGamePlayValues setValues={setAllValues}/>
+            {
+                settingsPage ? showSettingsPage() : gamePlayContainer()
             }
-            <FixedSidebar />
+            <FixedSidebar menuSelect={menuSelect} />
         </>
     );
 }
