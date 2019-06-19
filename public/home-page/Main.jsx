@@ -4,6 +4,8 @@ import './Main.scss';
 import {Link} from "react-router-dom";
 
 const Main = (props) => {
+    // TODO: make more responsive to different viewport sizes
+
     return (
         <div className="container-fluid main-page-container">
             <div className="row main-page-row">
