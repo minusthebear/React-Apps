@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css'
 import './index.scss';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 const SquareDisplay = (props) => {
     const range = (min, max) => Array.from({ length: max - min + 1 }, (_, i) => min + i);
@@ -156,6 +157,10 @@ const Container = (props) => {
       </div>
     );
 
-}
+};
 
-export default App;
+const mapStateToProps = (state) => state;
+
+const ConnectedApp = connect(mapStateToProps, null)(App);
+
+export default ConnectedApp;

@@ -1,18 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import configureStore from './redux/store';
+import App from './home-page/App';
 import './index.css';
-// import App from './weather-app/components/App';
-import App from './react-jeopardy';
-// import App from './weather-app/src/FakeApp.jsx';
-
-const store = configureStore();
 
 render(
-	<Provider store={store}>
-		<App />
-	</Provider>,
+	<App />,
     document.getElementById('root')
 );
 
