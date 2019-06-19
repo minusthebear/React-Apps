@@ -17,3 +17,8 @@ code {
   font-family:"clockfont";
   src: local('clockfont'), url(font/led/led_sas.ttf) format('truetype');
 }
+
+.container-fluid {
+  padding:0 !important;
+  height:100%;
+}

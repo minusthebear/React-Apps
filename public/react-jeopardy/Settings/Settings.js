@@ -21,7 +21,7 @@ export default function Settings({}) {
     };
 
     return (
-        <div className="container settings-container">
+        <div className="container-fluid settings-container">
             <div className="row">
                 <div className="settings-heading">
                     <h3>Game Settings</h3>

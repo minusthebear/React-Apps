@@ -121,20 +121,22 @@ function GamePlay(props) {
     };
 
     return  (
-        <div className={ showMainGrid ? 'game-play-container' : 'question-answer-container'}>
+        <div className="container-fluid">
+            <div className={ showMainGrid ? 'game-play-container' : 'question-answer-container'}>
                 { showMainGrid
                     ? checkIfBonus()
                     : questionAnswerScreen()
                 }
-            {
-                hitBonus
-                    ? null
-                    : (
-                        <div className="table-container">
-                            <Scoreboard totalPoints={playerPoints} player={player} showMainGrid={showMainGrid} />
-                        </div>
-                    )
-            }
+                {
+                    hitBonus
+                        ? null
+                        : (
+                            <div className="table-container">
+                                <Scoreboard totalPoints={playerPoints} player={player} showMainGrid={showMainGrid} />
+                            </div>
+                        )
+                }
+            </div>
         </div>
     );
 }
