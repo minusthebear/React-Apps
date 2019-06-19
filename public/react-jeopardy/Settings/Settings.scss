@@ -6,12 +6,16 @@
     width: 100%;
   }
 
-  .settings-content-container {
-    margin-top:2rem;
+
+  .settings-content-container, .settings-button-container {
     padding:1.5rem;
-    border:0.0625rem solid black;
-    border-radius:1rem;
     width:25rem;
+  }
+
+  .settings-content-container {
+    border:0.0625rem solid black;
+    margin-top:2rem;
+    border-radius:1rem;
     display: inline-block;
     text-align: center;
 
@@ -36,6 +40,14 @@
           vertical-align:middle;
         }
       }
+    }
+  }
+
+  .settings-button-container {
+    margin: 0 auto;
+
+    button {
+      float:right;
     }
   }
 }

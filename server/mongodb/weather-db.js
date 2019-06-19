@@ -71,6 +71,5 @@ module.exports = {
 	findOneLocation,
 	getAllLocations,
 	getAllWeatherLogsByLocation,
-	getWeatherLog,
-
+	getWeatherLog
 };

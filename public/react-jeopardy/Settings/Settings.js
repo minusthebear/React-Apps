@@ -49,6 +49,9 @@ export default function Settings({}) {
                                 </div>
                             </div>
                         </div>
+                        <div className="settings-button-container">
+                            <button className="btn btn-success">Save Settings</button>
+                        </div>
                     </Formsy>
                 </div>
             </div>

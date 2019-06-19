@@ -1,11 +1,13 @@
 const path = require('path');
 const setWeatherRoutes = require('./weatherRoutes');
 const setJeopardyRoutes = require('./jeopardyRoutes');
+const setSettingsRoutes = require('./settingsRoutes');
 
 const setRoutes = app => {
 
 	setWeatherRoutes(app);
 	setJeopardyRoutes(app);
+	setSettingsRoutes(app);
 
 	app.get('/test', function(req, res, next) {
 		res.sendFile(path.resolve('public', 'test.html'));
