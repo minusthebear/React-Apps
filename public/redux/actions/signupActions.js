@@ -9,22 +9,22 @@ export function requestCreateUserAccount(name,password) {
         axios.post(URL + '/create_user', {name, password})
             .then(res => {
                 if (res.status === 201) {
-                    dispatch(successfulCreate(true));
+                    dispatch(successfulCreate());
                     // history.push('/main');
                 }
             })
             .catch(err => {
                 if (err.response && err.response.status === 500) {
-                    dispatch(userExists(true));
+                    dispatch(userExists());
                 }
             })
     }
 }
 
-function userExists(bool) {
-    return { type: USER_ALREADY_EXISTS, userExists: bool}
+function userExists() {
+    return { type: USER_ALREADY_EXISTS }
 }
 
-function successfulCreate(bool) {
-    return { type: REQUEST_USER_ACCOUNT_CREATION, successfulCreate: bool}
+function successfulCreate() {
+    return { type: REQUEST_USER_ACCOUNT_CREATION }
 }

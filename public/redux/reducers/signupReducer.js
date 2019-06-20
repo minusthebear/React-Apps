@@ -8,8 +8,6 @@ const initialState = {
 
 function signupReducer(state = initialState, action) {
     if (action.type === USER_ALREADY_EXISTS) {
-
-        console.log('BOO-YAH!');
         return Object.assign({}, state, {
             userExists: true
         })
