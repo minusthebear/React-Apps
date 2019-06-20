@@ -1,7 +1,6 @@
-import React from 'react';
-import { Provider } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Route, Router } from 'react-router-dom';
-import configureStore from '../redux/store';
 import {history} from '../redux/history';
 import WeatherApp from '../weather-app/components/App';
 import QuizApp from '../react-jeopardy';
@@ -10,35 +9,58 @@ import Login from '../login/Login';
 import Signup from '../login/Signup';
 import Main from './Main';
 import { Redirect } from 'react-router';
+import { setUserSession } from '../redux/actions/sessionActions';
 
-const RouteGuard = Component => ({match}) => (
-    // !store.getState().session.authenticated ?
-    console.log(match) && false ? <Redirect to="/"/> : <Component match={match}/>
-);
+function App({ user }){
 
-const MainGuard = Component => ({match}) => (
-    true ? <Redirect to="/login"/> : <Redirect to="/main"/>
-);
+    useEffect(() => {
 
-const store = configureStore();
+        let userSesh = localStorage.getItem('MatthewHamannReactApp');
+        console.log(JSON.stringify(userSesh));
 
-export default function App(){
+        if (userSesh) {
+            console.log('hit!!!!!');
+            console.log(JSON.parse(userSesh));
+            setUserSession(JSON.parse(userSesh));
+        }
+
+        console.log(user);
+    });
+
+    const RouteGuard = Component => ({match}) =>  {
+        console.log(localStorage.getItem('MatthewHamannReactApp'));
+
+        console.log(user);
+        return (
+            user ? <Component match={match}/> : <Redirect to="/Login"/>
+        )
+    };
+
     return (
         <Router history={history}>
-            <Provider store={store}>
-                {/*<Route exact path="/" component={ConnectedLogin} />*/}
-
-                <Route exact path="/" render={MainGuard(Main)} />
-                <Route exact path="/main" render={RouteGuard(Main)}/>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/Quiz" render={RouteGuard(QuizApp)} />
-                <Route exact path="/Weather" render={RouteGuard(WeatherApp)} />
-                <Route exact path="/Tic-tac-toe" render={RouteGuard(TicTacToeApp)} />
-            </Provider>
+            <Route exact path="/" render={RouteGuard(Main)} />
+            <Route exact path="/Main" render={RouteGuard(Main)}/>
+            <Route exact path="/Login" component={Login} />
+            <Route exact path="/Signup" component={Signup} />
+            <Route exact path="/Quiz" render={RouteGuard(QuizApp)} />
+            <Route exact path="/Weather" render={RouteGuard(WeatherApp)} />
+            <Route exact path="/Tic-tac-toe" render={RouteGuard(TicTacToeApp)} />
         </Router>
     );
 }
+
+const mapStateToProps = state => {
+    return { user: state.sessionReducer.user}
+};
+
+const mapDispatchToProps = dispatch => {
+    return { setUserSession: (sesh) => dispatch(setUserSession(sesh)) };
+};
+
+const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default connectedApp;
+
 
 // This is a comment for a test commit
 

@@ -42,7 +42,7 @@ const Login = ({loginUserAccount, loginWarning })=> {
                 Please login
             </h3>
             <h5>
-                <Link to="/signup">
+                <Link to="/Signup">
                     Don't have an account? Sign up.
                 </Link>
             </h5>

@@ -4,6 +4,13 @@ const md5 = require('md5');
 
 const settingsRoutes = app => {
 
+    const userData = (data) => {
+        return {
+            userID: data.userID,
+            name: data.name
+        };
+    }
+
     app.post('/authentication', async (req, res, next) => {
         let {name, password} = req.body;
 
@@ -19,9 +26,7 @@ const settingsRoutes = app => {
             return res.status(500).send({message: 'Incorrect password.'})
         }
 
-        // Do code which might assemble user state
-
-        res.status(200).send({message: 'It worked!'});
+        res.status(200).send(user);
     });
 
     app.post('/create_user', async (req, res, next) => {
@@ -34,7 +39,8 @@ const settingsRoutes = app => {
 
         let userID = uuid();
         await signupUser({userID, name, password: md5(password)});
-        res.status(201).send({message: 'Used saved'});
+        let newUser = await findUser(name);
+        res.status(201).send(newUser);
     });
 };
 

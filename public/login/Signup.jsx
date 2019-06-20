@@ -37,7 +37,7 @@ const Signup = ({ userExists, successfulCreate, requestCreateUserAccount }) => {
 
     return <div className="card p-3 col-6">
         <h2>
-            Complete the following form to create a new account.
+            Complete this form to create a new account.
         </h2>
 
         <Formsy onSubmit={submitForm}>
