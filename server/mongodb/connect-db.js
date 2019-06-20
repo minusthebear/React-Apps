@@ -1,6 +1,7 @@
 const { MongoClient } = require('mongodb');
 const weatherUrl = 'mongodb://localhost:27017/weather';
 const jeopardyUrl = 'mongodb://localhost:27017/jeopardy';
+const usersUrl = 'mongodb://localhost:27017/users';
 const settingsUrl = 'mongodb://localhost:27017/settings';
 let db = null;
 
@@ -25,4 +26,11 @@ async function connectSettingsDB(){
 	return db;
 }
 
-module.exports = { connectJeopardyDB, connectSettingsDB, connectWeatherDB };
+async function connectUsersDB() {
+	if (db) return db;
+	let client = await MongoClient.connect(usersUrl, {useNewUrlParser: true});
+	db = client.db();
+	return db;
+}
+
+module.exports = { connectJeopardyDB, connectSettingsDB, connectUsersDB, connectWeatherDB };
