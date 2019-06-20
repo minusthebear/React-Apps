@@ -1,33 +1,89 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import './LoginSignup.scss';
 import { Link } from 'react-router-dom';
+import Formsy from 'formsy-react';
+import {loginUserAccount} from "../redux/actions/loginActions";
 
-const Login = (props)=>(
-    <div className="card p-3 col-6">
-        <h2>
-            Please login
-        </h2>
-        <h3>
-            <Link to="/signup">
-                Don't have an account? Sign up.
-            </Link>
-        </h3>
-        <form onSubmit={() => {}}>
-            <input type="text" placeholder="username" name="username" defaultValue="Dev" className="form-control"/>
-            <input type="password" placeholder="password" name="password" defaultValue="TUPLES" className="form-control mt-2"/>
-            {/*{authenticated === mutations.NOT_AUTHENTICATED ?*/}
-            {/*    <p>*/}
-            {/*        Login incorrect.*/}
-            {/*    </p> : null*/}
-            {/*}*/}
-            <button type="submit" className="form-control mt-2 btn btn-primary">
-                Login
-            </button>
-        </form>
-    </div>
-);
+const Login = ({loginUserAccount, loginWarning })=> {
 
-const mapStateToProps = state => state;
-const ConnectedLogin = connect(mapStateToProps, null)(Login);
+    let [ username, setUsername ] = useState('');
+    let [ password, setPassword ] = useState('');
+
+    function submitForm() {
+        if (usernamePasswordLengthChecks()) {
+            loginUserAccount(username, password);
+        }
+    }
+
+    function usernamePasswordLengthChecks() {
+        return username.length > 2 && password.length > 4;
+    }
+
+    function usernameChange(e) {
+        setUsername(e.target.value);
+    }
+
+    function passwordChange(e) {
+        setPassword(e.target.value);
+    }
+
+    function disabledSubmit() {
+        return !usernamePasswordLengthChecks();
+    }
+
+    function messageContainerClasses() {
+        return loginWarning ? "login-message-container login-error-message" : "login-message-container";
+    }
+
+    return (
+        <div className="card p-3 col-6">
+            <h3>
+                Please login
+            </h3>
+            <h5>
+                <Link to="/signup">
+                    Don't have an account? Sign up.
+                </Link>
+            </h5>
+            <Formsy onSubmit={submitForm}>
+                <input
+                    type="text"
+                    placeholder="User Name"
+                    name="username"
+                    className="form-control mt-2"
+                    onChange={usernameChange}
+                    value={username}
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    className="form-control mt-2"
+                    onChange={passwordChange}
+                    value={password}
+                />
+                <div className={messageContainerClasses()}>
+                    { loginWarning ? <p>There was an error logging in.</p> : null}
+                </div>
+                <button type="submit" disabled={disabledSubmit()} className="form-control mt-2 btn btn-primary login-button">
+                    Login
+                </button>
+            </Formsy>
+        </div>
+    );
+}
+
+const mapStateToProps = state => {
+    return {
+        loginWarning: state.loginReducer.loginWarning
+    }
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        loginUserAccount: (username, password) => dispatch(loginUserAccount(username, password))
+    };
+};
+const ConnectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login);
 
 export default ConnectedLogin;

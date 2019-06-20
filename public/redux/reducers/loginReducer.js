@@ -1,17 +1,20 @@
-import { REQUEST_AUTHENTICATE_USER, PROCESSING_AUTHENTICATE_USER } from "../../constants/action-types";
+import { UNSUCCESSFUL_LOGIN, RESPONSE_AUTHENTICATE_USER } from "../../constants/action-types";
 
 const initialState = {
+    data: null,
+    loginWarning: null
 };
 
 function loginReducer(state = initialState, action) {
-    if (action.type === REQUEST_AUTHENTICATE_USER) {
+    if (action.type === RESPONSE_AUTHENTICATE_USER) {
         return Object.assign({}, state, {
-            categories: action.categories
-        });
+            data: action.data
+        })
     }
-    if (action.type === PROCESSING_AUTHENTICATE_USER) {
+    if (action.type === UNSUCCESSFUL_LOGIN) {
+        console.log('loginReducer');
         return Object.assign({}, state, {
-            allQuestionData: action.allQuestionData
+            loginWarning: 'Warning'
         });
     }
     return state;

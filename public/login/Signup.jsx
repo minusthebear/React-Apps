@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import Formsy from 'formsy-react';
+import './LoginSignup.scss';
 import { requestCreateUserAccount } from '../redux/actions/signupActions';
 
 const Signup = ({ userExists, successfulCreate, requestCreateUserAccount }) => {
@@ -30,37 +31,36 @@ const Signup = ({ userExists, successfulCreate, requestCreateUserAccount }) => {
         return !usernamePasswordLengthChecks() || successfulCreate;
     }
 
+    function messageContainerClasses() {
+        return userExists ? "login-message-container login-error-message" : "login-message-container";
+    }
+
     return <div className="card p-3 col-6">
         <h2>
             Complete the following form to create a new account.
         </h2>
 
         <Formsy onSubmit={submitForm}>
-            <label>
-                <span>User Name</span>
-                <input
-                    type="text"
-                    placeholder="username"
-                    name="username"
-                    className="form-control mt-2"
-                    onChange={usernameChange}
-                    value={username}
-                />
-            </label>
-            <label>
-                <span>Password</span>
-                <input
-                    type="password"
-                    placeholder="password"
-                    name="password"
-                    className="form-control mt-2"
-                    onChange={passwordChange}
-                    value={password}
-                />
-            </label>
-
-            {userExists ? <p>A user by that name already exists.</p> : null}
-            {successfulCreate ? <p>Please wait while your info is being created...</p> : null}
+            <input
+                type="text"
+                placeholder="User Name"
+                name="username"
+                className="form-control mt-2"
+                onChange={usernameChange}
+                value={username}
+            />
+            <input
+                type="password"
+                placeholder="password"
+                name="password"
+                className="form-control mt-2"
+                onChange={passwordChange}
+                value={password}
+            />
+            <div className={messageContainerClasses()}>
+                {userExists ? <p>A user by that name already exists.</p> : null}
+                {successfulCreate ? <p>Please wait while your info is being created...</p> : null}
+            </div>
             <button
                 type="submit"
                 disabled={disabledSubmit()}

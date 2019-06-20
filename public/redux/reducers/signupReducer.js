@@ -1,5 +1,4 @@
 import { REQUEST_USER_ACCOUNT_CREATION, USER_ALREADY_EXISTS } from "../../constants/action-types";
-import axios from 'axios';
 
 const initialState = {
     userExists: false,
