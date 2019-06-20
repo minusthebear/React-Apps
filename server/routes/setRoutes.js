@@ -14,7 +14,7 @@ const setRoutes = app => {
 	});
 
 	app.get('/*', function(req, res)  {
-		res.render('index.jsx');
+		res.render('quizActions.js.jsx');
 	});
 
 	// error handler

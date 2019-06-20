@@ -3,7 +3,7 @@ import Formsy from 'formsy-react'
 import { connect } from 'react-redux';
 import { DebounceInput } from "react-debounce-input";
 import { createLocationObj } from '../helpers/createObjects';
-import { addArticle } from '../actions';
+import { addArticle } from '../../redux/actions/weatherActions';
 import List from "./List";
 import './Form.scss';
 

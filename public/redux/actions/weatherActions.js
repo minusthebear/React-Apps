@@ -1,6 +1,5 @@
 import { ADD_LOCATION } from '../../constants/action-types';
-import { getProjectJSON } from '../api/weatherApi';
-
+import { getProjectJSON } from '../../weather-app/api/weatherApi';
 
 export function addLocation(location) {
     return { type: ADD_LOCATION, location }

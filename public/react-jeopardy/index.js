@@ -4,7 +4,7 @@ import GamePlay from './GamePlay';
 import SetGamePlayValues from './GamePlaySetup/SetGamePlayValues';
 import FixedSidebar from './FixedSidebar/FixedSidebar';
 import SettingsPage from './Settings/Settings';
-import { getAllCategories } from './actions/index';
+import { getAllCategories } from '../redux/actions/quizActions';
 import { getAllQuestions, writeQuizGrid, createScoreCard, getGutsyWagerQuestions } from './helperMethods';
 import { connect } from 'react-redux';
 
