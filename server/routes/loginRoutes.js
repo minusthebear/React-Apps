@@ -4,10 +4,10 @@ const md5 = require('md5');
 
 const settingsRoutes = app => {
 
-    app.post('/login', async (req, res, next) => {
-        let {username, password} = req.body;
+    app.post('/authentication', async (req, res, next) => {
+        let {name, password} = req.body;
 
-        let user = await findUser(username);
+        let user = await findUser(name);
 
         if (!user) {
             return res.status(500).send({message:"User not found."});
@@ -24,22 +24,17 @@ const settingsRoutes = app => {
         res.status(200).send({message: 'It worked!'});
     });
 
-    app.post('/signup', async (req, res, next) => {
-        let {username, password} = req.body;
-
-        let user = await findUser(username);
+    app.post('/create_user', async (req, res, next) => {
+        let {name, password} = req.body,
+            user = await findUser(name);
 
         if (user) {
             return res.status(500).send({message:"A user with that account name already exists."});
         }
 
         let userID = uuid();
-
-        await signupUser({userID, username, password: md5(password)});
-
-        // Do code which might assemble user state
-
-        res.status(200).send({message: 'It worked!'});
+        await signupUser({userID, name, password: md5(password)});
+        res.status(201).send({message: 'Used saved'});
     });
 };
 

@@ -2,19 +2,21 @@ const path = require('path');
 const setWeatherRoutes = require('./weatherRoutes');
 const setJeopardyRoutes = require('./jeopardyRoutes');
 const setSettingsRoutes = require('./settingsRoutes');
+const setLoginRoutes = require('./loginRoutes');
 
 const setRoutes = app => {
 
 	setWeatherRoutes(app);
 	setJeopardyRoutes(app);
 	setSettingsRoutes(app);
+	setLoginRoutes(app);
 
 	app.get('/test', function(req, res, next) {
 		res.sendFile(path.resolve('public', 'test.html'));
 	});
 
-	app.get('/*', function(req, res)  {
-		res.render('quizActions.js.jsx');
+	app.get('*', function(req, res)  {
+		res.render(path.resolve('public', 'index.html'));
 	});
 
 	// error handler

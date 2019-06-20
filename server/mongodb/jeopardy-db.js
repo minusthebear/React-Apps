@@ -1,11 +1,11 @@
-const { connectJeopardyDB } = require('./connect-db');
+const { connectDB } = require('./connect-db');
 const { checkIfReactJeopardyDbExists } = require('./initialize-db');
 const Aigle = require('aigle');
 
 async function getAllCategories() {
 	let db;
 	try {
-		db = await connectJeopardyDB();
+		db = await connectDB();
 
 		let collection = db.collection('reactJeopardyCategories');
 

@@ -1,4 +1,4 @@
-const { connectJeopardyDB } = require('./connect-db');
+const { connectDB } = require('./connect-db');
 const fs = require('fs');
 const path = require('path');
 const STARTING_JEOPARDY_JSON = path.resolve(__dirname, '..', 'JSON', 'defaultJeopardyData.json');
@@ -40,7 +40,7 @@ async function checkIfReactJeopardyDbExists() {
 	let db;
 	let categories;
 	try {
-		db = await connectJeopardyDB();
+		db = await connectDB();
 		categories = await db.collection('reactJeopardyCategories').find({}).toArray();
 
 		let existsSync = fs.existsSync(STARTING_JEOPARDY_JSON);

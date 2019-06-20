@@ -3,15 +3,19 @@ import { connect } from 'react-redux';
 import Formsy from 'formsy-react';
 import { requestCreateUserAccount } from '../redux/actions/signupActions';
 
-const Signup = ({ requestCreateUserAccount }) => {
+const Signup = ({ userExists, successfulCreate, requestCreateUserAccount }) => {
 
     let [ username, setUsername ] = useState('');
     let [ password, setPassword ] = useState('');
 
     function submitForm() {
-        if (username.length > 2 && password.length > 4) {
+        if (usernamePasswordLengthChecks()) {
             requestCreateUserAccount(username, password);
         }
+    }
+
+    function usernamePasswordLengthChecks() {
+        return username.length > 2 && password.length > 4;
     }
 
     function usernameChange(e) {
@@ -20,6 +24,10 @@ const Signup = ({ requestCreateUserAccount }) => {
 
     function passwordChange(e) {
         setPassword(e.target.value);
+    }
+
+    function disabledSubmit() {
+        return !usernamePasswordLengthChecks() || successfulCreate;
     }
 
     return <div className="card p-3 col-6">
@@ -51,14 +59,24 @@ const Signup = ({ requestCreateUserAccount }) => {
                 />
             </label>
 
-            {/*{authenticated == mutations.USERNAME_RESERVED ? <p>A user by that name already exists.</p> : null}*/}
-            <button type="submit" className="form-control mt-2 btn btn-primary">Sign Up</button>
+            {userExists ? <p>A user by that name already exists.</p> : null}
+            {successfulCreate ? <p>Please wait while your info is being created...</p> : null}
+            <button
+                type="submit"
+                disabled={disabledSubmit()}
+                className="form-control mt-2 btn btn-primary">Sign Up
+            </button>
         </Formsy>
 
     </div>
 };
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => {
+    return {
+        userExists: state.signupReducer.userExists,
+        successfulCreate: state.signupReducer.successfulCreate
+    };
+};
 const mapDispatchToProps = dispatch => {
     return {
         requestCreateUserAccount: (username, password) => dispatch(requestCreateUserAccount(username, password))
