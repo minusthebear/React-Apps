@@ -7,6 +7,7 @@ import QuizApp from '../react-jeopardy';
 import TicTacToeApp from '../tic-tac-toe-app/src/App';
 import Login from '../login/Login';
 import Signup from '../login/Signup';
+import Settings from '../settings/Settings';
 import Main from './Main';
 import { Redirect } from 'react-router';
 import { setUserSession } from '../redux/actions/sessionActions';
@@ -14,27 +15,34 @@ import { setUserSession } from '../redux/actions/sessionActions';
 function App({ user }){
 
     useEffect(() => {
+        try {
+            let userSesh = localStorage.getItem('MatthewHamannReactApp');
 
-        let userSesh = localStorage.getItem('MatthewHamannReactApp');
-        console.log(JSON.stringify(userSesh));
+            console.log(userSesh);
 
-        if (userSesh) {
-            console.log('hit!!!!!');
-            console.log(JSON.parse(userSesh));
-            setUserSession(JSON.parse(userSesh));
+            if (userSesh) {
+                setUserSession(JSON.parse(userSesh));
+            }
+
+            console.log(user);
+        } catch(e) {
+            renderLogin();
         }
-
-        console.log(user);
     });
 
     const RouteGuard = Component => ({match}) =>  {
-        console.log(localStorage.getItem('MatthewHamannReactApp'));
-
-        console.log(user);
-        return (
-            user ? <Component match={match}/> : <Redirect to="/Login"/>
-        )
+        return <Component match={match}/>;
+        // console.log(localStorage.getItem('MatthewHamannReactApp'));
+        //
+        // console.log(user);
+        // return (
+        //     user ? <Component match={match}/> : <Redirect to="/Login"/>
+        // )
     };
+
+    const renderLogin = () => {
+        return <Redirect to="/Login" />;
+    }
 
     return (
         <Router history={history}>
@@ -45,6 +53,7 @@ function App({ user }){
             <Route exact path="/Quiz" render={RouteGuard(QuizApp)} />
             <Route exact path="/Weather" render={RouteGuard(WeatherApp)} />
             <Route exact path="/Tic-tac-toe" render={RouteGuard(TicTacToeApp)} />
+            <Route exact path="/Settings" render={RouteGuard(Settings)} />
         </Router>
     );
 }

@@ -4,6 +4,7 @@ import './App.css'
 import './index.scss';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import FixedSidebar from "../../shared-components/FixedSidebar/FixedSidebar";
 
 const SquareDisplay = (props) => {
     const range = (min, max) => Array.from({ length: max - min + 1 }, (_, i) => min + i);
@@ -16,16 +17,19 @@ const SquareDisplay = (props) => {
     };
 
     return (
-        <div className="tic-tac-toe-container">
-            {range(1,9).map(squareId =>
-                <Square  key={squareId}
-                         number={squareId}
-                         turn={props.turn}
-                         onClick={props.onClick}
-                         bgColor={bgColor(squareId)}
-                />
-            )}
-        </div>
+        <>
+            <div className="tic-tac-toe-container">
+                {range(1,9).map(squareId =>
+                    <Square  key={squareId}
+                             number={squareId}
+                             turn={props.turn}
+                             onClick={props.onClick}
+                             bgColor={bgColor(squareId)}
+                    />
+                )}
+                <FixedSidebar/>
+            </div>
+        </>
     );
 };
 

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './index.scss';
 import GamePlay from './GamePlay';
 import SetGamePlayValues from './GamePlaySetup/SetGamePlayValues';
-import FixedSidebar from './FixedSidebar/FixedSidebar';
-import SettingsPage from './Settings/Settings';
+import SettingsPage from '../settings/Settings';
 import { getAllCategories } from '../redux/actions/quizActions';
+import FixedSidebar from '../shared-components/FixedSidebar/FixedSidebar';
 import { getAllQuestions, writeQuizGrid, createScoreCard, getGutsyWagerQuestions } from './helperMethods';
 import { connect } from 'react-redux';
 
@@ -22,7 +22,6 @@ function App({ getAllCategories, allQuestionData }) {
     let [ scorecard, setScorecard ] = useState({});
     let [ numPlayers, setNumPlayers ] = useState(0);
     let [ gutsyWager, setGutsyWager ] = useState({});
-    let [ settingsPage, setSettingsPage ] = useState(false);
 
 
     const setAllValues = (obj) => {
@@ -45,19 +44,6 @@ function App({ getAllCategories, allQuestionData }) {
             <SetGamePlayValues setValues={setAllValues}/>
     };
 
-    const menuSelect = (val) => {
-        if (val) {
-            switch (val) {
-                case 'Settings':
-                    setSettingsPage(true);
-                    break;
-                default:
-                    setSettingsPage(false);
-            }
-
-        }
-    };
-
     const showSettingsPage = () => {
         return <SettingsPage />;
     };
@@ -65,9 +51,9 @@ function App({ getAllCategories, allQuestionData }) {
     return (
         <>
             {
-                settingsPage ? showSettingsPage() : gamePlayContainer()
+                gamePlayContainer()
             }
-            <FixedSidebar menuSelect={menuSelect} />
+            <FixedSidebar  />
         </>
     );
 }

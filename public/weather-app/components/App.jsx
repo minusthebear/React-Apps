@@ -6,6 +6,7 @@ import {getCityAPI, addNewLocation, getAllLocations, deleteLocation} from '../ap
 import Locations from './Locations';
 import CityView from './CityView';
 import Header from './Header';
+import FixedSidebar from '../../shared-components/FixedSidebar/FixedSidebar';
 import bgImage from '../images/4b8d49460051b86921dce5c522c1107e.jpg';
 import './App.scss';
 
@@ -142,14 +143,17 @@ const App = (props) => {
 	}
 
     return (
-    	<div style={{backgroundImage: `url(${bgImage})`}} className="weather-app-container" >
-			<div className="container">
-				<Header locations={displayLocations} add={displayAddLocation}/>
-				<div className="row weather-body-container">
-					{ mainPage ? showLocation() : showAddNewLocationElement() }
+    	<>
+			<div style={{backgroundImage: `url(${bgImage})`}} className="weather-app-container" >
+				<div className="container">
+					<Header locations={displayLocations} add={displayAddLocation}/>
+					<div className="row weather-body-container">
+						{ mainPage ? showLocation() : showAddNewLocationElement() }
+					</div>
 				</div>
 			</div>
-		</div>
+			<FixedSidebar />
+		</>
     );
 };
 

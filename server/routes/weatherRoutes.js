@@ -93,8 +93,10 @@ const setWeatherRoutes = app => {
 	});
 
 	app.get('/allLocations', async (req,res, next) => {
+		console.log('HERE');
 		try {
 			let val = await getAllLocations();
+			console.log(val);
 			res.status(200).send(val);
 		} catch (e) {
 			res.status(404).json({ message: 'Unable to get data at this time' });

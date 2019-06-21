@@ -10,7 +10,7 @@ export function requestCreateUserAccount(name,password) {
         axios.post(URL + '/create_user', {name, password})
             .then(res => {
                 if (res.status === 201) {
-                    localStorage.setItem('MatthewHamannReactApp', res.data);
+                    localStorage.setItem('MatthewHamannReactApp', JSON.stringify(res.data));
                     dispatch(successfulCreate());
                     dispatch(setUserSession(res.data));
                     history.push('/');
