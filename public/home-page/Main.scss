@@ -7,17 +7,29 @@
     height:50%;
     max-height:15rem;
   }
+  a {
+    text-decoration: none;
+  }
 
   .main-page-option-container {
     border:0.0625rem solid black;
     padding:2rem;
-    background-color:#00ff00;
+    background: linear-gradient(135deg, rgba(3,38,191,1) 0%, rgba(128,240,224,1) 100%);
     display:table;
     height:100%;
     text-align:center;
     max-width:15rem;
     width:100%;
     font-size:2rem;
+    font-weight:bold;
+    color: #ff9264;
+
+
+    &:hover {
+      text-decoration: none;
+      color:#FFD700;
+      font-size:2.2rem;
+    }
 
     &.main-page-option-first {
       float:right;
