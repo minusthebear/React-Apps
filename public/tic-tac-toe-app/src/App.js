@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css'
 import './index.scss';
@@ -224,10 +224,39 @@ const winningPosition = (arr) => {
 
 const Square = (props) => {
 
-    const getInfo = () => {
-        let elm  = document.getElementById(props.number);
-        console.log(elm);
+    let [height, setHeight] = useState(null);
+
+    useEffect(() => {
+        return setUpEventListener();
+    });
+
+    const setElmHeight = () => {
+
+        let elm = document.getElementById(props.number);
+
         if (elm && elm.clientHeight) {
+            setHeight(elm.clientHeight);
+        }
+    };
+
+    const setUpEventListener = () => {
+        const handleResize = () => setElmHeight();
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }
+
+
+    const getInfo = () => {
+        if (height) {
+            return (height * .7) + 'px';
+        }
+
+        let elm  = document.getElementById(props.number);
+
+        if (elm && elm.clientHeight) {
+            setHeight(elm.clientHeight);
             return (elm.clientHeight * .7) + 'px';
         }
         return '1rem';
