@@ -16,38 +16,151 @@ const SquareDisplay = (props) => {
         return props.xArray.includes(squareId) ? '#FF0000' : '#00FF00';
     };
 
+    const getTicTacToeRowClassNames = (squareId) => {
+        return "tic-tac-toe-row tic-tac-toe-row-" + getRowId(squareId);
+    }
+
+    function getRowId(squareId) {
+        switch (squareId) {
+            case squareId >= 1 && squareId < 4:
+                return "1";
+            case squareId >= 4 && squareId < 7:
+                return "2";
+            case squareId >= 4 && squareId < 9:
+                return "3";
+        }
+    }
+
     return (
         <>
             <div className="tic-tac-toe-container">
-                {range(1,9).map(squareId =>
-                    <Square  key={squareId}
-                             number={squareId}
-                             turn={props.turn}
-                             onClick={props.onClick}
-                             bgColor={bgColor(squareId)}
+                <div className="tic-tac-toe-table">
+                    <div className="tic-tac-toe-row tic-tac-toe-row-1">
+                        <Square  key={1}
+                                 number={1}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(1)}
+                        />
+                        <Square  key={2}
+                                 number={2}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(2)}
+                        />
+                        <Square  key={3}
+                                 number={3}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(3)}
+                        />
+                        <Square  key={4}
+                                 number={4}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(4)}
+                        />
+                    </div>
+                    <div className="tic-tac-toe-row tic-tac-toe-row-2">
+                        <Square  key={5}
+                                 number={5}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(5)}
+                        />
+                        <Square  key={6}
+                                 number={6}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(6)}
+                        />
+                        <Square  key={7}
+                                 number={7}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(7)}
+                        />
+                        <Square  key={8}
+                                 number={8}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(8)}
+                        />
+                    </div>
+                    <div className="tic-tac-toe-row tic-tac-toe-row-3">
+                        <Square  key={9}
+                                 number={9}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(9)}
+                        />
+                        <Square  key={10}
+                                 number={10}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(10)}
+                        /><Square  key={11}
+                                   number={11}
+                                   turn={props.turn}
+                                   onClick={props.onClick}
+                                   bgColor={bgColor(11)}
                     />
-                )}
-                <FixedSidebar/>
+                        <Square  key={12}
+                                 number={12}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(12)}
+                        />
+                    </div>
+                    <div className="tic-tac-toe-row tic-tac-toe-row-4">
+                        <Square  key={13}
+                                 number={13}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(13)}
+                        />
+                        <Square  key={14}
+                                 number={14}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(14)}
+                        />
+                        <Square  key={15}
+                                 number={15}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(15)}
+                        />
+                        <Square  key={16}
+                                 number={16}
+                                 turn={props.turn}
+                                 onClick={props.onClick}
+                                 bgColor={bgColor(16)}
+                        />
+                    </div>
+                </div>
             </div>
         </>
     );
 };
 
 const winningCombos = [
-    [1,2,3],
-    [1,5,9],
-    [1,4,7],
-    [2,5,8],
-    [3,6,9],
-    [3,5,7],
-    [4,5,6],
-    [7,8,9]
+    [1,2,3,4],
+    [5,6,7,8],
+    [9,10,11,12],
+    [13,14,15,16],
+    [1,5,9,13],
+    [1,6,11,16],
+    [2,6,10,14],
+    [3,7,11,15],
+    [4,8,12,16],
+    [4,7,10,13]
 ];
 
 
 function calculateWinner(arr) {
     return _.find(winningCombos, function(combo) {
-        return _.intersectionWith(arr, combo).length === 3;
+        return _.intersectionWith(arr, combo).length === 4;
     });
 }
 
@@ -58,12 +171,17 @@ const winningPosition = (arr) => {
     return false;
 };
 
+const getInfo = (elm) => {
+    console.log(elm);
+    return "3.5rem";
+}
+
 const Square = (props) => {
 
     const elementContainer = () => {
         if (props.bgColor === '#FF0000') {
             return (
-                <div className="xoBox redBox">
+                <div className="xoBox redBox" style={{ "fontSize": getInfo(this) }}>
                   <span className="xMarks">X</span>
                 </div>
             );
@@ -83,8 +201,7 @@ const Square = (props) => {
     }
 
     return (
-        <div onClick={clickedSquare}
-             className="tic-tac-toe-square">
+        <div onClick={clickedSquare} className="tic-tac-toe-square">
                  { elementContainer() }
         </div>
     );
@@ -150,15 +267,18 @@ const Container = (props) => {
     };
 
     return (
-      <div className="container">
-        <SquareDisplay clickedNumsArray={clickedNumsArray}
-                       xArray={xArray}
-                       oArray={oArray}
-                       turn={turn}
-                       onClick={turnClick}
-        />
-        <Message startNewGame={props.startNewGame} gameOver={gameOver} />
-      </div>
+        <>
+            <div className="container">
+                <SquareDisplay clickedNumsArray={clickedNumsArray}
+                               xArray={xArray}
+                               oArray={oArray}
+                               turn={turn}
+                               onClick={turnClick}
+                />
+                <Message startNewGame={props.startNewGame} gameOver={gameOver} />
+            </div>
+            <FixedSidebar/>
+        </>
     );
 
 };

@@ -20,21 +20,33 @@ code {
 
 .tic-tac-toe-container {
     display:inline-block;
-    width:600px;
-    height:600px;
+    width:80vw;
+    height:80vh;
+    perspective:100em;
+
+    .tic-tac-toe-table {
+
+      transform:rotateX(45deg);
+      height:100%;
+      width:100%;
+    }
+
+    .tic-tac-toe-row {
+      height:25%;
+      width:100%;
+    }
 
     .tic-tac-toe-square {
         border:thin solid #ddd;
-        width:198px;
-        height:198px;
+        width:25%;
+        height:100%;
         display:inline-block;
         margin-bottom:-4px;
         vertical-align:top;
 
-        .xoBox {
+      .xoBox {
            background: #fff;
            font-family: 'Helvetica', 'Arial', sans-serif;
-           font-size: 176px;
            font-weight: bold;
            text-align: center;
 
