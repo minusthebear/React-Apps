@@ -9,6 +9,20 @@ import FixedSidebar from "../../shared-components/FixedSidebar/FixedSidebar";
 const SquareDisplay = (props) => {
     const range = (min, max) => Array.from({ length: max - min + 1 }, (_, i) => min + i);
 
+    return (
+        <>
+            <div className="tic-tac-toe-container">
+                <SquareRow {...props} level={'A'} />
+                <SquareRow {...props} level={'B'} />
+                <SquareRow {...props} level={'C'} />
+                <SquareRow {...props} level={'D'} />
+            </div>
+        </>
+    );
+};
+
+const SquareRow = (props) => {
+
     const bgColor = (squareId) => {
         if (!props.clickedNumsArray.includes(squareId)) {
             return '#FFFFFF';
@@ -16,151 +30,187 @@ const SquareDisplay = (props) => {
         return props.xArray.includes(squareId) ? '#FF0000' : '#00FF00';
     };
 
-    const getTicTacToeRowClassNames = (squareId) => {
-        return "tic-tac-toe-row tic-tac-toe-row-" + getRowId(squareId);
-    }
-
-    function getRowId(squareId) {
-        switch (squareId) {
-            case squareId >= 1 && squareId < 4:
-                return "1";
-            case squareId >= 4 && squareId < 7:
-                return "2";
-            case squareId >= 4 && squareId < 9:
-                return "3";
-        }
-    }
-
     return (
-        <>
-            <div className="tic-tac-toe-container">
-                <div className="tic-tac-toe-table">
-                    <div className="tic-tac-toe-row tic-tac-toe-row-1">
-                        <Square  key={1}
-                                 number={1}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(1)}
-                        />
-                        <Square  key={2}
-                                 number={2}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(2)}
-                        />
-                        <Square  key={3}
-                                 number={3}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(3)}
-                        />
-                        <Square  key={4}
-                                 number={4}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(4)}
-                        />
-                    </div>
-                    <div className="tic-tac-toe-row tic-tac-toe-row-2">
-                        <Square  key={5}
-                                 number={5}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(5)}
-                        />
-                        <Square  key={6}
-                                 number={6}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(6)}
-                        />
-                        <Square  key={7}
-                                 number={7}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(7)}
-                        />
-                        <Square  key={8}
-                                 number={8}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(8)}
-                        />
-                    </div>
-                    <div className="tic-tac-toe-row tic-tac-toe-row-3">
-                        <Square  key={9}
-                                 number={9}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(9)}
-                        />
-                        <Square  key={10}
-                                 number={10}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(10)}
-                        /><Square  key={11}
-                                   number={11}
-                                   turn={props.turn}
-                                   onClick={props.onClick}
-                                   bgColor={bgColor(11)}
-                    />
-                        <Square  key={12}
-                                 number={12}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(12)}
-                        />
-                    </div>
-                    <div className="tic-tac-toe-row tic-tac-toe-row-4">
-                        <Square  key={13}
-                                 number={13}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(13)}
-                        />
-                        <Square  key={14}
-                                 number={14}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(14)}
-                        />
-                        <Square  key={15}
-                                 number={15}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(15)}
-                        />
-                        <Square  key={16}
-                                 number={16}
-                                 turn={props.turn}
-                                 onClick={props.onClick}
-                                 bgColor={bgColor(16)}
-                        />
-                    </div>
-                </div>
+        <div className="tic-tac-toe-table">
+            <div className="tic-tac-toe-row tic-tac-toe-row-1">
+                <Square  key={1 + props.level}
+                         number={1 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(1 + props.level)}
+                />
+                <Square  key={2 + props.level}
+                         number={2 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(2 + props.level)}
+                />
+                <Square  key={3 + props.level}
+                         number={3 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(3 + props.level)}
+                />
+                <Square  key={4 + props.level}
+                         number={4 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(4 + props.level)}
+                />
             </div>
-        </>
+            <div className="tic-tac-toe-row tic-tac-toe-row-2">
+                <Square  key={5 + props.level}
+                         number={5 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(5 + props.level)}
+                />
+                <Square  key={6 + props.level}
+                         number={6 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(6 + props.level)}
+                />
+                <Square  key={7 + props.level}
+                         number={7 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(7 + props.level)}
+                />
+                <Square  key={8 + props.level}
+                         number={8 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(8 + props.level)}
+                />
+            </div>
+            <div className="tic-tac-toe-row tic-tac-toe-row-3">
+                <Square  key={9 + props.level}
+                         number={9 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(9 + props.level)}
+                />
+                <Square  key={10 + props.level}
+                         number={10 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(10 + props.level)}
+                /><Square  key={11 + props.level}
+                           number={11 + props.level}
+                           turn={props.turn}
+                           onClick={props.onClick}
+                           bgColor={bgColor(11 + props.level)}
+            />
+                <Square  key={12 + props.level}
+                         number={12 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(12 + props.level)}
+                />
+            </div>
+            <div className="tic-tac-toe-row tic-tac-toe-row-4">
+                <Square  key={13 + props.level}
+                         number={13 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(13 + props.level)}
+                />
+                <Square  key={14 + props.level}
+                         number={14 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(14 + props.level)}
+                />
+                <Square  key={15 + props.level}
+                         number={15 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(15 + props.level)}
+                />
+                <Square  key={16 + props.level}
+                         number={16 + props.level}
+                         turn={props.turn}
+                         onClick={props.onClick}
+                         bgColor={bgColor(16 + props.level)}
+                />
+            </div>
+        </div>
     );
-};
+}
 
 const winningCombos = [
-    [1,2,3,4],
-    [5,6,7,8],
-    [9,10,11,12],
-    [13,14,15,16],
-    [1,5,9,13],
-    [1,6,11,16],
-    [2,6,10,14],
-    [3,7,11,15],
-    [4,8,12,16],
-    [4,7,10,13]
+    ['1A','2A','3A','4A'],
+    ['5A','6A','7A','8A'],
+    ['9A','10A','11A','12A'],
+    ['13A','14A','15A','16A'],
+    ['1A','5A','9A','13A'],
+    ['1A','6A','11A','16A'],
+    ['2A','6A','10A','14A'],
+    ['3A','7A','11A','15A'],
+    ['4A','8A','12A','16A'],
+    ['4A','7A','10A','13A'],
+
+    ['1B','2B','3B','4B'],
+    ['5B','6B','7B','8B'],
+    ['9B','10B','11B','12B'],
+    ['13B','14B','15B','16B'],
+    ['1B','5B','9B','13B'],
+    ['1B','6B','11B','16B'],
+    ['2B','6B','10B','14B'],
+    ['3B','7B','11B','15B'],
+    ['4B','8B','12B','16B'],
+    ['4B','7B','10B','13B'],
+
+    ['1C','2C','3C','4C'],
+    ['5C','6C','7C','8C'],
+    ['9C','10C','11C','12C'],
+    ['13C','14C','15C','16C'],
+    ['1C','5C','9C','13C'],
+    ['1C','6C','11C','16C'],
+    ['2C','6C','10C','14C'],
+    ['3C','7C','11C','15C'],
+    ['4C','8C','12C','16C'],
+    ['4C','7C','10C','13C'],
+
+    ['1D','2D','3D','4D'],
+    ['5D','6D','7D','8D'],
+    ['9D','10D','11D','12D'],
+    ['13D','14D','15D','16D'],
+    ['1D','5D','9D','13D'],
+    ['1D','6D','11D','16D'],
+    ['2D','6D','10D','14D'],
+    ['3D','7D','11D','15D'],
+    ['4D','8D','12D','16D'],
+    ['4D','7D','10D','13D'],
+
+    ['1A','2B','3C','4D'],
+    ['5A','6B','7C','8D'],
+    ['9A','10B','11C','12D'],
+    ['13A','14B','15C','16D'],
+    ['1A','5B','9C','13D'],
+    ['1A','6B','11C','16D'],
+    ['2A','6B','10C','14D'],
+    ['3A','7B','11C','15D'],
+    ['4A','8B','12C','16D'],
+    ['4A','7B','10C','13D'],
+
+    ['1D','2C','3B','4A'],
+    ['5D','6C','7B','8A'],
+    ['9D','10C','11B','12A'],
+    ['13D','14C','15B','16A'],
+    ['1D','5C','9B','13A'],
+    ['1D','6C','11B','16A'],
+    ['2D','6C','10B','14A'],
+    ['3D','7C','11B','15A'],
+    ['4D','8C','12B','16A'],
+    ['4D','7C','10B','13A']
 ];
 
 
 function calculateWinner(arr) {
     return _.find(winningCombos, function(combo) {
-        return _.intersectionWith(arr, combo).length === 4;
+        return _.intersection(arr, combo).length === 4;
     });
 }
 
@@ -171,17 +221,22 @@ const winningPosition = (arr) => {
     return false;
 };
 
-const getInfo = (elm) => {
-    console.log(elm);
-    return "3.5rem";
-}
 
 const Square = (props) => {
+
+    const getInfo = () => {
+        let elm  = document.getElementById(props.number);
+        console.log(elm);
+        if (elm && elm.clientHeight) {
+            return (elm.clientHeight * .7) + 'px';
+        }
+        return '1rem';
+    }
 
     const elementContainer = () => {
         if (props.bgColor === '#FF0000') {
             return (
-                <div className="xoBox redBox" style={{ "fontSize": getInfo(this) }}>
+                <div className="xoBox redBox">
                   <span className="xMarks">X</span>
                 </div>
             );
@@ -201,7 +256,7 @@ const Square = (props) => {
     }
 
     return (
-        <div onClick={clickedSquare} className="tic-tac-toe-square">
+        <div id={props.number} onClick={clickedSquare} className="tic-tac-toe-square" style={{fontSize: getInfo()}}>
                  { elementContainer() }
         </div>
     );
@@ -260,7 +315,7 @@ const Container = (props) => {
                 return (setGameOver({isGameOver: true, winner: 'Player O'}));
             }
         }
-        if (clickedNumsArray.length === 9) {
+        if (clickedNumsArray.length === 64) {
             return (setGameOver({isGameOver: true, winner: null }));
         }
         setTurn(!turn);
