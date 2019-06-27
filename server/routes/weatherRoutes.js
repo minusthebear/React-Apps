@@ -25,14 +25,12 @@ const setWeatherRoutes = app => {
 
 		if (ret) {
 			res.status(200).send({ message: 'Entry already exists.' });
-			return;
 		} else {
 			try {
 				await addLocation(req.body);
 				res.status(204).send();
 			} catch (e) {
 				res.status(404).send({ message: 'Unable to post at this time' });
-				next(e);
 			}
 		}
 	});
@@ -96,7 +94,6 @@ const setWeatherRoutes = app => {
 		console.log('HERE');
 		try {
 			let val = await getAllLocations();
-			console.log(val);
 			res.status(200).send(val);
 		} catch (e) {
 			res.status(404).json({ message: 'Unable to get data at this time' });
@@ -106,8 +103,8 @@ const setWeatherRoutes = app => {
 
 	app.delete('/deleteLocation', async (req, res, next) => {
 		try {
-			let val1 = await deleteAllWeatherLogs(req.body.id);
-			let val2 = await deleteLocation(req.body.id);
+			await deleteAllWeatherLogs(req.body.id);
+			await deleteLocation(req.body.id);
 			res.status(204).send();
 		} catch (e) {
 			res.status(404).send({ message: 'Unable to delete location at this time' });
@@ -117,7 +114,7 @@ const setWeatherRoutes = app => {
 
 	app.delete('/deleteWeatherLog', async (req, res, next) => {
 		try {
-			let val = await deleteWeatherLog(req.body._id);
+			await deleteWeatherLog(req.body._id);
 			res.status(204).send();
 		} catch (e) {
 			res.status(404).send({ message: 'Unable to delete weather log at this time' });

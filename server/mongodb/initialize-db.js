@@ -3,11 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const STARTING_JEOPARDY_JSON = path.resolve(__dirname, '..', 'JSON', 'defaultJeopardyData.json');
 const FINAL_JEOPARDY_JSON = path.resolve(__dirname, '..', 'JSON', 'copyOfJeopardyData.json');
-
 const REACT_JEOPARDY_CATEGORIES = 'reactJeopardyCategories';
 
-/* This code initializes the database with sample users.
- Note, it does not drop the database - this can be done manually. Having code in your application that could drop your whole DB is a fairly risky choice.*/
 async function initializeReactJeopardyDB(categories, db){
 
 	try {
@@ -18,8 +15,8 @@ async function initializeReactJeopardyDB(categories, db){
 			let parsedData = JSON.parse(data);
 
 			try {
+				categories = db.collection('reactJeopardyCategories');
 				for (let categoryName in parsedData) {
-					categories = db.collection('reactJeopardyCategories');
 					await categories.insertOne({categoryName});
 					let collection = db.collection(categoryName);
 					await collection.insertMany(parsedData[categoryName]);
@@ -57,6 +54,27 @@ async function checkIfReactJeopardyDbExists() {
 
 }
 
+async function updateUserSettings() {
+
+	let db;
+	let categories;
+	try {
+		db = await connectDB();
+		categories = await db.collection('userSettings').find({}).toArray();
+
+		let existsSync = fs.existsSync(STARTING_JEOPARDY_JSON);
+
+		if ((!categories || !categories.length) && existsSync) {
+			await initializeReactJeopardyDB(categories, db);
+		}
+	} catch(e) {
+		if (db) {
+			db.close();
+		}
+		throw e;
+	}
+
+}
 /*
 
 (node:52707) UnhandledPromiseRejectionWarning: TypeError: Cannot create property '_id' on string 'fart'

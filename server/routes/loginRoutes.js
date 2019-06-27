@@ -1,6 +1,7 @@
 const { findUser, signupUser } = require('../mongodb/login-db');
 const uuid = require('uuid/v4');
 const md5 = require('md5');
+const { createUserSettings, findUserSettings } = require('../mongodb/settings-db');
 
 const settingsRoutes = app => {
 
@@ -9,12 +10,18 @@ const settingsRoutes = app => {
             userID: data.userID,
             name: data.name
         };
-    }
+    };
+
+
+    const userSettings = (data) => {
+        return {
+            readWriteQs: data.readWriteQs
+        };
+    };
 
     app.post('/authentication', async (req, res, next) => {
-        let {name, password} = req.body;
-
-        let user = await findUser(name);
+        let {name, password} = req.body,
+            user = await findUser(name);
 
         if (!user) {
             return res.status(500).send({message:"User not found."});
@@ -26,7 +33,19 @@ const settingsRoutes = app => {
             return res.status(500).send({message: 'Incorrect password.'})
         }
 
-        res.status(200).send(user);
+        let settings = await findUserSettings(user.userID);
+
+        if (!settings) {
+            await createUserSettings(user.userID);
+            settings = await findUserSettings(user.userID);
+        }
+
+        const retData = {
+            profile: userData(user),
+            settings: userSettings(settings)
+        };
+
+        res.status(200).send(retData);
     });
 
     app.post('/create_user', async (req, res, next) => {
@@ -39,8 +58,17 @@ const settingsRoutes = app => {
 
         let userID = uuid();
         await signupUser({userID, name, password: md5(password)});
+        await createUserSettings(userID);
+
         let newUser = await findUser(name);
-        res.status(201).send(newUser);
+        let settings = await findUserSettings(userID);
+
+        const retData = {
+            profile: userData(newUser),
+            settings: userSettings(settings)
+        };
+
+        res.status(201).send(retData);
     });
 };
 

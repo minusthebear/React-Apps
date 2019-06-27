@@ -3,14 +3,12 @@ const uuid = require('uuid/v4');
 
 const settingsRoutes = app => {
 
-    app.post('/settings', async (req, res, next) => {
+    app.put('/updateSettings', async (req, res, next) => {
 
         let id,
             body;
 
-        if (!req.body.id) {
-            id = uuid();
-        }
+        console.log(req.body);
 
         // TODO: login page
 
