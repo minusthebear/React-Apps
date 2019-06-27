@@ -57,6 +57,7 @@ function SettingsForm() {
 
 const mapStateToProps = state => {
     return {
+        userID: state.sett
     }
 };
 const mapDispatchToProps = dispatch => {

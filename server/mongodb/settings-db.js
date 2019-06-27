@@ -44,10 +44,10 @@ async function findUserSettings(userID) {
     return await collection.findOne({userID});
 }
 
-async function editUser(location) {
+async function editSettings(settings) {
     let db = await connectDB();
-    let collection = db.collection('users');
-    await collection.updateOne(location);
+    let collection = db.collection('userSettings');
+    await collection.updateOne(settings);
 }
 
-module.exports = { addUser, createUserSettings, editUser, findUserSettings };
+module.exports = { addUser, createUserSettings, editSettings, findUserSettings };
