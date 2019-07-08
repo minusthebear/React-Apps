@@ -22,7 +22,6 @@ const Container = (props) => {
     } = useGameState();
 
     function calculateWinner(arr) {
-        const winningCombos = winningCombos();
 
         return _.find(winningCombos, function(combo) {
             return _.intersection(arr, combo).length === 4;
