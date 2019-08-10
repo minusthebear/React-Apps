@@ -14,7 +14,7 @@ const settingsRoutes = app => {
             await editSettings(req.body);
             res.status(204).send();
         } catch(e) {
-            res.status(404).send({ message: 'Unable to post at this time' });
+            res.status(400).send({ message: 'Unable to post at this time' });
         }
     });
 };

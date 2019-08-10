@@ -5,13 +5,13 @@ import {connect} from 'react-redux';
 import {loginUserAccount} from "../../redux/actions/loginActions";
 import {saveSettings} from "../api/settingsApi";
 
-function SettingsForm() {
+function SettingsForm({user}) {
 
     const setSubmitForm = () => {
         return {
             readWriteQs: readWriteQs ? 'JSON' : 'Mongo'
         }
-    }
+    };
 
     let [ readWriteQs, setReadWriteQs ] = useState(false);
 
@@ -26,6 +26,8 @@ function SettingsForm() {
     async function submitSettings() {
         await saveSettings(setSubmitForm());
     }
+
+    console.log(user);
 
     return (
         <Formsy onSubmit={submitSettings}>
@@ -57,7 +59,7 @@ function SettingsForm() {
 
 const mapStateToProps = state => {
     return {
-        userID: state.sett
+        user: state.sessionReducer.user
     }
 };
 const mapDispatchToProps = dispatch => {

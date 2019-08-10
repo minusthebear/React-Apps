@@ -12,16 +12,17 @@ import Main from './Main';
 import { Redirect } from 'react-router';
 import { setUserSession } from '../redux/actions/sessionActions';
 
-function App({ user }){
+function App({ user, setUserSession }){
+
+    let [ userSesh, setUserSesh ] = useState(null);
 
     useEffect(() => {
         try {
-            let userSesh = localStorage.getItem('MatthewHamannReactApp');
+            sesh = localStorage.getItem('MatthewHamannReactApp');
 
-            console.log(userSesh);
-
-            if (userSesh) {
-                setUserSession(JSON.parse(userSesh));
+            if (!sesh) {
+                setUserSesh()
+                //setUserSession(JSON.parse(userSesh));
             }
 
             console.log(user);

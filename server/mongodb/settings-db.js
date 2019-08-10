@@ -41,7 +41,10 @@ async function createUserSettings(userID) {
 async function findUserSettings(userID) {
     let db = await connectDB();
     let collection = db.collection('userSettings');
-    return await collection.findOne({userID});
+    let val = await collection.findOne({userID});
+    console.log('Line 45, findUserSettings');
+    console.log(val);
+    return val;
 }
 
 async function editSettings(settings) {
