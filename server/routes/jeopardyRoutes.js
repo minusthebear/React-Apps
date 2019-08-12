@@ -1,11 +1,12 @@
 const _ = require('lodash');
 const { initDB, getAllCategories } = require('../mongodb/jeopardy-db');
+const sessionChecker = require('./sessionChecker');
 
 const setJeopardyRoutes = app => {
 
 	initDB();
 
-	app.get('/getAllCategories', async (req, res) => {
+	app.get('/getAllCategories', sessionChecker, async (req, res) => {
 		let ret;
 		try {
 			ret = await getAllCategories();

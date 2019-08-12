@@ -1,6 +1,7 @@
 const { findUser, signupUser } = require('../mongodb/login-db');
 const uuid = require('uuid/v4');
 const md5 = require('md5');
+const sessionChecker = require('./sessionChecker');
 const { createUserSettings, findUserSettings } = require('../mongodb/settings-db');
 
 const authenticationTokens = [];
@@ -21,7 +22,7 @@ const settingsRoutes = app => {
         };
     };
 
-    app.post('/authentication', async (req, res, next) => {
+    app.post('/authentication', sessionChecker, async (req, res, next) => {
         let {name, password} = req.body,
             user = await findUser(name);
 
@@ -58,7 +59,7 @@ const settingsRoutes = app => {
         res.status(200).send(retData);
     });
 
-    app.post('/create_user', async (req, res, next) => {
+    app.post('/create_user', sessionChecker, async (req, res, next) => {
         let {name, password} = req.body,
             user = await findUser(name);
 

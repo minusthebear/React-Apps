@@ -1,5 +1,5 @@
 const _ = require('lodash');
-
+const sessionChecker = require('./sessionChecker');
 const {
 	addLocation,
 	addCurrentWeather,

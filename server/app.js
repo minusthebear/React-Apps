@@ -1,5 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
+const session = require('express-session');
+const flash = require('connect-flash');
 const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -11,11 +13,14 @@ const setRoutes = require('./routes/setRoutes');
 const port = process.env.PORT || 8080;
 const app = express();
 
+app.disable('x-powered-by');
 app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(session({ secret: 'thisIsMySecret' }));
+app.use(flash());
 
 app.set('views', path.join(__dirname, 'public'));
 app.set('view engine', 'html');

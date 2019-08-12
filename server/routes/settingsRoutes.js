@@ -1,9 +1,10 @@
 const {editSettings} = require('../mongodb/settings-db');
 const uuid = require('uuid/v4');
+const sessionChecker = require('./sessionChecker');
 
 const settingsRoutes = app => {
 
-    app.put('/updateSettings', async (req, res, next) => {
+    app.put('/updateSettings', sessionChecker, async (req, res, next) => {
 
         let id,
             body;
