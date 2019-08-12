@@ -79,11 +79,11 @@ const mapStateToProps = state => {
         loginWarning: state.loginReducer.loginWarning
     }
 };
-const mapDispatchToProps = dispatch => {
-    return {
-        loginUserAccount: (username, password) => dispatch(loginUserAccount(username, password))
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    loginUserAccount(username, password) {
+        dispatch(loginUserAccount(username, password));
+    }
+});
 const ConnectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login);
 
 export default ConnectedLogin;

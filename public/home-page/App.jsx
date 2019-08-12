@@ -9,6 +9,7 @@ import Login from '../login/Login';
 import Signup from '../login/Signup';
 import Settings from '../settings/Settings';
 import Main from './Main';
+import store from '../redux/store';
 import { Redirect } from 'react-router';
 import { setUserSession } from '../redux/actions/sessionActions';
 
@@ -16,23 +17,30 @@ function App({ user, setUserSession }){
 
     let [ userSesh, setUserSesh ] = useState(null);
 
-    useEffect(() => {
-        try {
-            sesh = localStorage.getItem('MatthewHamannReactApp');
-
-            if (!sesh) {
-                setUserSesh()
-                //setUserSession(JSON.parse(userSesh));
-            }
-
-            console.log(user);
-        } catch(e) {
-            renderLogin();
-        }
-    });
+    // useEffect(() => {
+    //     try {
+    //         let sesh = localStorage.getItem('MatthewHamannReactApp');
+    //
+    //         if (!sesh) {
+    //             setUserSesh()
+    //             //setUserSession(JSON.parse(userSesh));
+    //         }
+    //
+    //         console.log(user);
+    //     } catch(e) {
+    //         renderLogin();
+    //     }
+    // });
 
     const RouteGuard = Component => ({match}) =>  {
-        return <Component match={match}/>;
+        console.log("store.getState()", user);
+        console.log("Route guard", match);
+
+        if (!user.authenticated) {
+            return renderLogin();
+        } else {
+            return <Component match={match}/>;
+        }
         // console.log(localStorage.getItem('MatthewHamannReactApp'));
         //
         // console.log(user);
@@ -60,7 +68,7 @@ function App({ user, setUserSession }){
 }
 
 const mapStateToProps = state => {
-    return { user: state.sessionReducer.user}
+    return { user: state.sessionReducer }
 };
 
 const mapDispatchToProps = dispatch => {

@@ -1,7 +1,7 @@
-import {RESPONSE_AUTHENTICATE_USER, SET_USER_SESSION, UNSUCCESSFUL_LOGIN} from '../../constants/action-types';
+import {RESPONSE_AUTHENTICATE_USER, SET_USER_SESSION, SET_STATE, UNSUCCESSFUL_LOGIN} from '../../constants/action-types';
 import { history } from "../history";
 import axios from 'axios';
-import {setUserSession} from "./sessionActions";
+import {setUserSession, setAuthenticated} from "./sessionActions";
 
 const URL = 'http://localhost:8080';
 
@@ -9,8 +9,13 @@ export function loginUserAccount(name,password) {
     return dispatch => {
         axios.post(URL + '/authentication', {name, password})
             .then(res => {
-                localStorage.setItem('MatthewHamannReactApp', JSON.stringify(res.data));
-                dispatch(setUserSession(res.data));
+                console.log(res.data);
+                if (!res.data) {
+                    throw new Error();
+                }
+                //localStorage.setItem('MatthewHamannReactApp', JSON.stringify(res.data));
+                //dispatch(setUserSession(res.data));
+                dispatch(loginSuccessful(res.data));
                 history.push('/');
             })
             .catch(err => {
@@ -18,6 +23,10 @@ export function loginUserAccount(name,password) {
                 dispatch(errorAction());
             })
     }
+}
+
+function loginSuccessful(data) {
+    return { type: SET_STATE,  data};
 }
 
 export function errorAction() {

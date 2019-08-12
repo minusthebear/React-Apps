@@ -3,6 +3,8 @@ const uuid = require('uuid/v4');
 const md5 = require('md5');
 const { createUserSettings, findUserSettings } = require('../mongodb/settings-db');
 
+const authenticationTokens = [];
+
 const settingsRoutes = app => {
 
     const userData = (data) => {
@@ -40,9 +42,17 @@ const settingsRoutes = app => {
             settings = await findUserSettings(user.userID);
         }
 
+        let token = uuid();
+
+        authenticationTokens.push({
+            token,
+            userData: userData(user)
+        });
+
         const retData = {
             profile: userData(user),
-            settings: userSettings(settings)
+            settings: userSettings(settings),
+            token
         };
 
         res.status(200).send(retData);
@@ -63,9 +73,17 @@ const settingsRoutes = app => {
         let newUser = await findUser(name);
         let settings = await findUserSettings(userID);
 
+        let token = uuid();
+
+        authenticationTokens.push({
+            token,
+            userData: userData(user)
+        });
+
         const retData = {
             profile: userData(newUser),
-            settings: userSettings(settings)
+            settings: userSettings(settings),
+            token
         };
 
         res.status(201).send(retData);
