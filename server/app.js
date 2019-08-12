@@ -18,8 +18,8 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(session({ secret: 'thisIsMySecret' }));
+app.use(cookieParser());
 app.use(flash());
 
 app.set('views', path.join(__dirname, 'public'));

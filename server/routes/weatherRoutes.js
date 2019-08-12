@@ -14,7 +14,7 @@ const {
 
 const setWeatherRoutes = app => {
 
-	app.post('/addNewLocation', async (req, res, next) => {
+	app.post('/addNewLocation', sessionChecker, async (req, res, next) => {
 		let ret;
 		try {
 			ret = await findOneLocation(req.body);
@@ -35,7 +35,7 @@ const setWeatherRoutes = app => {
 		}
 	});
 
-	app.post('/saveCurrentWeather', async (req,res,next) => {
+	app.post('/saveCurrentWeather', sessionChecker, async (req,res,next) => {
 
 		let ret,
 			objMatch;
@@ -70,7 +70,7 @@ const setWeatherRoutes = app => {
 		}
 	});
 
-	app.post('/getWeatherLog', async (req, res, next) => {
+	app.post('/getWeatherLog', sessionChecker, async (req, res, next) => {
 		try {
 			let val = await getWeatherLog(req.body._id);
 			res.status(200).send(val);
@@ -80,7 +80,7 @@ const setWeatherRoutes = app => {
 		}
 	});
 
-	app.get('/allWeatherLogsByLocation', async (req, res, next) => {
+	app.get('/allWeatherLogsByLocation', sessionChecker, async (req, res, next) => {
 		try {
 			let val = await getAllWeatherLogsByLocation(parseInt(req.query.id));
 			res.status(200).send(val);
@@ -90,7 +90,7 @@ const setWeatherRoutes = app => {
 		}
 	});
 
-	app.get('/allLocations', async (req,res, next) => {
+	app.get('/allLocations', sessionChecker, async (req,res, next) => {
 		console.log('HERE');
 		try {
 			let val = await getAllLocations();
@@ -101,7 +101,7 @@ const setWeatherRoutes = app => {
 		}
 	});
 
-	app.delete('/deleteLocation', async (req, res, next) => {
+	app.delete('/deleteLocation', sessionChecker, async (req, res, next) => {
 		try {
 			await deleteAllWeatherLogs(req.body.id);
 			await deleteLocation(req.body.id);
@@ -112,7 +112,7 @@ const setWeatherRoutes = app => {
 		}
 	});
 
-	app.delete('/deleteWeatherLog', async (req, res, next) => {
+	app.delete('/deleteWeatherLog', sessionChecker, async (req, res, next) => {
 		try {
 			await deleteWeatherLog(req.body._id);
 			res.status(204).send();

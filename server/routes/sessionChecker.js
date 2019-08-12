@@ -1,9 +1,9 @@
 function sessionChecker(req, res, next) {
-    if (req.session) {
-        console.log(req.session);
+    console.log(req.session);
+    if (req.session.fake_id) {
         next();
     } else {
-        res.send(403);
+        res.status(401);
     }
 }
 

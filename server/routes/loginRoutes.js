@@ -22,7 +22,7 @@ const settingsRoutes = app => {
         };
     };
 
-    app.post('/authentication', sessionChecker, async (req, res, next) => {
+    app.post('/authentication', async (req, res, next) => {
         let {name, password} = req.body,
             user = await findUser(name);
 
@@ -50,6 +50,12 @@ const settingsRoutes = app => {
             userData: userData(user)
         });
 
+        // Will change this and make more scalable later
+        req.session.user = {
+            token,
+            userData: userData(user)
+        };
+
         const retData = {
             profile: userData(user),
             settings: userSettings(settings),
@@ -59,7 +65,7 @@ const settingsRoutes = app => {
         res.status(200).send(retData);
     });
 
-    app.post('/create_user', sessionChecker, async (req, res, next) => {
+    app.post('/create_user', async (req, res, next) => {
         let {name, password} = req.body,
             user = await findUser(name);
 
@@ -81,13 +87,18 @@ const settingsRoutes = app => {
             userData: userData(user)
         });
 
+        req.session.user = {
+            token,
+            userData: userData(user)
+        };
+
         const retData = {
             profile: userData(newUser),
             settings: userSettings(settings),
             token
         };
 
-        res.status(201).send(retData);
+        res.status(200).send(retData);
     });
 };
 

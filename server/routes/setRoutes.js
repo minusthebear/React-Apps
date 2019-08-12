@@ -17,8 +17,6 @@ const setRoutes = app => {
 	});
 
 	app.get('/', function(req, res)  {
-		console.log('\n\nreq.session\n\n');
-		console.log(req.session);
 		res.render(path.resolve('public', 'index.html'));
 	});
 
@@ -30,8 +28,6 @@ const setRoutes = app => {
 
 	// error handler
 	app.use(function(err, req, res, next) {
-		console.log('SESSION');
-		console.dir(req);
 		// set locals, only providing error in development
 		console.log('error, fool!')
 		res.locals.message = err.message;
