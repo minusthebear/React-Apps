@@ -22,14 +22,23 @@ app.use(logger('dev'));
 // app.use(cookieParser('thisIsMySecret'));
 // app.use(flash());
 app.use(session({
-    name: 'my-sesh',
-    secret: 'keyboard cat',
+    genid: (req) => {
+        console.log('Inside the session middleware')
+        console.log(req.sessionID)
+        return uuid() // use UUIDs for session IDs
+    },
+    key: 'session.sid',
+    secret: 'thisIsMySecret',
     resave: false,
     saveUninitialized: false,
+    //proxy: true,
+
+    store: new redisStore({host: 'localhost', port: 6379, client: client,ttl :  260}),
     cookie: {
-        secure:false,
-        sameSite:true,
-        maxAge: 1000 * 60 * 5
+        path: '/',
+        httpOnly: false,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 1000 * 60 * 60
     }
 }));
 app.use(express.json());
@@ -37,23 +46,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 
 /*
-genid: (req) => {
-    console.log('Inside the session middleware')
-    console.log(req.sessionID)
-    return uuid() // use UUIDs for session IDs
-  },
-  key: 'session.sid',
-  secret: 'thisIsMySecret',
-  resave: false,
-  saveUninitialized: true,  proxy: true,
 
-    store: new redisStore({host: 'localhost', port: 6379, client: client,ttl :  260}),
-  cookie: {
-      path: '/',
-      httpOnly: false,
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 1000 * 60 * 60
-  }
 
  */
 
