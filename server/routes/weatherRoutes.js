@@ -66,7 +66,6 @@ const setWeatherRoutes = app => {
 			res.status(204).send();
 		} catch(e) {
 			res.status(404).send({ message: 'Unable to post at this time' });
-			next(e);
 		}
 	});
 
@@ -76,7 +75,6 @@ const setWeatherRoutes = app => {
 			res.status(200).send(val);
 		} catch(e) {
 			res.status(404).send({ message: 'Unable to send data at this time'});
-			next(e);
 		}
 	});
 
@@ -86,7 +84,6 @@ const setWeatherRoutes = app => {
 			res.status(200).send(val);
 		} catch(e) {
 			res.status(404).send({ message: 'Unable to send data at this time'});
-			next(e);
 		}
 	});
 
@@ -97,7 +94,6 @@ const setWeatherRoutes = app => {
 			res.status(200).send(val);
 		} catch (e) {
 			res.status(404).json({ message: 'Unable to get data at this time' });
-			next(e);
 		}
 	});
 
@@ -108,7 +104,6 @@ const setWeatherRoutes = app => {
 			res.status(204).send();
 		} catch (e) {
 			res.status(404).send({ message: 'Unable to delete location at this time' });
-			next(e);
 		}
 	});
 
@@ -118,7 +113,6 @@ const setWeatherRoutes = app => {
 			res.status(204).send();
 		} catch (e) {
 			res.status(404).send({ message: 'Unable to delete weather log at this time' });
-			next(e);
 		}
 	});
 };

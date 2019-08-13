@@ -51,10 +51,15 @@ const settingsRoutes = app => {
         });
 
         // Will change this and make more scalable later
-        req.session.user = {
+        req.session.user = new Object({
             token,
             userData: userData(user)
-        };
+        });
+        console.log('req.session', req.session);
+
+        req.session.save();
+
+        console.log('req.session', req.session);
 
         const retData = {
             profile: userData(user),
@@ -87,10 +92,17 @@ const settingsRoutes = app => {
             userData: userData(user)
         });
 
-        req.session.user = {
+        req.session.user = new Object({
             token,
             userData: userData(user)
-        };
+        });
+
+        console.log('req.session', req.session);
+
+        req.session.save();
+
+        console.log('req.session', req.session);
+
 
         const retData = {
             profile: userData(newUser),
