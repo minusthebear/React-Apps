@@ -20,11 +20,11 @@ const setRoutes = app => {
 		res.render(path.resolve('public', 'index.html'));
 	});
 
-	// app.get('*', sessionChecker, function(req, res)  {
-	// 	console.log('\n\nreq.session\n\n');
-	// 	console.log(req.session);
-	// 	res.render(path.resolve('public', 'index.html'));
-	// });
+	app.get('*', sessionChecker, function(req, res)  {
+		console.log('\n\nreq.session\n\n');
+		console.log(req.session);
+		res.render(path.resolve('public', 'index.html'));
+	});
 
 	// error handler
 	app.use(function(err, req, res, next) {

@@ -47,19 +47,13 @@ const settingsRoutes = app => {
 
         let token = uuid();
 
-        authenticationTokens.push({
+        let obj = {
             token,
             userData: userData(user)
-        });
+        };
 
-        // Will change this and make more scalable later
-        req.session.user = new Object({
-            token,
-            userData: userData(user)
-        });
-        req.session.token_id = token;
-
-        console.log('req.session', req.session);
+        authenticationTokens.push(obj);
+        req.session.user = obj;
 
         req.session.save();
 
@@ -90,23 +84,13 @@ const settingsRoutes = app => {
         let settings = await findUserSettings(userID);
 
         let token = uuid();
-
-        authenticationTokens.push({
+        let obj = {
             token,
             userData: userData(user)
-        });
+        };
 
-        req.session.user = new Object({
-            token,
-            userData: userData(user)
-        });
-
-        console.log('req.session', req.session);
-
-        req.session.save();
-
-        // console.log('req.session', req.session);
-
+        authenticationTokens.push(obj);
+        req.session.user = obj;
 
         const retData = {
             profile: userData(newUser),

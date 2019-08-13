@@ -1,6 +1,6 @@
 function sessionChecker(req, res, next) {
     console.log(req.session);
-    if (req.session.fake_id) {
+    if (req.session.user && req.session.user.token) {
         next();
     } else {
         res.status(401);
