@@ -1,6 +1,8 @@
 import { handleResponse, handleError } from "./apiUtils";
 import { API_KEY } from "../../constants/API_key";
 import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 import qs from 'qs';
 
 const URL = 'http://localhost:8080';

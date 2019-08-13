@@ -5,6 +5,7 @@ const URL = 'http://localhost:8080';
 
 // This method GETS from the server and SETS on the front-end
 export function getAllCategories() {
+	axios.defaults.withCredentials = true;
 	return async function(dispatch) {
 		let res = await axios.get(URL + '/getAllCategories');
 		let data = res.data;

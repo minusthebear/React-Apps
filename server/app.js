@@ -3,7 +3,7 @@ const express = require('express');
 const redis = require('redis');
 const session = require('express-session');
 const redisStore = require('connect-redis')(session);
-var client = redis.createClient();
+const client = redis.createClient();
 const flash = require('connect-flash');
 const cors = require('cors');
 const path = require('path');
@@ -17,13 +17,27 @@ const uuid = require('uuid/v4')
 const port = process.env.PORT || 8080;
 const app = express();
 
-app.disable('x-powered-by');
+// app.disable('x-powered-by');
 app.use(logger('dev'));
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cookieParser('thisIsMySecret'));
+// app.use(flash());
 app.use(session({
-  genid: (req) => {
+    name: 'my-sesh',
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure:false,
+        sameSite:true,
+        maxAge: 1000 * 60 * 5
+    }
+}));
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({origin: 'http://localhost:3000', credentials: true}));
+
+/*
+genid: (req) => {
     console.log('Inside the session middleware')
     console.log(req.sessionID)
     return uuid() // use UUIDs for session IDs
@@ -31,15 +45,17 @@ app.use(session({
   key: 'session.sid',
   secret: 'thisIsMySecret',
   resave: false,
-  saveUninitialized: true,
-  store: new redisStore({host: 'localhost', port: 6379, client: client,ttl :  260}),
+  saveUninitialized: true,  proxy: true,
+
+    store: new redisStore({host: 'localhost', port: 6379, client: client,ttl :  260}),
   cookie: {
+      path: '/',
+      httpOnly: false,
     secure: process.env.NODE_ENV === "production",
     maxAge: 1000 * 60 * 60
   }
-}));
-app.use(cookieParser());
-app.use(flash());
+
+ */
 
 app.set('views', path.join(__dirname, 'public'));
 app.set('view engine', 'html');

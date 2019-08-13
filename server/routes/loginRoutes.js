@@ -26,6 +26,8 @@ const settingsRoutes = app => {
         let {name, password} = req.body,
             user = await findUser(name);
 
+        console.log(req.body);
+
         if (!user) {
             return res.status(500).send({message:"User not found."});
         }
@@ -55,11 +57,13 @@ const settingsRoutes = app => {
             token,
             userData: userData(user)
         });
+        req.session.token_id = token;
+
         console.log('req.session', req.session);
 
         req.session.save();
 
-        console.log('req.session', req.session);
+        // console.log('req.session', req.session);
 
         const retData = {
             profile: userData(user),
@@ -101,7 +105,7 @@ const settingsRoutes = app => {
 
         req.session.save();
 
-        console.log('req.session', req.session);
+        // console.log('req.session', req.session);
 
 
         const retData = {

@@ -6,6 +6,7 @@ import { setUserSession } from './sessionActions';
 const URL = 'http://localhost:8080';
 
 export function requestCreateUserAccount(name,password) {
+    // axios.defaults.withCredentials = true;
     return dispatch => {
         axios.post(URL + '/create_user', {name, password})
             .then(res => {
