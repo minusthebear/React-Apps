@@ -1,4 +1,5 @@
 function sessionChecker(req, res, next) {
+    console.log('Session Checker');
     console.log(req.session);
     if (req.session.user && req.session.user.token) {
         next();
