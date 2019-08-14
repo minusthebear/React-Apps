@@ -1,11 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import './Main.scss';
 import {Link} from "react-router-dom";
 import FixedSidebar from "../shared-components/FixedSidebar/FixedSidebar";
+import axios from "axios";
 
 const Main = (props) => {
     // TODO: make more responsive to different viewport sizes
+
+    useEffect( () => {
+        console.log('In useEffect');
+        async function callImmediately() {
+            console.log('In callImmediately');
+            // if (sessionStorage.getItem('react-apps')) {
+                axios.defaults.withCredentials = true;
+                await axios.post('/token_credential_check')
+                    .then((res) => {
+                        console.log(res);
+                    }).catch((e) => {
+                        console.log(e);
+                    });
+            // }
+        }
+        callImmediately();
+    });
 
     return (
         <>

@@ -22,6 +22,14 @@ const settingsRoutes = app => {
         };
     };
 
+    app.post('/token_credential_check', async (req, res) => {
+        console.log('tokenCredentialCheck');
+        console.log(req.body);
+       console.log(authenticationTokens);
+       // let chk = authenticationTokens.find()
+        res.status(200);
+    });
+
     app.post('/authentication', async (req, res, next) => {
         let {name, password} = req.body,
             user = await findUser(name);

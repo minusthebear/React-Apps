@@ -9,6 +9,7 @@ import Login from '../login/Login';
 import Signup from '../login/Signup';
 import Settings from '../settings/Settings';
 import Main from './Main';
+import axios from 'axios';
 import store from '../redux/store';
 import { Redirect } from 'react-router';
 import { setUserSession } from '../redux/actions/sessionActions';
@@ -17,20 +18,6 @@ function App({ user, setUserSession }){
 
     let [ userSesh, setUserSesh ] = useState(null);
 
-    // useEffect(() => {
-    //     try {
-    //         let sesh = localStorage.getItem('MatthewHamannReactApp');
-    //
-    //         if (!sesh) {
-    //             setUserSesh()
-    //             //setUserSession(JSON.parse(userSesh));
-    //         }
-    //
-    //         console.log(user);
-    //     } catch(e) {
-    //         renderLogin();
-    //     }
-    // });
 
     const RouteGuard = Component => ({match}) =>  {
         console.log("store.getState()", user);
