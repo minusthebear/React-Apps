@@ -9,12 +9,30 @@ import Login from '../login/Login';
 import Signup from '../login/Signup';
 import Settings from '../settings/Settings';
 import Main from './Main';
+import cookie from 'react-cookies';
 import axios from 'axios';
 import store from '../redux/store';
 import { Redirect } from 'react-router';
 import { setUserSession } from '../redux/actions/sessionActions';
 
+const URL = 'http://localhost:8080';
+
 function App({ user, setUserSession }){
+
+    useEffect(async () => {
+        let cke = cookie.load('sid');
+
+        if (user.authenticated && cke) {
+            return;
+        }
+
+        if (!cke) {
+            return;
+        }
+
+        let x = await axios.post(URL + '/session_check', { token: cke });
+        console.log('session_check', x);
+    });
 
     let [ userSesh, setUserSesh ] = useState(null);
 
@@ -23,7 +41,13 @@ function App({ user, setUserSession }){
         console.log("store.getState()", user);
         console.log("Route guard", match);
 
+        console.log("cookie sid", cookie.load('sid'));
+
         if (!user.authenticated) {
+            // TODO: Obviously this doesn't go here, move soon
+            let x = cookie.load('sid');
+            console.log('cookie', x);
+
             return renderLogin();
         } else {
             return <Component match={match}/>;

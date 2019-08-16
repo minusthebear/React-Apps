@@ -30,7 +30,7 @@ const settingsRoutes = app => {
         res.status(200);
     });
 
-    app.post('/authentication', async (req, res, next) => {
+    app.post('/authentication', async (req, res) => {
         let {name, password} = req.body,
             user = await findUser(name);
 
@@ -77,7 +77,7 @@ const settingsRoutes = app => {
         res.status(200).send(retData);
     });
 
-    app.post('/create_user', async (req, res, next) => {
+    app.post('/create_user', async (req, res) => {
         let {name, password} = req.body,
             user = await findUser(name);
 
@@ -108,6 +108,16 @@ const settingsRoutes = app => {
         };
 
         res.status(200).send(retData);
+    });
+
+
+    app.post('/session_check', async (req, res) => {
+        let body = req.body;
+
+        console.log('\nbody\n', body);
+        console.log('\nsession\n', req.session)
+
+        res.status(200).send({msg: 'received!' });
     });
 };
 
