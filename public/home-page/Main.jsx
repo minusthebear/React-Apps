@@ -11,20 +11,20 @@ const Main = (props) => {
     // TODO: make more responsive to different viewport sizes
 
     useEffect( () => {
-        console.log('In useEffect');
-        async function callImmediately() {
-            console.log('In callImmediately');
-            // if (sessionStorage.getItem('react-apps')) {
-                axios.defaults.withCredentials = true;
-                await axios.post(URL + '/token_credential_check')
-                    .then((res) => {
-                        console.log(res);
-                    }).catch((e) => {
-                        console.log(e);
-                    });
-            // }
-        }
-        callImmediately();
+        // console.log('In useEffect');
+        // async function callImmediately() {
+        //     console.log('In callImmediately');
+        //     // if (sessionStorage.getItem('react-apps')) {
+        //         axios.defaults.withCredentials = true;
+        //         await axios.post(URL + '/token_credential_check', )
+        //             .then((res) => {
+        //                 console.log(res);
+        //             }).catch((e) => {
+        //                 console.log(e);
+        //             });
+        //     // }
+        // }
+        // callImmediately();
     });
 
     return (

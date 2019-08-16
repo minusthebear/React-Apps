@@ -13,25 +13,34 @@ import cookie from 'react-cookies';
 import axios from 'axios';
 import store from '../redux/store';
 import { Redirect } from 'react-router';
-import { setUserSession } from '../redux/actions/sessionActions';
+import { setUserSession, checkSession } from '../redux/actions/sessionActions';
+// import { requireAuthentication } from '../requireAuthentication';
 
 const URL = 'http://localhost:8080';
 
-function App({ user, setUserSession }){
+function App({ user, setUserSession, checkSession }){
 
-    useEffect(async () => {
+    useEffect(() => {
+
+
         let cke = cookie.load('sid');
 
         if (user.authenticated && cke) {
+            console.log('user.authenticated && cke');
             return;
         }
 
         if (!cke) {
+            console.log('!cke');
             return;
         }
 
-        let x = await axios.post(URL + '/session_check', { token: cke });
-        console.log('session_check', x);
+        async function init() {
+            await checkSession(cke);
+
+            console.log('after checkSession');
+        }
+        init();
     });
 
     let [ userSesh, setUserSesh ] = useState(null);
@@ -83,7 +92,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return { setUserSession: (sesh) => dispatch(setUserSession(sesh)) };
+    return {
+        setUserSession: (sesh) => dispatch(setUserSession(sesh)),
+        checkSession: () => dispatch(checkSession())
+    };
 };
 
 const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App);

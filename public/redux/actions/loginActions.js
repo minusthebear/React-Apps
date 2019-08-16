@@ -14,6 +14,7 @@ export function loginUserAccount(name,password) {
                 if (!res.data || !res.data.token) {
                     throw new Error();
                 }
+                console.log('FINISHED LOGIN USER ACCOUNT');
                 cookie.save('sid', res.data.token, { path: '/', maxAge: 60 * 20});
 
                 //localStorage.setItem('MatthewHamannReactApp', JSON.stringify(res.data));

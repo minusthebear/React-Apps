@@ -115,9 +115,31 @@ const settingsRoutes = app => {
         let body = req.body;
 
         console.log('\nbody\n', body);
-        console.log('\nsession\n', req.session)
+        console.log('\nsession\n', req.session);
+        console.log('\nauthentication tokens\n', authenticationTokens);
+        const user = authenticationTokens.find((user) => {
+            if (body.token === user.token) {
+                return user.userData;
+            }
+        });
+        console.log(user);
 
-        res.status(200).send({msg: 'received!' });
+        if (!user) {
+            res.status(401).send();
+            return;
+        }
+
+        const settings = await findUserSettings(user.userID);
+
+        const retData = {
+            profile: userData(user),
+            settings: userSettings(settings),
+            token: body.token
+        };
+
+        console.log('\nauthentication tokens\n', authenticationTokens);
+
+        res.status(200).send(retData);
     });
 };
 
