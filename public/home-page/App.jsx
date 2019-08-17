@@ -18,15 +18,7 @@ import { setUserSession, checkSession } from '../redux/actions/sessionActions';
 
 const URL = 'http://localhost:8080';
 
-class App extends React.Component({ user, setUserSession, checkSession  }){
-
-    //
-
-    constructor() {
-        super();
-        this.user = user;
-    }
-
+function App({ user, setUserSession, checkSession  }){
 
     useEffect(() => {
 
@@ -49,6 +41,8 @@ class App extends React.Component({ user, setUserSession, checkSession  }){
         }
         init();
     }, []);
+
+    let [ userSesh, setUserSesh ] = useState(null);
 
 
     const RouteGuard = Component => ({match}) =>  {
@@ -74,15 +68,25 @@ class App extends React.Component({ user, setUserSession, checkSession  }){
         // )
     };
 
+    const renderLogin = () => {
+        return <Redirect to="/Login" />;
+    }
 
-
-    render() {
-        return (
-            <App/>
-        );
-    };
-
-
+    return (
+        <>
+            { console.log('here in this return statement') }
+            <Router history={history}>
+                <Route exact path="/" render={RouteGuard(Main)} />
+                <Route exact path="/Main" render={RouteGuard(Main)}/>
+                <Route exact path="/Login" component={Login} />
+                <Route exact path="/Signup" component={Signup} />
+                <Route exact path="/Quiz" render={RouteGuard(QuizApp)} />
+                <Route exact path="/Weather" render={RouteGuard(WeatherApp)} />
+                <Route exact path="/Tic-tac-toe" render={RouteGuard(TicTacToeApp)} />
+                <Route exact path="/Settings" render={RouteGuard(Settings)} />
+            </Router>
+        </>
+    );
 }
 
 const mapStateToProps = state => {

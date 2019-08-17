@@ -4,10 +4,11 @@ import App from './home-page/App';
 import './index.css';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import SessionWrapper from './home-page/SessionWrapper';
 
 render(
 	<Provider store={store()}>
-		<App />
+		<SessionWrapper />
 	</Provider>,
     document.getElementById('root')
 );
