@@ -42,8 +42,6 @@ async function findUserSettings(userID) {
     let db = await connectDB();
     let collection = db.collection('userSettings');
     let val = await collection.findOne({userID});
-    console.log('Line 45, findUserSettings');
-    console.log(val);
     return val;
 }
 

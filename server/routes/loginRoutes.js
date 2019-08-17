@@ -114,30 +114,31 @@ const settingsRoutes = app => {
     app.post('/session_check', async (req, res) => {
         let body = req.body;
 
+        if (!body.token) {
+            return res.status(204).send(null);
+        }
+
         console.log('\nbody\n', body);
         console.log('\nsession\n', req.session);
         console.log('\nauthentication tokens\n', authenticationTokens);
+        console.log('line 124');
         const user = authenticationTokens.find((user) => {
             if (body.token === user.token) {
                 return user.userData;
             }
         });
-        console.log(user);
 
         if (!user) {
-            res.status(401).send();
-            return;
+            return res.status(204).send(null);
         }
 
-        const settings = await findUserSettings(user.userID);
+        const settings = await findUserSettings(user.userData.userID);
 
         const retData = {
             profile: userData(user),
             settings: userSettings(settings),
             token: body.token
         };
-
-        console.log('\nauthentication tokens\n', authenticationTokens);
 
         res.status(200).send(retData);
     });

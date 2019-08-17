@@ -5,8 +5,10 @@ import {errorAction} from "./loginActions";
 import cookie from 'react-cookies';
 
 const URL = 'http://localhost:8080';
+axios.defaults.withCredentials = true;
 
 export function checkSession() {
+
     console.log('at beginning of checkSession');
     const cke = cookie.load('sid');
 

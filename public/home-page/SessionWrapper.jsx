@@ -18,15 +18,7 @@ import { setUserSession, checkSession } from '../redux/actions/sessionActions';
 
 const URL = 'http://localhost:8080';
 
-class App extends React.Component({ user, setUserSession, checkSession  }){
-
-    //
-
-    constructor() {
-        super();
-        this.user = user;
-    }
-
+function SessionWrapper(){
 
     useEffect(() => {
 
@@ -50,39 +42,10 @@ class App extends React.Component({ user, setUserSession, checkSession  }){
         init();
     }, []);
 
-
-    const RouteGuard = Component => ({match}) =>  {
-        console.log("store.getState()", user);
-        console.log("Route guard", match);
-
-        console.log("cookie sid", cookie.load('sid'));
-
-        if (!user.authenticated) {
-            // TODO: Obviously this doesn't go here, move soon
-            let x = cookie.load('sid');
-            console.log('cookie', x);
-
-            return renderLogin();
-        } else {
-            return <Component match={match}/>;
-        }
-        // console.log(localStorage.getItem('MatthewHamannReactApp'));
-        //
-        // console.log(user);
-        // return (
-        //     user ? <Component match={match}/> : <Redirect to="/Login"/>
-        // )
-    };
-
-
-
-    render() {
-        return (
-            <App/>
-        );
-    };
-
-
+    return (
+        <>
+        </>
+    );
 }
 
 const mapStateToProps = state => {
@@ -96,7 +59,7 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+const connectedApp = connect(mapStateToProps, mapDispatchToProps)(SessionWrapper);
 
 export default connectedApp;
 

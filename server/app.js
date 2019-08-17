@@ -39,8 +39,6 @@ app.use(logger('dev'));
 app.use(session({
     name: "id",
     genid: (req) => {
-        console.log('Inside the session middleware')
-        console.log(req.sessionID)
         return uuid() // use UUIDs for session IDs
     },
     key: 'session.sid',
@@ -52,8 +50,8 @@ app.use(session({
     store: new redisStore({host: 'localhost', port: 6379, client: client,ttl :  260}),
     cookie: {
         path: '/',
-        httpOnly: true,
-        secure: true,
+        httpOnly: false,
+        secure: false,
         maxAge: 1000 * 60 * 20
     }
 }));
