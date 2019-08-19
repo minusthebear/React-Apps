@@ -12,7 +12,6 @@ async function getAllCategories() {
 		let ret = await collection.find({}).toArray();
 
 		if (!ret || !ret.length) {
-			console.log('return null');
 			return null;
 		}
 

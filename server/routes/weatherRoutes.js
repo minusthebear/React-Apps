@@ -88,7 +88,6 @@ const setWeatherRoutes = app => {
 	});
 
 	app.get('/allLocations', sessionChecker, async (req,res, next) => {
-		console.log('HERE');
 		try {
 			let val = await getAllLocations();
 			res.status(200).send(val);

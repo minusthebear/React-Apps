@@ -23,31 +23,18 @@ function App({ user, setUserSession, checkSession  }){
     let [ userSesh, setUserSesh ] = useState(null);
 
     const RouteGuard = Component => ({match}) =>  {
-        console.log("store.getState()", user);
-        console.log("Route guard", match);
+        let cke = cookie.load('sid');
 
-        console.log("cookie sid", cookie.load('sid'));
-
-        if (!user.authenticated) {
-            // TODO: Obviously this doesn't go here, move soon
-            let x = cookie.load('sid');
-            console.log('cookie', x);
-
+        if (!user.authenticated || !cke) {
             return renderLogin();
         } else {
             return <Component match={match}/>;
         }
-        // console.log(localStorage.getItem('MatthewHamannReactApp'));
-        //
-        // console.log(user);
-        // return (
-        //     user ? <Component match={match}/> : <Redirect to="/Login"/>
-        // )
     };
 
     const renderLogin = () => {
         return <Redirect to="/Login" />;
-    }
+    };
 
     return (
         <>

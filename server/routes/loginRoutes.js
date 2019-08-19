@@ -22,18 +22,12 @@ const settingsRoutes = app => {
     };
 
     app.post('/token_credential_check', async (req, res) => {
-        console.log('tokenCredentialCheck');
-        console.log(req.body);
-       console.log(authenticationTokens);
-       // let chk = authenticationTokens.find()
         res.status(200);
     });
 
     app.post('/authentication', async (req, res) => {
         let {name, password} = req.body,
             user = await findUser(name);
-
-        console.log(req.body);
 
         if (!user) {
             return res.status(500).send({message:"User not found."});
@@ -61,11 +55,8 @@ const settingsRoutes = app => {
 
         authenticationTokens.push(obj);
         req.session.user = obj;
-        console.log(req.session);
 
         req.session.save();
-
-        // console.log('req.session', req.session);
 
         const retData = {
             profile: userData(user),
@@ -117,18 +108,11 @@ const settingsRoutes = app => {
             return res.status(204).send(null);
         }
 
-        console.log('\nbody\n', body);
-        console.log('\nsession\n', req.session);
-        console.log('\nauthentication tokens\n', authenticationTokens);
-        console.log('line 124');
         const user = authenticationTokens.find((user) => {
             if (body.token === user.token) {
                 return user.userData;
             }
         });
-
-        console.log('user');
-        console.log(user);
 
         if (!user) {
             return res.status(204).send(null);

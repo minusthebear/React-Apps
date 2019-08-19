@@ -9,8 +9,6 @@ const settingsRoutes = app => {
         let id,
             body;
 
-        console.log(req.body);
-
         try {
             await editSettings(req.body);
             res.status(204).send();

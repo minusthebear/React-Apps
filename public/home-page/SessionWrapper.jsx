@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setUserSession, checkSession } from '../redux/actions/sessionActions';
-import {l, loginSuccessful} from '../redux/actions/loginActions';
-// import { requireAuthentication } from '../requireAuthentication';
+import { checkSession } from '../redux/actions/sessionActions';
+import { loginSuccessful } from '../redux/actions/loginActions';
 import App from "./App";
 import cookie from "react-cookies";
-
-const URL = 'http://localhost:8080';
 
 class SessionWrapper extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props);
 
         this.state = {
             receivedAuth: false
@@ -24,7 +20,6 @@ class SessionWrapper extends Component {
         let cke = cookie.load('sid');
 
         if (this.props.user && this.props.user.authenticated && cke) {
-            console.log('user.authenticated && cke');
             this.setState({
                 receivedAuth: true
             });
@@ -32,32 +27,23 @@ class SessionWrapper extends Component {
         }
 
         if (!cke) {
-            console.log('!cke');
             this.setState({
                 receivedAuth: true
             });
             return;
         }
 
-        console.log('And here we are....');
         checkSession().then((res) => {
             if (res.auth && res.data) {
                 this.props.loginSuccessful(res.data);
             }
-            console.log('checkSession then');
-            console.log(res);
         }).catch((err) => {
-            console.log('checkSession err');
             console.log(err);
         }).finally(() => {
             this.setState({
                 receivedAuth: true
             });
         });
-    }
-
-    componentWillUnmount() {
-
     }
 
     render () {
