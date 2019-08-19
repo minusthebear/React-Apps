@@ -3,8 +3,7 @@ const uuid = require('uuid/v4');
 const md5 = require('md5');
 const sessionChecker = require('./sessionChecker');
 const { createUserSettings, findUserSettings } = require('../mongodb/settings-db');
-
-const authenticationTokens = [];
+const authenticationTokens = require('../authenticationTokens');
 
 const settingsRoutes = app => {
 
@@ -127,6 +126,9 @@ const settingsRoutes = app => {
                 return user.userData;
             }
         });
+
+        console.log('user');
+        console.log(user);
 
         if (!user) {
             return res.status(204).send(null);

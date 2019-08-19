@@ -14,20 +14,20 @@ export function checkSession() {
 
     if (!cke) {
         console.log('NO TOKEN!!!');
-        return dispatch({ type: SET_AUTHENTICATED, authenticated: false });
+        return true;
+        // return dispatch({ type: SET_AUTHENTICATED, authenticated: false });
     }
 
-    return dispatch => {
-        axios.post(URL + '/session_check', {token: cke})
-            .then(res => {
-                console.log('/session_check');
-                console.log(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-                dispatch(errorAction());
-            })
-    }
+    return axios.post(URL + '/session_check', {token: cke})
+        .then(res => {
+            console.log('/session_check');
+            console.log(res.data);
+            return true;
+        })
+        .catch(err => {
+            console.log(err);
+            return false;
+        })
 }
 
 export function setUserSession(user) {

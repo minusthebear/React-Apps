@@ -9,6 +9,7 @@ import SessionWrapper from './home-page/SessionWrapper';
 render(
 	<Provider store={store()}>
 		<SessionWrapper />
+		{/*<App/>*/}
 	</Provider>,
     document.getElementById('root')
 );

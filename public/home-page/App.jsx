@@ -20,30 +20,7 @@ const URL = 'http://localhost:8080';
 
 function App({ user, setUserSession, checkSession  }){
 
-    useEffect(() => {
-
-        let cke = cookie.load('sid');
-
-        if (user.authenticated && cke) {
-            console.log('user.authenticated && cke');
-            return;
-        }
-
-        if (!cke) {
-            console.log('!cke');
-            return;
-        }
-
-        async function init() {
-            await checkSession(cke);
-
-            console.log('after checkSession');
-        }
-        init();
-    }, []);
-
     let [ userSesh, setUserSesh ] = useState(null);
-
 
     const RouteGuard = Component => ({match}) =>  {
         console.log("store.getState()", user);
@@ -95,8 +72,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setUserSession: (sesh) => dispatch(setUserSession(sesh)),
-        checkSession: () => dispatch(checkSession())
     };
 };
 

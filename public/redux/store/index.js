@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "../reducers";
 import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
-import requireAuth from '../../requireAuthentication';
 import thunk from "redux-thunk";
 
 function configureStore(initialState) {
@@ -11,7 +10,7 @@ function configureStore(initialState) {
     return createStore(
         rootReducer,
         initialState,
-        composeEnhancers(applyMiddleware(thunk, reduxImmutableStateInvariant(), requireAuth()))
+        composeEnhancers(applyMiddleware(thunk, reduxImmutableStateInvariant()))
     );
 }
 
