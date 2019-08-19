@@ -137,7 +137,7 @@ const settingsRoutes = app => {
         const settings = await findUserSettings(user.userData.userID);
 
         const retData = {
-            profile: userData(user),
+            profile: userData(user.userData),
             settings: userSettings(settings),
             token: body.token
         };

@@ -29,8 +29,8 @@ export function loginUserAccount(name,password) {
     }
 }
 
-function loginSuccessful(data) {
-    return { type: SET_STATE,  data};
+export function loginSuccessful(data) {
+    return { type: SET_STATE, data};
 }
 
 export function errorAction() {

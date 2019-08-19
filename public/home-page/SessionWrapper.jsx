@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setUserSession, checkSession } from '../redux/actions/sessionActions';
+import {l, loginSuccessful} from '../redux/actions/loginActions';
 // import { requireAuthentication } from '../requireAuthentication';
 import App from "./App";
 import cookie from "react-cookies";
@@ -24,21 +25,34 @@ class SessionWrapper extends Component {
 
         if (this.props.user && this.props.user.authenticated && cke) {
             console.log('user.authenticated && cke');
+            this.setState({
+                receivedAuth: true
+            });
             return;
         }
 
         if (!cke) {
             console.log('!cke');
+            this.setState({
+                receivedAuth: true
+            });
             return;
         }
 
         console.log('And here we are....');
         checkSession().then((res) => {
+            if (res.auth && res.data) {
+                this.props.loginSuccessful(res.data);
+            }
             console.log('checkSession then');
             console.log(res);
         }).catch((err) => {
             console.log('checkSession err');
             console.log(err);
+        }).finally(() => {
+            this.setState({
+                receivedAuth: true
+            });
         });
     }
 
@@ -66,8 +80,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setUserSession: (sesh) => dispatch(setUserSession(sesh)),
-        checkSession: () => dispatch(checkSession())
+        loginSuccessful: (data) => dispatch(loginSuccessful(data))
     };
 };
 

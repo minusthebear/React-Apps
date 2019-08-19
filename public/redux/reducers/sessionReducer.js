@@ -3,7 +3,8 @@ import {
     SET_STATE,
     SET_USER_PROFILE,
     SET_USER_SESSION,
-    SET_USER_SETTINGS
+    SET_USER_SETTINGS,
+    SET_AUTH_TOKEN
 } from "../../constants/action-types";
 
 const initialState = {
@@ -16,7 +17,7 @@ export default function sessionReducer(state = initialState, action) {
     console.log(action);
     if (action.type === SET_STATE) {
         console.log('step one');
-        if (action.data.token && action.data.profile.userID) {
+        if (action.data.token && action.data.profile && action.data.profile.userID) {
             console.log('it is here');
             console.log(action.data.profile.userID);
             console.log(action.data.token);
@@ -51,6 +52,11 @@ export default function sessionReducer(state = initialState, action) {
     if (action.type === SET_USER_SETTINGS) {
         return Object.assign({}, state, {
             profile: action.profile
+        });
+    }
+    if (action.type === SET_AUTH_TOKEN) {
+        return Object.assign({}, state, {
+            token: action.token
         });
     }
     return state;

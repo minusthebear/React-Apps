@@ -8,8 +8,10 @@ function sessionChecker(req, res, next) {
     console.log(authenticationTokens);
 
     if (req.session.user && req.session.user.token) {
+        console.log('next();');
         next();
     } else {
+        console.log('res.status(401);')
         res.status(401);
     }
 }

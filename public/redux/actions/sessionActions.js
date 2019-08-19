@@ -1,4 +1,11 @@
-import { SET_USER_PROFILE, SET_AUTHENTICATED, SET_USER_SESSION, SET_USER_SETTINGS } from '../../constants/action-types';
+import {
+    SET_USER_PROFILE,
+    SET_AUTH_TOKEN,
+    SET_AUTHENTICATED,
+    SET_USER_SESSION,
+    SET_USER_SETTINGS,
+    SET_STATE
+} from '../../constants/action-types';
 import axios from "axios";
 import {history} from "../history";
 import {errorAction} from "./loginActions";
@@ -14,19 +21,24 @@ export function checkSession() {
 
     if (!cke) {
         console.log('NO TOKEN!!!');
-        return true;
+        return { auth: false };
         // return dispatch({ type: SET_AUTHENTICATED, authenticated: false });
     }
 
     return axios.post(URL + '/session_check', {token: cke})
         .then(res => {
-            console.log('/session_check');
             console.log(res.data);
-            return true;
+            console.log('/session_check');
+            if (res.data && res.data.token && res.data.profile && res.data.profile.userID) {
+                return {auth: true, data: res.data};
+            }
+            cookie.remove('sid');
+            return {auth: false};
         })
         .catch(err => {
             console.log(err);
-            return false;
+            cookie.remove('sid');
+            return {auth: false};
         })
 }
 
@@ -37,4 +49,7 @@ export function setUserSession(user) {
 export function setAuthenticated(authenticated) {
     console.log(user);
     return { type: SET_AUTHENTICATED, authenticated };
+}
+export function setToken(token) {
+    return { type: SET_AUTH_TOKEN, token };
 }
