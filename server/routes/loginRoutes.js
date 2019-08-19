@@ -126,6 +126,8 @@ const settingsRoutes = app => {
             token: body.token
         };
 
+        console.dir(req);
+
         res.status(200).send(retData);
     });
 };
