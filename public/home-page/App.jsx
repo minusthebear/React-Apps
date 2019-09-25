@@ -23,6 +23,8 @@ function App({ user, setUserSession, checkSession  }){
     let [ userSesh, setUserSesh ] = useState(null);
 
     const RouteGuard = Component => ({match}) =>  {
+        console.log('user: ', user);
+
         let cke = cookie.load('sid');
 
         if (!user.authenticated || !cke) {

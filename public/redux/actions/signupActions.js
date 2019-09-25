@@ -1,7 +1,7 @@
-import {REQUEST_USER_ACCOUNT_CREATION, USER_ALREADY_EXISTS} from '../../constants/action-types';
+import { SET_STATE, USER_ALREADY_EXISTS} from '../../constants/action-types';
 import axios from 'axios';
 import { history } from "../history";
-import { setUserSession } from './sessionActions';
+import cookie from "react-cookies";
 
 const URL = 'http://localhost:8080';
 
@@ -11,7 +11,7 @@ export function requestCreateUserAccount(name,password) {
         axios.post(URL + '/create_user', {name, password})
             .then(res => {
                 if (res.status === 201) {
-                    localStorage.setItem('MatthewHamannReactApp', JSON.stringify(res.data));
+                    cookie.save('sid', res.data.token, { path: '/', maxAge: 60 * 20});
                     dispatch(successfulCreate(res.data));
                     history.push('/');
                 }
@@ -29,5 +29,5 @@ function userExists() {
 }
 
 function successfulCreate(data) {
-    return { type: REQUEST_USER_ACCOUNT_CREATION, data: data };
+    return { type: SET_STATE, data};;
 }
