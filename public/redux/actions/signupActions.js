@@ -12,8 +12,7 @@ export function requestCreateUserAccount(name,password) {
             .then(res => {
                 if (res.status === 201) {
                     localStorage.setItem('MatthewHamannReactApp', JSON.stringify(res.data));
-                    dispatch(successfulCreate());
-                    dispatch(setUserSession(res.data));
+                    dispatch(successfulCreate(res.data));
                     history.push('/');
                 }
             })
@@ -29,6 +28,6 @@ function userExists() {
     return { type: USER_ALREADY_EXISTS };
 }
 
-function successfulCreate() {
-    return { type: REQUEST_USER_ACCOUNT_CREATION };
+function successfulCreate(data) {
+    return { type: REQUEST_USER_ACCOUNT_CREATION, data: data };
 }

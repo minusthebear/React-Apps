@@ -8,24 +8,30 @@ const REACT_JEOPARDY_CATEGORIES = 'reactJeopardyCategories';
 async function initializeReactJeopardyDB(categories, db){
 
 	try {
-		fs.readFile(STARTING_JEOPARDY_JSON, async (err, data) => {
-			if (err) {
-				throw err;
-			}
-			let parsedData = JSON.parse(data);
-
-			try {
-				categories = db.collection('reactJeopardyCategories');
-				for (let categoryName in parsedData) {
-					await categories.insertOne({categoryName});
-					let collection = db.collection(categoryName);
-					await collection.insertMany(parsedData[categoryName]);
-				}
-			}
-			catch (e) {
-				throw e;
-			}
-		});
+		if (fs.existsSync(STARTING_JEOPARDY_JSON)) {
+			console.log('yo!');
+		} else {
+			console.log('not here dawg');
+		}
+		//
+		// fs.readFile(STARTING_JEOPARDY_JSON, async (err, data) => {
+		// 	if (err) {
+		// 		throw err;
+		// 	}
+		// 	let parsedData = JSON.parse(data);
+		//
+		// 	try {
+		// 		categories = db.collection('reactJeopardyCategories');
+		// 		for (let categoryName in parsedData) {
+		// 			await categories.insertOne({categoryName});
+		// 			let collection = db.collection(categoryName);
+		// 			await collection.insertMany(parsedData[categoryName]);
+		// 		}
+		// 	}
+		// 	catch (e) {
+		// 		throw e;
+		// 	}
+		// });
 
 	} catch(e) {
 		throw e;
@@ -41,6 +47,8 @@ async function checkIfReactJeopardyDbExists() {
 		categories = await db.collection('reactJeopardyCategories').find({}).toArray();
 
 		let existsSync = fs.existsSync(STARTING_JEOPARDY_JSON);
+
+		console.log(existsSync);
 
 		if ((!categories || !categories.length) && existsSync) {
 			await initializeReactJeopardyDB(categories, db);

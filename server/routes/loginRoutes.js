@@ -8,6 +8,7 @@ const authenticationTokens = require('../authenticationTokens');
 const settingsRoutes = app => {
 
     const userData = (data) => {
+        console.log('data: ', data);
         return {
             userID: data.userID,
             name: data.name
@@ -85,7 +86,7 @@ const settingsRoutes = app => {
         let token = uuid();
         let obj = {
             token,
-            userData: userData(user)
+            userData: userData(newUser)
         };
 
         authenticationTokens.push(obj);
@@ -97,7 +98,7 @@ const settingsRoutes = app => {
             token
         };
 
-        res.status(200).send(retData);
+        res.status(201).send(retData);
     });
 
 
