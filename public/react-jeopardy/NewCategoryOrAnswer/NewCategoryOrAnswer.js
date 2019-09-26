@@ -1,46 +1,58 @@
-import React, {useState} from 'react';
-import {connect} from 'react-redux';
+import React, {useState, useEffect} from 'react';
 import '../../home-page/Main.scss';
+import NewField from "./NewField";
 
 const NewCategoryOrAnswer = ({allQuestionData}) => {
 
-    let [ field, setField ] = useState('');
-    let [ countryCode, setCountryCode ] = useState(null);
+    // allQuestionData needs to be fixed
+    useEffect(() => {
+        if (allQuestionData) {
+            Object.entries(allQuestionData, (k, v) => {
+                console.log('key:', k);
+                console.log('value:', v);
+            })
+        }
+    });
 
-    console.log(allQuestionData)
+    let [ field, setField ] = useState('');
+    let [ subPage, setSubPage ] = useState(false);
+
 
     const takeMeToSetting = (val) => {
         setField(val);
+        setSubPage(true)
     };
 
-    const dummyFunc = (val) => {
-        switch (val) {
+    const dummyFunc = () => {
+
+
+        switch (field) {
             case 'category':
                 break;
             case 'answer':
                 break;
             case 'field':
-                break;
+                return <NewField allQuestionData={''}/>
         }
 
-    }
+    };
 
     const mainPage = () => {
         return (
             <div className="container-fluid main-page-container">
                 <div className="row main-page-row">
                     <div className="col-md-4">
-                        <div className="main-page-option-container" onClick={takeMeToSetting('category')}>
+                        <div className="main-page-option-container" onClick={() => takeMeToSetting('category')}>
                             <div>Create a New Category</div>
                         </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="main-page-option-container" onClick={takeMeToSetting('answer')}>
+                        <div className="main-page-option-container" onClick={() => takeMeToSetting('answer')}>
                             <div>Add a New Answer</div>
                         </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="main-page-option-container" onClick={takeMeToSetting('field')}>
+                        <div className="main-page-option-container" onClick={() => takeMeToSetting('field')}>
                             <div>Add to an Existing Answer</div>
                         </div>
                     </div>
@@ -51,12 +63,10 @@ const NewCategoryOrAnswer = ({allQuestionData}) => {
 
     return (
         <>
-            { mainPage() }
+            { subPage ? dummyFunc() : mainPage() }
         </>
 
     );
 };
 
-const mapStateToProps = state => state;
-
-export default connect(mapStateToProps, null)(NewCategoryOrAnswer);
+export default NewCategoryOrAnswer;
