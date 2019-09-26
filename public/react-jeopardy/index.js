@@ -7,6 +7,7 @@ import { getAllCategories } from '../redux/actions/quizActions';
 import FixedSidebar from '../shared-components/FixedSidebar/FixedSidebar';
 import { getAllQuestions, writeQuizGrid, createScoreCard, getGutsyWagerQuestions } from './helperMethods';
 import { connect } from 'react-redux';
+import NewCategoryOrAnswer from "./NewCategoryOrAnswer/NewCategoryOrAnswer";
 
 /* TODO: change App, maybe MainGrid and maybe QuestionAnswer into class components */
 
@@ -14,6 +15,7 @@ function App({ getAllCategories, allQuestionData }) {
 
     useEffect(() => {
         getAllCategories();
+        console.log(allQuestionData);
     }, []);
 
     let [ allValuesAreSet, setAllValuesAreSet ] = useState(false);
@@ -37,11 +39,12 @@ function App({ getAllCategories, allQuestionData }) {
     };
 
     const gamePlayContainer = () => {
-        return allValuesAreSet
-            ?
-            <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
-            :
-            <SetGamePlayValues setValues={setAllValues}/>
+        return <NewCategoryOrAnswer/>
+        // return allValuesAreSet
+        //     ?
+        //     <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
+        //     :
+        //     <SetGamePlayValues setValues={setAllValues}/>
     };
 
     const showSettingsPage = () => {
