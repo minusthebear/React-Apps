@@ -38,8 +38,19 @@ function App({ getAllCategories, allQuestionData }) {
         }
     };
 
+    const chooseFeature = (str) => {
+        switch (str) {
+            case 'category':
+                break;
+            case 'answer':
+                break;
+            case 'field':
+                break;
+        }
+    };
+
     const gamePlayContainer = () => {
-        return <NewCategoryOrAnswer/>
+        return <NewCategoryOrAnswer allQuestionData={allQuestionData} />
         // return allValuesAreSet
         //     ?
         //     <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />

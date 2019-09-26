@@ -1,10 +1,19 @@
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import '../../home-page/Main.scss';
 
-const NewCategoryOrAnswer = (props) => {
+const NewCategoryOrAnswer = ({allQuestionData}) => {
+
+    let [ field, setField ] = useState('');
+    let [ countryCode, setCountryCode ] = useState(null);
+
+    console.log(allQuestionData)
 
     const takeMeToSetting = (val) => {
+        setField(val);
+    };
+
+    const dummyFunc = (val) => {
         switch (val) {
             case 'category':
                 break;
@@ -14,10 +23,10 @@ const NewCategoryOrAnswer = (props) => {
                 break;
         }
 
-    };
+    }
 
-    return (
-        <>
+    const mainPage = () => {
+        return (
             <div className="container-fluid main-page-container">
                 <div className="row main-page-row">
                     <div className="col-md-4">
@@ -37,7 +46,12 @@ const NewCategoryOrAnswer = (props) => {
                     </div>
                 </div>
             </div>
+        );
+    };
 
+    return (
+        <>
+            { mainPage() }
         </>
 
     );
