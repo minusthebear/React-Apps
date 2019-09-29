@@ -8,6 +8,7 @@ const NewField = ({allQuestionData}) => {
 
     // TODO: change later
     let [keys, setKeys] = useState([]);
+    let [cats, setCats] = useState([]);
     let [values, setValues] = useState([]);
 
     useEffect(() => {
@@ -26,15 +27,41 @@ const NewField = ({allQuestionData}) => {
             return;
         }
 
-        console.log(allQuestionData[key]);
+        const firstVal = Object.entries(allQuestionData[key][0]);
+
+        console.log(firstVal);
+
+        const arrEntries = [];
+
+        firstVal.forEach((v) => {
+           if (Array.isArray(v[1])) {
+               arrEntries.push(v[0]);
+           }
+        });
+
+        console.log(arrEntries);
+
+
     };
 
     return (
         <Formsy className="category-number-form" onSubmit={() => {
         }}>
-            <div style={{width: '200px', display:'inline-block'}}>
-                <Select options={keys} onChange={selectValues}/>
+            <div style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
+                    <Select options={keys} onChange={selectValues}/>
             </div>
+            { cats.length ?
+                <div style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
+                    <Select options={cats} onChange={() => {}}/>
+                </div>
+                : null
+            }
+            { values.length ?
+                <div style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
+                    <Select options={values} onChange={() => {}}/>
+                </div>
+                : null
+            }
         </Formsy>
     );
 };
