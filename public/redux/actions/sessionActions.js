@@ -16,19 +16,15 @@ axios.defaults.withCredentials = true;
 
 export function checkSession() {
 
-    console.log('at beginning of checkSession');
     const cke = cookie.load('sid');
 
     if (!cke) {
-        console.log('NO TOKEN!!!');
         return { auth: false };
         // return dispatch({ type: SET_AUTHENTICATED, authenticated: false });
     }
 
     return axios.post(URL + '/session_check', {token: cke})
         .then(res => {
-            console.log(res.data);
-            console.log('/session_check');
             if (res.data && res.data.token && res.data.profile && res.data.profile.userID) {
                 return {auth: true, data: res.data};
             }
@@ -36,18 +32,15 @@ export function checkSession() {
             return {auth: false};
         })
         .catch(err => {
-            console.log(err);
             cookie.remove('sid');
             return {auth: false};
         })
 }
 
 export function setUserSession(user) {
-    console.log(user);
     return { type: SET_USER_SESSION, user };
 }
 export function setAuthenticated(authenticated) {
-    console.log(user);
     return { type: SET_AUTHENTICATED, authenticated };
 }
 export function setToken(token) {

@@ -15,7 +15,6 @@ function App({ getAllCategories, allQuestionData }) {
 
     useEffect(() => {
         getAllCategories();
-        console.log(allQuestionData);
     }, []);
 
     let [ allValuesAreSet, setAllValuesAreSet ] = useState(false);
@@ -24,7 +23,6 @@ function App({ getAllCategories, allQuestionData }) {
     let [ scorecard, setScorecard ] = useState({});
     let [ numPlayers, setNumPlayers ] = useState(0);
     let [ gutsyWager, setGutsyWager ] = useState({});
-
 
     const setAllValues = (obj) => {
         if (obj) {
@@ -40,13 +38,13 @@ function App({ getAllCategories, allQuestionData }) {
 
     const gamePlayContainer = () => {
         // TODO: Uncomment this and comment below when working on new feature
-        // return <NewCategoryOrAnswer allQuestionData={allQuestionData} />
-
-        return allValuesAreSet
-            ?
-            <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
-            :
-            <SetGamePlayValues setValues={setAllValues}/>
+        return <NewCategoryOrAnswer />
+        //
+        // return allValuesAreSet
+        //     ?
+        //     <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
+        //     :
+        //     <SetGamePlayValues setValues={setAllValues}/>
     };
 
     const showSettingsPage = () => {

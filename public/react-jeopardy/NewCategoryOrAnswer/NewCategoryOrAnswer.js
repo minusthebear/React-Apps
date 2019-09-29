@@ -1,22 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import '../../home-page/Main.scss';
 import NewField from "./NewField";
+import { connect } from 'react-redux';
 
 const NewCategoryOrAnswer = ({allQuestionData}) => {
 
-    // allQuestionData needs to be fixed
-    useEffect(() => {
-        if (allQuestionData) {
-            Object.entries(allQuestionData, (k, v) => {
-                console.log('key:', k);
-                console.log('value:', v);
-            })
-        }
-    });
-
     let [ field, setField ] = useState('');
     let [ subPage, setSubPage ] = useState(false);
-
 
     const takeMeToSetting = (val) => {
         setField(val);
@@ -25,14 +15,13 @@ const NewCategoryOrAnswer = ({allQuestionData}) => {
 
     const dummyFunc = () => {
 
-
         switch (field) {
             case 'category':
                 break;
             case 'answer':
                 break;
             case 'field':
-                return <NewField allQuestionData={''}/>
+                return <NewField allQuestionData={allQuestionData}/>
         }
 
     };
@@ -69,4 +58,8 @@ const NewCategoryOrAnswer = ({allQuestionData}) => {
     );
 };
 
-export default NewCategoryOrAnswer;
+const mapStateToProps = state => {
+    return { allQuestionData: state.jeopardyReducer.allQuestionData };
+};
+
+export default connect(mapStateToProps, null)(NewCategoryOrAnswer);

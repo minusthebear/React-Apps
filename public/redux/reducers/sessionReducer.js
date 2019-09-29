@@ -16,12 +16,7 @@ const initialState = {
 export default function sessionReducer(state = initialState, action) {
     console.log(action);
     if (action.type === SET_STATE) {
-        console.log('step one');
         if (action.data.token && action.data.profile && action.data.profile.userID) {
-            console.log('it is here');
-            console.log(action.data.profile.userID);
-            console.log(action.data.token);
-            console.log(state);
             return Object.assign({}, state, {
                 user: action.data.profile.userID,
                 token: action.data.token,
@@ -40,7 +35,6 @@ export default function sessionReducer(state = initialState, action) {
         let obj = Object.assign({}, state, {
             user: action.user
         });
-        console.log(obj);
         return obj;
     }
 

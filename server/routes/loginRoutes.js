@@ -53,7 +53,6 @@ const settingsRoutes = app => {
             token,
             userData: userData(user)
         };
-
         authenticationTokens.push(obj);
         req.session.user = obj;
 

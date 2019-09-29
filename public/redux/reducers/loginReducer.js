@@ -12,7 +12,6 @@ function loginReducer(state = initialState, action) {
         })
     }
     if (action.type === UNSUCCESSFUL_LOGIN) {
-        console.log('loginReducer');
         return Object.assign({}, state, {
             loginWarning: 'Warning'
         });

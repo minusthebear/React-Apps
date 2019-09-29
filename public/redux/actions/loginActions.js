@@ -10,20 +10,14 @@ export function loginUserAccount(name,password) {
     return dispatch => {
         axios.post(URL + '/authentication', {name, password})
             .then(res => {
-                console.log(res.data);
                 if (!res.data || !res.data.token) {
                     throw new Error();
                 }
-                console.log('FINISHED LOGIN USER ACCOUNT');
                 cookie.save('sid', res.data.token, { path: '/', maxAge: 60 * 20});
-
-                //localStorage.setItem('MatthewHamannReactApp', JSON.stringify(res.data));
-                //dispatch(setUserSession(res.data));
                 dispatch(loginSuccessful(res.data));
                 history.push('/');
             })
             .catch(err => {
-                console.log(err);
                 dispatch(errorAction());
             })
     }

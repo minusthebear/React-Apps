@@ -10,14 +10,6 @@ export default function textUpdatesMiddleware () {
             return;
         }
 
-        console.log('getState\n', getState());
-
-        console.log('textUpdatesMiddleware\n');
-
-        console.log('store:\n', store);
-
-        console.log('action:\n', action);
-
         next(action);
     }
 }

@@ -27,8 +27,6 @@ function SettingsForm({user}) {
         await saveSettings(setSubmitForm());
     }
 
-    console.log(user);
-
     return (
         <Formsy onSubmit={submitSettings}>
             <div className="settings-content-container">
