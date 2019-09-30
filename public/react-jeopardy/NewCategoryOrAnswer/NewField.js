@@ -39,7 +39,13 @@ const NewField = ({allQuestionData}) => {
            }
         });
 
-        console.log(arrEntries);
+        console.log(allQuestionData[key]);
+
+        if (!arrEntries.length) {
+            return;
+        } else if (arrEntries.length === 1) {
+            // allQuestionData[key];
+        }
 
 
     };
