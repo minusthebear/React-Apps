@@ -38,13 +38,13 @@ function App({ getAllCategories, allQuestionData }) {
 
     const gamePlayContainer = () => {
         // TODO: Uncomment this and comment below when working on new feature
-        return <NewCategoryOrAnswer />
-        //
-        // return allValuesAreSet
-        //     ?
-        //     <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
-        //     :
-        //     <SetGamePlayValues setValues={setAllValues}/>
+        // return <NewCategoryOrAnswer />
+
+        return allValuesAreSet
+            ?
+            <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
+            :
+            <SetGamePlayValues setValues={setAllValues}/>
     };
 
     const showSettingsPage = () => {
