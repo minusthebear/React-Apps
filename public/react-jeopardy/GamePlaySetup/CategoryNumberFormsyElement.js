@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import BasicTextField from "../common/BasicTextField";
+import GamePlayCatsField from './GamePlayCatsField';
 import Formsy, {addValidationRule} from "formsy-react";
 
 const CategoryNumberFormsyElement = ({ showNextGroup, showNext }) => {
@@ -45,7 +45,7 @@ const CategoryNumberFormsyElement = ({ showNextGroup, showNext }) => {
 
     return (
         <Formsy className="category-number-form" onSubmit={showNext}>
-            <BasicTextField
+            <GamePlayCatsField
                 name="categories"
                 isInt={true}
                 className=""
@@ -57,7 +57,7 @@ const CategoryNumberFormsyElement = ({ showNextGroup, showNext }) => {
                 disabled={showNextGroup}
             />
 
-            <BasicTextField
+            <GamePlayCatsField
                 name="numPlayers"
                 isInt={true}
                 className=""

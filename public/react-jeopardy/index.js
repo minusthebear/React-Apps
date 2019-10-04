@@ -38,7 +38,6 @@ function App({ getAllCategories, allQuestionData }) {
     };
 
     const gamePlayContainer = () => {
-        console.log((<NewField />).find(/</));
         // TODO: Uncomment this and comment below when working on new feature
         return <NewCategoryOrAnswer />
         //

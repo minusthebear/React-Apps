@@ -3,13 +3,20 @@ import {shallow, mount} from 'enzyme';
 import { render, fireEvent, waitForElement } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks';
 import NewField from '../NewField';
+import questions from '../../../__mocks__/dummyQuestions';
 
-jest.mock('react-select', () => {
-    const componentToMock = () => <select>Select</select>;
-    return componentToMock;
-});
+const keys = JSON.parse(questions).map((k,v) => {
+    let val = k.replace(/([A-Z])/g, ' $1').trim().replace(/^.{1}/g, k[0].toUpperCase());
+    return {value: k, label: val };
+})
 
 describe("NewField",function() {
+
+    jest.mock('react-select', () => {
+        const componentToMock = () => <select >Select</select>;
+        return componentToMock;
+    });
+
     let newField;
 
     beforeEach(() => {
@@ -33,14 +40,33 @@ describe("NewField",function() {
 });
 
 describe('rendering the component with the correct props', () => {
-    const hook = renderHook(() => <NewField allQuestionData={{ music: true, surfing: true, pickles: false, olives: false }} />)
+    let wrapper;
 
-    it('maybe this works?', () => {
-        console.log(hook.result.current);
+    const setState = jest.fn();
+    const useStateSpy = jest.spyOn(React, 'useState');
+    useStateSpy.mockImplementation((init) => [init, setState]);
+
+    beforeEach(() => {
+        const {result} = renderHook(() => <NewField allQuestionData={questions} />);
+        wrapper = result;
+
+
+        jest.mock('react-select', () => {
+            const componentToMock = () => (
+                <select>
+                    Select
+                </select>
+            );
+            return componentToMock;
+        });
     });
 
-    it('does this work', () => {
-        // console.log(getByTestId('formsy'));
+    afterEach(() => {
+        jest.clearAllMocks();
+    })
+
+    it('allQuestionData', () => {
+        expect(wrapper.current.props.allQuestionData).toBe(questions);
     })
 });
 
