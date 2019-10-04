@@ -26,19 +26,3 @@ describe('getEntriesNames', () => {
         expect(data).toEqual([ 'songs', 'albums' ]);
     });
 });
-
-//
-// getEntriesNames = (data, key) => {
-//
-//     const firstVal = Object.entries(data[key][0]);
-//
-//     const arrEntries = [];
-//
-//     firstVal.forEach((v) => {
-//         if (Array.isArray(v[1])) {
-//             arrEntries.push(v[0]);
-//         }
-//     });
-//
-//     return arrEntries;
-// }

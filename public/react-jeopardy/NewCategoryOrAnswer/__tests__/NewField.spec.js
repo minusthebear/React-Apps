@@ -6,15 +6,33 @@ import { renderHook } from '@testing-library/react-hooks';
 import NewField from '../NewField';
 import questions from '../../../__mocks__/dummyQuestions';
 
+
+const dummyData = [
+    { value: 'books', label: 'Books' },
+    { value: 'music', label: 'Music' }
+];
+
 // NOTE: if jest.mock('react-select') is not at top of page, many unit tests will fail
-jest.mock('react-select', () => (props) => <select>Select</select>);
+jest.mock('react-select', () => ({options, onChange}) =>
+    <select>Select</select>
+);
+
 
 describe("NewField",function() {
 
-    let newField;
+    let newField,
+        setState,
+        useStateSpy;
 
     beforeEach(() => {
-        newField = mount(<NewField allQuestionData={questions} />)
+        setState = jest.fn();
+        useStateSpy = jest.spyOn(React, 'useState');
+        useStateSpy.mockImplementation((init) => [init, setState]);
+        newField = shallow(<NewField allQuestionData={questions} />)
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
     it('renders a Formsy element', () => {
@@ -22,14 +40,25 @@ describe("NewField",function() {
         expect(formsy.length).toBe(1);
     });
 
-    it('renders a single div', () => {
-        const div = newField.find('div');
+    it('renders a single NewFieldSelectMenu', () => {
+        const div = newField.find('NewFieldSelectMenu');
         expect(div.length).toBe(1);
     });
 
-    it('renders a single select element', () => {
-        const select = newField.find('select');
-        expect(select.length).toBe(1);
+    it('Triggers the right methods with one array', () => {
+        const div = newField.find('NewFieldSelectMenu');
+        div.props().onChange({ value: 'books', label: 'Books' });
+        expect(setState).toHaveBeenCalledTimes(2);
+        expect(setState).toHaveBeenCalledWith({ value: 'books', label: 'Books' });
+        expect(setState).toHaveBeenCalledWith(true);
+    });
+
+    it('Triggers the right methods with more than one array', () => {
+        const div = newField.find('NewFieldSelectMenu');
+        div.props().onChange({ value: 'music', label: 'Music' });
+        expect(setState).toHaveBeenCalledTimes(2);
+        expect(setState).toHaveBeenCalledWith([{"label": "Songs", "value": "songs"}, {"label": "Albums", "value": "albums"}]);
+        expect(setState).toHaveBeenCalledWith(true);
     });
 });
 
@@ -51,7 +80,8 @@ describe('rendering the component with the correct props', () => {
 
     it('allQuestionData', () => {
         expect(wrapper.current.props.allQuestionData).toBe(questions);
-    })
+    });
+
 });
 
 describe("make snapshot", () => {
@@ -63,9 +93,3 @@ describe("make snapshot", () => {
         expect(tree).toMatchSnapshot();
     });
 });
-
-
-//
-// it('smoke test', () => {
-//     let mountedNewField = shallow(<NewField />);
-// });
