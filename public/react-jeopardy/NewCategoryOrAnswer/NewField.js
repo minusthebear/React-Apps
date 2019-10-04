@@ -12,12 +12,12 @@ const NewField = ({allQuestionData}) => {
     let [values, setValues] = useState([]);
 
     useEffect(() => {
-        let arr = Object.keys(allQuestionData);
-
-        setKeys(arr.map((k,v) => {
-            let val = k.replace(/([A-Z])/g, ' $1').trim().replace(/^.{1}/g, k[0].toUpperCase());
-            return {value: k, label: val };
-        }));
+        // let arr = Object.keys(allQuestionData);
+        //
+        // setKeys(arr.map((k,v) => {
+        //     let val = k.replace(/([A-Z])/g, ' $1').trim().replace(/^.{1}/g, k[0].toUpperCase());
+        //     return {value: k, label: val };
+        // }));
 
     }, [allQuestionData]);
 

@@ -8,6 +8,7 @@ import FixedSidebar from '../shared-components/FixedSidebar/FixedSidebar';
 import { getAllQuestions, writeQuizGrid, createScoreCard, getGutsyWagerQuestions } from './helperMethods';
 import { connect } from 'react-redux';
 import NewCategoryOrAnswer from "./NewCategoryOrAnswer/NewCategoryOrAnswer";
+import NewField from "./NewCategoryOrAnswer/NewField";
 
 /* TODO: change App, maybe MainGrid and maybe QuestionAnswer into class components */
 
@@ -37,14 +38,15 @@ function App({ getAllCategories, allQuestionData }) {
     };
 
     const gamePlayContainer = () => {
+        console.log((<NewField />).find(/</));
         // TODO: Uncomment this and comment below when working on new feature
-        // return <NewCategoryOrAnswer />
-
-        return allValuesAreSet
-            ?
-            <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
-            :
-            <SetGamePlayValues setValues={setAllValues}/>
+        return <NewCategoryOrAnswer />
+        //
+        // return allValuesAreSet
+        //     ?
+        //     <GamePlay categories={categories} quizGrid={quizGrid} scorecard={scorecard} numPlayers={numPlayers} gutsyWager={gutsyWager} />
+        //     :
+        //     <SetGamePlayValues setValues={setAllValues}/>
     };
 
     const showSettingsPage = () => {
