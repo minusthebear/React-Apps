@@ -16,4 +16,9 @@ export const getEntriesNames = (data, key) => {
     });
 
     return arrEntries;
+};
+
+export default {
+    setValueAndLabel,
+    getEntriesNames
 }

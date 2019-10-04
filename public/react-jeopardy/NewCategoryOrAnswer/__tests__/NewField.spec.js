@@ -1,26 +1,20 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import { render, fireEvent, waitForElement } from '@testing-library/react'
+import { render, fireEvent, waitForElement } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import { renderHook } from '@testing-library/react-hooks';
 import NewField from '../NewField';
 import questions from '../../../__mocks__/dummyQuestions';
 
-const keys = JSON.parse(questions).map((k,v) => {
-    let val = k.replace(/([A-Z])/g, ' $1').trim().replace(/^.{1}/g, k[0].toUpperCase());
-    return {value: k, label: val };
-})
+// NOTE: if jest.mock('react-select') is not at top of page, many unit tests will fail
+jest.mock('react-select', () => (props) => <select>Select</select>);
 
 describe("NewField",function() {
-
-    jest.mock('react-select', () => {
-        const componentToMock = () => <select >Select</select>;
-        return componentToMock;
-    });
 
     let newField;
 
     beforeEach(() => {
-        newField = mount(<NewField allQuestionData={{}} />)
+        newField = mount(<NewField allQuestionData={questions} />)
     });
 
     it('renders a Formsy element', () => {
@@ -49,25 +43,25 @@ describe('rendering the component with the correct props', () => {
     beforeEach(() => {
         const {result} = renderHook(() => <NewField allQuestionData={questions} />);
         wrapper = result;
-
-
-        jest.mock('react-select', () => {
-            const componentToMock = () => (
-                <select>
-                    Select
-                </select>
-            );
-            return componentToMock;
-        });
     });
 
     afterEach(() => {
         jest.clearAllMocks();
-    })
+    });
 
     it('allQuestionData', () => {
         expect(wrapper.current.props.allQuestionData).toBe(questions);
     })
+});
+
+describe("make snapshot", () => {
+
+    it('renders as expected', () => {
+        const tree = renderer.create(<NewField allQuestionData={{}} />)
+            .toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
 });
 
 

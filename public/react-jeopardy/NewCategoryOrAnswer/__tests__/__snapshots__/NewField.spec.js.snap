@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`make snapshot renders as expected 1`] = `
+<form
+  className="category-number-form"
+  data-testid="formsy"
+  disabled={false}
+  onError={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+   
+  <div
+    data-testid="keys"
+    style={
+      Object {
+        "margin": "0 auto",
+        "textAlign": "center",
+        "width": "200px",
+      }
+    }
+  >
+    <select>
+      Select
+    </select>
+  </div>
+</form>
+`;

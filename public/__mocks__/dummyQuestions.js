@@ -1,4 +1,4 @@
-{
+export default {
   "books": [
     {
       "_id": "5d0bb3b34486cb107a22cbf0",

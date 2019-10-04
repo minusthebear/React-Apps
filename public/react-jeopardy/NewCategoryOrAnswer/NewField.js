@@ -2,7 +2,7 @@ import Formsy from "formsy-react";
 import BasicTextField from "../common/BasicTextField";
 import React, {useState, useEffect} from "react";
 import Select from "react-select";
-import {getEntriesNames, setValueAndLabel} from './NewFieldSelect'
+import {getEntriesNames, setValueAndLabel} from './NewFieldService'
 
 
 const NewField = ({allQuestionData}) => {
@@ -10,6 +10,7 @@ const NewField = ({allQuestionData}) => {
     // TODO: change later
     let [keys, setKeys] = useState([]);
     let [cats, setCats] = useState([]);
+    let [catFlag, setCatFlag] = useState(false);
     let [values, setValues] = useState(null);
     let [valueFlag, setValueFlag] = useState(false);
 
@@ -39,6 +40,7 @@ const NewField = ({allQuestionData}) => {
         } else {
             console.log(arrEntries.map((k) => setValueAndLabel(k)));
             setCats(arrEntries.map((k) => setValueAndLabel(k)))
+            setCatFlag(true);
         }
 
 
@@ -46,20 +48,16 @@ const NewField = ({allQuestionData}) => {
 
     return (
         <Formsy data-testid="formsy" className="category-number-form" onSubmit={() => {
-        }}> <div>KEYS</div>
-            <div data-testid="keys" style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
+        }}> <div data-testid="keys" style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
                     <Select options={keys} onChange={selectValues}/>
             </div>
-            { cats.length ?
-                <>
-                <div>CATS</div>
+            { catFlag ?
                 <div data-testid="categories" style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
                     <Select options={cats} onChange={() => {}}/>
-                </div></>
+                </div>
                 : null
             }
             { valueFlag ?
-                <><div>VALUES</div>
                 <div data-testid="values" style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
                     <BasicTextField
                         name="valueName"
@@ -69,7 +67,7 @@ const NewField = ({allQuestionData}) => {
                         onChange={() => {}}
                         disabled={false}
                     />
-                </div></>
+                </div>
                 : null
             }
         </Formsy>
