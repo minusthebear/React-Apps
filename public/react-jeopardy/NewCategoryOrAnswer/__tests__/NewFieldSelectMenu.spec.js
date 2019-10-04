@@ -1,8 +1,6 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
 import NewFieldSelectMenu from "../NewFieldSelectMenu";
-import { findByTestId } from '@testing-library/react';
-import NewField from "../NewField";
 import renderer from 'react-test-renderer';
 
 // NOTE: if jest.mock('react-select') is not at top of page, many unit tests will fail

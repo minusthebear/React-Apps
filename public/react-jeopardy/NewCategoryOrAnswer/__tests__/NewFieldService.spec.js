@@ -11,7 +11,6 @@ const dummyData = [
     { value: 'cuisine', label: 'Cuisine' }
 ];
 
-
 describe('setValueAndLabel', () => {
     it('spits out value and label correctly', () => {
         let arr = Object.keys(questions);

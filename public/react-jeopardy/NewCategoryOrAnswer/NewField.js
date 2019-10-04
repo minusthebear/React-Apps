@@ -1,15 +1,16 @@
 import Formsy from "formsy-react";
 import BasicTextField from "../common/BasicTextField";
 import React, {useEffect} from "react";
-import Select from "react-select";
 import {getEntriesNames, setValueAndLabel} from './NewFieldService'
 import NewFieldSelectMenu from "./NewFieldSelectMenu";
-
 
 const NewField = ({allQuestionData}) => {
 
     // TODO: change later
+    let [key, setKey] = React.useState(null);
     let [keys, setKeys] = React.useState([]);
+    let [subj, setSubj] = React.useState(null);
+    let [subjFlag, setSubjFlag] = React.useState(false);
     let [cats, setCats] = React.useState([]);
     let [catFlag, setCatFlag] = React.useState(false);
     let [values, setValues] = React.useState(null);
@@ -26,6 +27,8 @@ const NewField = ({allQuestionData}) => {
 
     const selectValues = (val) => {
         const key = val.value;
+        setKey(key);
+
         if (!allQuestionData[key]) {
             return;
         }
@@ -41,13 +44,22 @@ const NewField = ({allQuestionData}) => {
         }
     };
 
+    const selectCats = (val) => {
+        console.log(allQuestionData[key]);
+    };
+
     return (
         <Formsy data-testid="formsy" className="category-number-form" onSubmit={() => {}}>
 
             <NewFieldSelectMenu testId={'keys'} options={keys} onChange={selectValues}/>
 
             { catFlag ?
-                <NewFieldSelectMenu testId={'categories'} options={cats} onChange={() => {}}/>
+                <NewFieldSelectMenu testId={'categories'} options={cats} onChange={selectCats}/>
+                : null
+            }
+
+            { subjFlag ?
+                <NewFieldSelectMenu testId={'subject'} options={subj} onChange={() => {}} />
                 : null
             }
 
