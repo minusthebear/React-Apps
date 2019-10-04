@@ -32,27 +32,25 @@ const NewField = ({allQuestionData}) => {
 
         const arrEntries = getEntriesNames(allQuestionData, key);
 
-        if (!arrEntries.length) {
-            return;
-        } else if (arrEntries.length === 1) {
+        if (arrEntries.length === 1) {
             setValues(setValueAndLabel(arrEntries[0]));
             setValueFlag(true);
-        } else {
-            // console.log(arrEntries.map((k) => setValueAndLabel(k)));
+        } else if (arrEntries.length > 1) {
             setCats(arrEntries.map((k) => setValueAndLabel(k)));
             setCatFlag(true);
         }
-
-
     };
 
     return (
-        <Formsy data-testid="formsy" className="category-number-form" onSubmit={() => {
-        }}> <NewFieldSelectMenu testId={'keys'} options={keys} onChange={selectValues}/>
+        <Formsy data-testid="formsy" className="category-number-form" onSubmit={() => {}}>
+
+            <NewFieldSelectMenu testId={'keys'} options={keys} onChange={selectValues}/>
+
             { catFlag ?
                 <NewFieldSelectMenu testId={'categories'} options={cats} onChange={() => {}}/>
                 : null
             }
+
             { valueFlag ?
                 <div data-testid="values" style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
                     <BasicTextField
@@ -66,6 +64,7 @@ const NewField = ({allQuestionData}) => {
                 </div>
                 : null
             }
+
         </Formsy>
     );
 };

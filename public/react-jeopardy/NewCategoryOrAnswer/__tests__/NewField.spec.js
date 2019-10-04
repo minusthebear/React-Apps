@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import { render, fireEvent, waitForElement } from '@testing-library/react';
+import { render, fireEvent, waitForElement, findByTestId } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import { renderHook } from '@testing-library/react-hooks';
 import NewField from '../NewField';
@@ -59,6 +59,7 @@ describe("NewField",function() {
         expect(setState).toHaveBeenCalledTimes(2);
         expect(setState).toHaveBeenCalledWith([{"label": "Songs", "value": "songs"}, {"label": "Albums", "value": "albums"}]);
         expect(setState).toHaveBeenCalledWith(true);
+        console.log(newField.current);
     });
 });
 

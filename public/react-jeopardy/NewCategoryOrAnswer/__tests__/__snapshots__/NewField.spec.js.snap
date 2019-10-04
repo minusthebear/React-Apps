@@ -9,8 +9,8 @@ exports[`make snapshot renders as expected 1`] = `
   onReset={[Function]}
   onSubmit={[Function]}
 >
-   
   <div
+    className="newFieldSelectMenu-keys"
     data-testid="keys"
     style={
       Object {

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`make snapshot renders as expected 1`] = `
+<div
+  className="newFieldSelectMenu-smokeTest"
+  data-testid="smokeTest"
+  style={
+    Object {
+      "margin": "0 auto",
+      "textAlign": "center",
+      "width": "200px",
+    }
+  }
+>
+  <select>
+    Select
+  </select>
+</div>
+`;
