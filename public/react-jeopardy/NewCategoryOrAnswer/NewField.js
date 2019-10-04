@@ -12,12 +12,12 @@ const NewField = ({allQuestionData}) => {
     let [values, setValues] = useState([]);
 
     useEffect(() => {
-        // let arr = Object.keys(allQuestionData);
-        //
-        // setKeys(arr.map((k,v) => {
-        //     let val = k.replace(/([A-Z])/g, ' $1').trim().replace(/^.{1}/g, k[0].toUpperCase());
-        //     return {value: k, label: val };
-        // }));
+        let arr = Object.keys(allQuestionData);
+
+        setKeys(arr.map((k,v) => {
+            let val = k.replace(/([A-Z])/g, ' $1').trim().replace(/^.{1}/g, k[0].toUpperCase());
+            return {value: k, label: val };
+        }));
 
     }, [allQuestionData]);
 
@@ -51,19 +51,19 @@ const NewField = ({allQuestionData}) => {
     };
 
     return (
-        <Formsy className="category-number-form" onSubmit={() => {
+        <Formsy data-testid="formsy" className="category-number-form" onSubmit={() => {
         }}>
-            <div style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
+            <div data-testid="keys" style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
                     <Select options={keys} onChange={selectValues}/>
             </div>
             { cats.length ?
-                <div style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
+                <div data-testid="categories" style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
                     <Select options={cats} onChange={() => {}}/>
                 </div>
                 : null
             }
             { values.length ?
-                <div style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
+                <div data-testid="values" style={{width: '200px', textAlign:'center', margin: '0 auto'}}>
                     <Select options={values} onChange={() => {}}/>
                 </div>
                 : null
