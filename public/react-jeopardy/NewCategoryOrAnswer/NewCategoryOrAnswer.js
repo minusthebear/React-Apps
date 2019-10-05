@@ -3,7 +3,7 @@ import '../../home-page/Main.scss';
 import NewField from "./NewField";
 import { connect } from 'react-redux';
 
-const NewCategoryOrAnswer = ({allQuestionData}) => {
+const NewCategoryOrAnswer = ({allQuestionData, primaryCategory}) => {
 
     let [ field, setField ] = useState('');
     let [ subPage, setSubPage ] = useState(false);
@@ -21,7 +21,7 @@ const NewCategoryOrAnswer = ({allQuestionData}) => {
             case 'answer':
                 break;
             case 'field':
-                return <NewField allQuestionData={allQuestionData}/>
+                return <NewField allQuestionData={allQuestionData} primaryCategory={primaryCategory} />
         }
 
     };
@@ -59,7 +59,10 @@ const NewCategoryOrAnswer = ({allQuestionData}) => {
 };
 
 const mapStateToProps = state => {
-    return { allQuestionData: state.jeopardyReducer.allQuestionData };
+    return {
+        allQuestionData: state.jeopardyReducer.allQuestionData,
+        primaryCategory: state.jeopardyReducer.primaryCategory
+    };
 };
 
 export default connect(mapStateToProps, null)(NewCategoryOrAnswer);

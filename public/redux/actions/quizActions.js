@@ -9,6 +9,20 @@ export function getAllCategories() {
 	return async function(dispatch) {
 		let res = await axios.get(URL + '/getAllCategories');
 		let data = res.data;
-		dispatch({ type: SET_ALL_QUESTION_DATA, allQuestionData: data });
+
+		if (!data._primary_category_) {
+			throw new Error('There is no primary category field');
+		}
+
+		let primaryCategories = data._primary_category_;
+		delete data._primary_category_;
+
+		dispatch({
+			type: SET_ALL_QUESTION_DATA,
+			allQuestionData: {
+				data: data,
+				primaryCategories: primaryCategories
+			}
+		});
 	};
 }

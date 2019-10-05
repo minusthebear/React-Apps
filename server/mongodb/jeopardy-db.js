@@ -34,10 +34,13 @@ async function initDB() {
 }
 
 async function loopThroughResults(ret, db) {
-	let data = {};
+	let data = {
+		_primary_category_: {}
+	};
 
 	await Aigle.each(ret, async (dtm) => {
 		let key = dtm.categoryName;
+		data._primary_category_[key] = dtm.primaryCategory;
 		try {
 			let category = db.collection(key);
 			let val = await category.find({}).toArray();

@@ -12,9 +12,12 @@ function jeopardyReducer(state = initialState, action) {
 		});
 	}
 	if (action.type === SET_ALL_QUESTION_DATA) {
-		return Object.assign({}, state, {
-			allQuestionData: action.allQuestionData
+		const val = Object.assign({}, state, {
+			allQuestionData: action.allQuestionData.data,
+			primaryCategory: action.allQuestionData.primaryCategories
 		});
+		console.log(val);
+		return val;
 	}
 	return state;
 }

@@ -17,7 +17,14 @@ export const getEntriesNames = (data, key) => {
     return arrEntries;
 };
 
+export const getPrimaryValues = (data, key) => {
+    return data.map((item) => {
+        return item[key];
+    });
+};
+
 export default {
     setValueAndLabel,
-    getEntriesNames
+    getEntriesNames,
+    getPrimaryValues
 }

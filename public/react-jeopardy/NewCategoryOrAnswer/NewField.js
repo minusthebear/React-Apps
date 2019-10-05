@@ -1,10 +1,10 @@
 import Formsy from "formsy-react";
 import BasicTextField from "../common/BasicTextField";
 import React, {useEffect} from "react";
-import {getEntriesNames, setValueAndLabel} from './NewFieldService'
+import {getEntriesNames, getPrimaryValues, setValueAndLabel} from './NewFieldService'
 import NewFieldSelectMenu from "./NewFieldSelectMenu";
 
-const NewField = ({allQuestionData}) => {
+const NewField = ({allQuestionData, primaryCategory}) => {
 
     // TODO: change later
     let [key, setKey] = React.useState(null);
@@ -29,10 +29,15 @@ const NewField = ({allQuestionData}) => {
         const key = val.value;
         setKey(key);
 
+        console.log(allQuestionData);
+        console.log(primaryCategory);
+
         if (!allQuestionData[key]) {
             return;
         }
 
+        const primaryValues = getPrimaryValues(allQuestionData[key], primaryCategory[key]);
+        console.log(primaryValues);
         const arrEntries = getEntriesNames(allQuestionData, key);
 
         if (arrEntries.length === 1) {

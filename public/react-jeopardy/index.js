@@ -8,7 +8,6 @@ import FixedSidebar from '../shared-components/FixedSidebar/FixedSidebar';
 import { getAllQuestions, writeQuizGrid, createScoreCard, getGutsyWagerQuestions } from './helperMethods';
 import { connect } from 'react-redux';
 import NewCategoryOrAnswer from "./NewCategoryOrAnswer/NewCategoryOrAnswer";
-import NewField from "./NewCategoryOrAnswer/NewField";
 
 /* TODO: change App, maybe MainGrid and maybe QuestionAnswer into class components */
 
@@ -64,7 +63,9 @@ function App({ getAllCategories, allQuestionData }) {
 
 
 const mapStateToProps = state => {
-    return { allQuestionData: state.jeopardyReducer.allQuestionData };
+    return {
+        allQuestionData: state.jeopardyReducer.allQuestionData
+    };
 };
 
 function mapDispatchToProps(dispatch) {
