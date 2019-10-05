@@ -26,21 +26,24 @@ const NewField = ({allQuestionData, primaryCategory}) => {
     }, [allQuestionData]);
 
     const selectValues = (val) => {
-        const key = val.value;
-        setKey(key);
+        let tempKey = val.value;
+        setKey(tempKey);
 
-        console.log(allQuestionData);
-        console.log(primaryCategory);
-
-        if (!allQuestionData[key]) {
+        if (!allQuestionData[tempKey]) {
             return;
         }
 
-        const primaryValues = getPrimaryValues(allQuestionData[key], primaryCategory[key]);
-        console.log(primaryValues);
+        const primaryValues = getPrimaryValues(allQuestionData[tempKey], primaryCategory[tempKey]);
+        setSubj(primaryValues);
+        setSubjFlag(true);
+    };
+
+    const selectSubj = (val) => {
+        console.log(val);
         const arrEntries = getEntriesNames(allQuestionData, key);
 
         if (arrEntries.length === 1) {
+            console.log(setValueAndLabel(arrEntries[0]));
             setValues(setValueAndLabel(arrEntries[0]));
             setValueFlag(true);
         } else if (arrEntries.length > 1) {
@@ -58,13 +61,13 @@ const NewField = ({allQuestionData, primaryCategory}) => {
 
             <NewFieldSelectMenu testId={'keys'} options={keys} onChange={selectValues}/>
 
-            { catFlag ?
-                <NewFieldSelectMenu testId={'categories'} options={cats} onChange={selectCats}/>
+            { subjFlag ?
+                <NewFieldSelectMenu testId={'subject'} options={subj} onChange={selectSubj} />
                 : null
             }
 
-            { subjFlag ?
-                <NewFieldSelectMenu testId={'subject'} options={subj} onChange={() => {}} />
+            { catFlag ?
+                <NewFieldSelectMenu testId={'categories'} options={cats} onChange={selectCats}/>
                 : null
             }
 

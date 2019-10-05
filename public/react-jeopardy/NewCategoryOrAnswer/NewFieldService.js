@@ -18,10 +18,12 @@ export const getEntriesNames = (data, key) => {
 };
 
 export const getPrimaryValues = (data, key) => {
-    return data.map((item) => {
-        return item[key];
-    });
-};
+    return data.map((item) => item[key])
+                .sort()
+                .map((item) => {
+                    return { value: item, label: item };
+                });
+    };
 
 export default {
     setValueAndLabel,

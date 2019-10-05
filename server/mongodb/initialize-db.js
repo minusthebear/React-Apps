@@ -33,6 +33,8 @@ async function initializeReactJeopardyDB(categories, db){
 	}
 }
 
+// TODO: Make JSON for primary categories
+
 async function checkIfReactJeopardyDbExists() {
 
 	let db;
